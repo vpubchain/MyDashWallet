@@ -44,7 +44,7 @@
 					<li class="unlock-button">
 						<button onclick="unlockLedger(true)" class="btn btn-primary">Ledger Hardware Wallet</button>
 						<div id="autoConnectLedgerPanel">
-							<label style="margin: 0; font-weight: normal; font-size: medium;"><input type="checkbox" id="allowAutoConnectLedger" onclick="toggleAutoConnectLedger()" /> Auto-connect<span id="auto-connect-time" style="font-weight: 800"></span> if a Ledger is detected, unlocked and in Dash app.</label><img src="/images/ajax-loader.gif" style="float: right; display: none;" alt="waiting" id="autoConnectSpinner" />
+							<label style="margin: 0; font-weight: normal; font-size: medium;"><input type="checkbox" id="allowAutoConnectLedger" onclick="toggleAutoConnectLedger()" /> Auto-connect<span id="auto-connect-time" style="font-weight: 800"></span> if a Ledger is detected, unlocked and in Vpub app.</label><img src="/images/ajax-loader.gif" style="float: right; display: none;" alt="waiting" id="autoConnectSpinner" />
 						</div>
 					</li>
 					<li class="unlock-button"><button onclick="unlockTrezor(true)" class="btn btn-primary">TREZOR Hardware Wallet</button></li>
@@ -118,11 +118,11 @@
 				</ul>
 			</div>
 			@*Later: <br /><br />
-				Coming later (if you need this, help getting continued development being funded by <a href="https://www.dash.org/forum/threads/mydashwallet-with-tipping-and-hardware-wallet-support.20566/">posting in the Dash Forum</a>)
+				Coming later (if you need this, help getting continued development being funded by <a href="https://www.dash.org/forum/threads/mydashwallet-with-tipping-and-hardware-wallet-support.20566/">posting in the Vpub Forum</a>)
 				<ul>
 					<li class="unlock-button"><button class="btn btn-primary.disabled">Create HD Wallet</button><br /> (<a href="https://github.com/bitcoin/bips/blob/master/bip-0044.mediawiki">BIP39/44</a>, multiple addresses, for daily use or exporting)</li>
-					<li class="unlock-button"><button class="btn btn-primary.disabled">Import HD Wallet</button><br /> (BIP39/44 recovery phrase <a href="https://github.com/bitcoin/bips/blob/master/bip-0044.mediawiki">HD wallets</a>, from Jaxx, Dash Electrum, Exodus, CoPay, Coinomi or hardware wallets)</li>
-					<li class="unlock-button"><button class="btn btn-primary.disabled">Import BIP32 Wallet</button><br /> (from <a href="https://play.google.com/store/apps/details?id=hashengineering.darkcoin.wallet">Dash Android</a>/<a href="https://itunes.apple.com/us/app/dash-wallet/id1206647026">iOS Wallet</a> recovery phrase) <a href="https://dashpay.atlassian.net/wiki/spaces/DOC/pages/112867673/How+to+restore+an+old+or+backed+up+wallet">Additional tips on backups and restoring wallets</a></li>
+					<li class="unlock-button"><button class="btn btn-primary.disabled">Import HD Wallet</button><br /> (BIP39/44 recovery phrase <a href="https://github.com/bitcoin/bips/blob/master/bip-0044.mediawiki">HD wallets</a>, from Jaxx, Vpub Electrum, Exodus, CoPay, Coinomi or hardware wallets)</li>
+					<li class="unlock-button"><button class="btn btn-primary.disabled">Import BIP32 Wallet</button><br /> (from <a href="https://play.google.com/store/apps/details?id=hashengineering.darkcoin.wallet">Vpub Android</a>/<a href="https://itunes.apple.com/us/app/dash-wallet/id1206647026">iOS Wallet</a> recovery phrase) <a href="https://dashpay.atlassian.net/wiki/spaces/DOC/pages/112867673/How+to+restore+an+old+or+backed+up+wallet">Additional tips on backups and restoring wallets</a></li>
 				</ul>
 				Must be here in order to correctly show/hide panels!
 			*@
@@ -144,10 +144,10 @@
 						dashKeystoreWallet = { d: encryptedData, s: redeemParam };
 						dashKeystoreWallet.address = window.getDecryptedAddress(CryptoJS.AES.decrypt(dashKeystoreWallet.d, dashKeystoreWallet.s).toString(CryptoJS.enc.Utf8));
 						if (!isValidDashAddress(dashKeystoreWallet.address))
-							showFailure("Invalid Dash address from redeemed data, unable to continue: " + dashKeystoreWallet.address);
+							showFailure("Invalid Vpub address from redeemed data, unable to continue: " + dashKeystoreWallet.address);
 						else {
 							generateReceivingAddressList();
-                            $.get("https://www.vpubchain.net/abe/chain/Dash/q/addressbalance/" + dashKeystoreWallet.address,
+                            $.get("https://www.vpubchain.net/abe/chain/Vpub/q/addressbalance/" + dashKeystoreWallet.address,
 								function (data, status) {
 									if (status === "success" && data !== "ERROR: address invalid") {
 										//console.log("Updating balance of " + dashKeystoreWallet.address + ": " + data);
@@ -197,7 +197,7 @@
 				</li>
 				<li>
 					<p>
-						Uses currently available Dash features, the upcoming <a href="https://www.dash.org/evolution/" target='_blank' rel='noopener noreferrer'>Evolution</a> release will be even more amazing. Is there is any important feature missing? <a href="https://www.dash.org/forum/threads/mydashwallet-with-tipping-and-hardware-wallet-support.20566/">Let us know</a>.
+						Uses currently available Vpub features, the upcoming <a href="https://www.dash.org/evolution/" target='_blank' rel='noopener noreferrer'>Evolution</a> release will be even more amazing. Is there is any important feature missing? <a href="https://www.dash.org/forum/threads/mydashwallet-with-tipping-and-hardware-wallet-support.20566/">Let us know</a>.
 					</p>
 				</li>
 			</ul>
@@ -282,7 +282,7 @@
 						<input class="form-control is-invalid" style="margin-top: 1px" type="text" id="toEmail" oninput="updateAmountInfo()" placeholder="Some@@Email.com">
 						<input class="form-control is-invalid" style="margin-top: 1px" type="text" id="toEmailExtraText" placeholder="Optional Message to the receiver, e.g. Thanks for Dinner">
 						<div class="small-info-box">
-							<a href="/Tipping" target="_blank">How it works</a>: You can tip anyone via email. If the receiver has received Dash via Email before, the funds will be send directly to his wallet and a notification email is send out. Otherwise the receiver will get a redeem link to a fresh MyDashWallet with his tip that. If the receiver does not redeem his Dash within 7 days, all Dash will be returned to you.
+							<a href="/Tipping" target="_blank">How it works</a>: You can tip anyone via email. If the receiver has received Vpub via Email before, the funds will be send directly to his wallet and a notification email is send out. Otherwise the receiver will get a redeem link to a fresh MyDashWallet with his tip that. If the receiver does not redeem his Vpub within 7 days, all Vpub will be returned to you.
 						</div>
 					</section>
 					<section id="contentToTwitter">
@@ -391,7 +391,7 @@
 				<ul class="account-info" id="addressList">
 					<li>
 						<a href="https://www.vpubchain.net/abe/address/" target="_blank" rel="noopener noreferrer">
-							<img src="/images/QrCodeWhenUnlocked.png" title="Your freshest Dash Address should be used for receiving Dash, you will get a new one once this has been used!" /><br />
+							<img src="/images/QrCodeWhenUnlocked.png" title="Your freshest Vpub Address should be used for receiving Vpub, you will get a new one once this has been used!" /><br />
 						</a>
 						<div class="address-amount">0 mVP</div>
 					</li>
@@ -423,8 +423,8 @@
 			<!-- discover dash -->
 			<a href="https://discoverdash.com/" class="block swap--usd" target="_blank" rel="noopener noreferrer">
 				<div style="background-color: white; padding: 4px; color: black">
-					Explore Dash Merchants & Events Near You!
-					<img src="/images/DiscoverDash.png" alt="Discover Dash" />
+					Explore Vpub Merchants & Events Near You!
+					<img src="/images/DiscoverDash.png" alt="Discover Vpub" />
 				</div>
 			</a>
 			<!-- piiko -->

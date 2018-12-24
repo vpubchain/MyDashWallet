@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using Newtonsoft.Json;
 
-namespace BitcoinLib.Services.Coins.Dash
+namespace BitcoinLib.Services.Coins.Vpub
 {
 	public class AddressBalanceRequest
 	{

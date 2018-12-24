@@ -4,7 +4,7 @@
 	$("#send-panel").show();
 	if (ledgerDash || trezorDash)
 		$("#hardware-wallets-panel").hide();
-	$("#title").text("Send Dash");
+	$("#title").text("Send Vpub");
 	$("#response").show().css("color", "black").html(successfullyConnectedMessage);
 	$("#resultPanel").text("");
 	$("#main-page-title").text("Close Wallet");
@@ -87,13 +87,13 @@ function updateLocalStorageBalances() {
 //bitcore.Transaction.DUST_AMOUNT, the minimum we should ever have in an address or tx is 1000duffs
 var DUST_AMOUNT = 1000;
 var DUST_AMOUNT_IN_DASH = 0.00001;
-// Loops through all known Dash addresses and checks the balance and sums up to total amount we got
+// Loops through all known Vpub addresses and checks the balance and sums up to total amount we got
 function balanceCheck() {
 	//keep displaying: document.getElementById("refreshing-amount-timeout").style.display = "none";
 	$.each(addressBalances,
 		function (addressToCheck, oldBalance) {
 			if (isValidDashAddress(addressToCheck)) {
-                $.get("https://www.vpubchain.net/abe/chain/Dash/q/addressbalance/" + addressToCheck,
+                $.get("https://www.vpubchain.net/abe/chain/Vpub/q/addressbalance/" + addressToCheck,
 					function (data, status) {
 						if (status === "success" && data !== "ERROR: address invalid" && oldBalance !== parseFloat(data)) {
 							console.log("Updating balance of " + addressToCheck + ": " + data);
@@ -146,7 +146,7 @@ function addAddressBalance(list, address, balance, freshestAddress) {
 		(address === freshestAddress
 			? "<img width='140' height='140' src='" +
 			qrImg +
-			"' title='Your freshest Dash Address should be used for receiving Dash, you will get a new one once this has been used!' /><br/>"
+			"' title='Your freshest Vpub Address should be used for receiving Vpub, you will get a new one once this has been used!' /><br/>"
 			: "") +
 		address +
 		"</a><div class='address-amount' onclick='setAmountToSend(" + balance + ")'>" +
@@ -201,11 +201,11 @@ function getNumberOfAddresses() {
 }
 
 function updateBalanceIfAddressIsUsed(newAddress) {
-    $.get("https://www.vpubchain.net/abe/chain/Dash/q/getreceivedbyaddress/" + newAddress,
+    $.get("https://www.vpubchain.net/abe/chain/Vpub/q/getreceivedbyaddress/" + newAddress,
 		function (data, status) {
 			if (status === "success" && data !== "ERROR: address invalid") {
 				if (!addressBalances[newAddress]) {
-					//console.log("Found new Dash Address: " + newAddress);
+					//console.log("Found new Vpub Address: " + newAddress);
 					addressBalances[newAddress] = 0;
 					// Update storage to not query this next time if this is in fact the newest empty address
 					updateLocalStorageBalances();
@@ -225,8 +225,8 @@ function checkNextLedgerAddress() {
 			updateBalanceIfAddressIsUsed(result.bitcoinAddress);
 		});
 	// Algorithm is as follows:
-	// 1. Get the next Dash receiving addresses (will take about 300ms)
-	// 2. Check them one-by-one via https://www.vpubchain.net/abe/chain/Dash/q/getreceivedbyaddress/<address>
+	// 1. Get the next Vpub receiving addresses (will take about 300ms)
+	// 2. Check them one-by-one via https://www.vpubchain.net/abe/chain/Vpub/q/getreceivedbyaddress/<address>
 	// 3. If there was ever received something, add and continue
 	// 4. Abort if this address has not received anything yet (still add it as last fresh one)
 	// 5. If address had dash received, continue with the next dash address to check
@@ -330,10 +330,10 @@ function getLedgerErrorText(error) {
 			"Error code = 2. Not running in secure context (must be https), unable to connect to Ledger.<br/>https://github.com/LedgerHQ/ledger-node-js-api/issues/32";
 	else if (error.errorCode === 4)
 		errorText =
-			"Error code = 4. Dash app is not open on Ledger. Please open the Dash app with <b>Browser support</b> enabled to continue.";
+			"Error code = 4. Vpub app is not open on Ledger. Please open the Vpub app with <b>Browser support</b> enabled to continue.";
 	else if (error.errorCode === 5)
 		errorText = "Error code = 5 (timed out). Unable to receive an answer from Ledger Hardware. Please check the screen on your device and try again.<br/>" +
-			"Is your Ledger unlocked and is the <b>Dash</b> app open with <b>Browser support</b> enabled in Settings?";
+			"Is your Ledger unlocked and is the <b>Vpub</b> app open with <b>Browser support</b> enabled in Settings?";
 	else if (error.errorCode === 400)
 		errorText =
 			"Error code = 400. Please update your hardware device, seems like an error occurred while updating. https://ledger.zendesk.com/hc/en-us/articles/115005171225-Error-Code-400";
@@ -348,7 +348,7 @@ function unlockTrezor(showResponse) {
 		document.getElementById("response").innerHTML =
 			"Connecting to TREZOR Hardware Wallet .. Please follow the instructions in the popup window!";
 	}
-	TrezorConnect.setCurrency("Dash");
+	TrezorConnect.setCurrency("Vpub");
 	TrezorConnect.setCurrencyUnits("mVP");
 	TrezorConnect.getAccountInfo("m/44'/5'/0'", function (response) {
 		if (response.success) {
@@ -380,7 +380,7 @@ function unlockTrezor(showResponse) {
             $("<li><a href='https://www.vpubchain.net/abe/address/" +
 				address + "' target='_blank' rel='noopener noreferrer'>" +
 				"<img width='140' height='140' src='" + qrImg +
-					"' title='Your freshest Dash Address should be used for receiving Dash, you will get a new one once this has been used!' /><br/>" + address +
+					"' title='Your freshest Vpub Address should be used for receiving Vpub, you will get a new one once this has been used!' /><br/>" + address +
 				"</a><div class='address-amount' onclick='setAmountToSend("+totalAmount+")'>" +
 				showDashOrMDashNumber(totalAmount) + "</div></li>").prependTo(list);
 			//allow anyway: Currently not supported on TREZOR $("#useInstantSend").disable()
@@ -396,7 +396,7 @@ function setTotalAmountToSend() {
 
 function setAmountToSend(amount) {
 	var sendCurrency = $("#selectedSendCurrency").text();
-	// We have to do the inverse as below to convert from Dash to the selected format!
+	// We have to do the inverse as below to convert from Vpub to the selected format!
 	if (sendCurrency === "mVP")
 		amount *= 1000;
 	if (sendCurrency === "USD")
@@ -655,11 +655,11 @@ function generateTrezorSignedTx() {
 						$("#txDetailsPanel").html("Click to show signed transaction details for techies.");
 						signedTx = result.serialized_tx;
 						//console.log("signed tx %O", signedTx);
-						$("#resultPanel").css("color", "black").text("Sending signed transaction to the Dash network ..");
+						$("#resultPanel").css("color", "black").text("Sending signed transaction to the Vpub network ..");
 						$.get("/SendSignedTx?signedTx=" + signedTx + "&instantSend=" + useInstantSend).done(
 							function (finalTx) {
 								$("#resultPanel").css("color", "orange").html(
-									"Successfully signed transaction and broadcasted it to the Dash network. "+
+									"Successfully signed transaction and broadcasted it to the Vpub network. "+
 									"You can check the transaction status in a few minutes here: <a href='https://www.vpubchain.net/abe/tx/" + finalTx+"' target='_blank' rel='noopener noreferrer'>"+finalTx+"</a>"+(usePrivateSend?getPrivateSendFinalHelp() : ""));
 							}).fail(function (jqxhr) {
 								$("#resultPanel").css("color", "red").text("Server Error: " + jqxhr.responseText);
@@ -686,12 +686,12 @@ function generateTrezorSignedTx() {
 			$("#txDetailsPanel").html("Click to show signed transaction details for techies.");
 			signedTx = result.serialized_tx;
 			//console.log("signed tx %O", signedTx);
-			$("#resultPanel").css("color", "black").text("Sending signed transaction to the Dash network ..");
+			$("#resultPanel").css("color", "black").text("Sending signed transaction to the Vpub network ..");
 			$.get("/SendSignedTx?signedTx=" + signedTx + "&instantSend=" + useInstantSend).done(
 				function (finalTx) {
 					$("#resultPanel").css("color", "orange").html(
-						"Successfully signed transaction and broadcasted it to the Dash network. "+
-						(useInstantSend ? "You used InstantSend, the Dash will appear immediately at the target wallet. " : "")+
+						"Successfully signed transaction and broadcasted it to the Vpub network. "+
+						(useInstantSend ? "You used InstantSend, the Vpub will appear immediately at the target wallet. " : "")+
 						"You can check the transaction status in a few minutes here: <a href='https://www.vpubchain.net/abe/tx/" + finalTx+"' target='_blank' rel='noopener noreferrer'>"+finalTx+"</a>");
 				}).fail(function (jqxhr) {
 					$("#resultPanel").css("color", "red").text("Server Error: " + jqxhr.responseText);
@@ -711,9 +711,9 @@ function addNextAddressWithUnspendFundsToRawTx(addressesWithUnspendInputs, addre
 			.text("Failed to find more addresses with funds for creating transaction. Unable to continue!");
 		return;
 	}
-	//Find utxo, via undocumented https://www.vpubchain.net/abe/chain/Dash/unspent/<address>
+	//Find utxo, via undocumented https://www.vpubchain.net/abe/chain/Vpub/unspent/<address>
 	//another option: https://github.com/UdjinM6/insight-api-dash#unspent-outputs
-    $.getJSON("https://www.vpubchain.net/abe/chain/Dash/unspent/" +
+    $.getJSON("https://www.vpubchain.net/abe/chain/Vpub/unspent/" +
 		addressesWithUnspendInputs[addressesWithUnspendInputsIndex].address,
 		function (data, status) {
 			var address = addressesWithUnspendInputs[addressesWithUnspendInputsIndex].address;
@@ -823,8 +823,8 @@ function addNextAddressWithUnspendFundsToRawTx(addressesWithUnspendInputs, addre
 			else {
 				$("#transactionPanel").hide();
 				$("#resultPanel").css("color", "red").text("Insufficient funds, cannot send " +
-					totalAmountNeeded + " Dash (including tx fee), you only have " + maxAmountPossible +
-					" Dash. If you have Dash incoming, please wait until they are fully confirmed and show up on your account balance here. Unable to create transaction!");
+					totalAmountNeeded + " Vpub (including tx fee), you only have " + maxAmountPossible +
+					" Vpub. If you have Vpub incoming, please wait until they are fully confirmed and show up on your account balance here. Unable to create transaction!");
 			}
 		});
 }
@@ -860,7 +860,7 @@ function signRawTxOnLedgerHardware(txHashes, rawTx, txOutputIndexToUse, txAddres
 		$("#resultPanel").css("color", "red").text("Empty broken raw tx output script, unable to continue");
 		return;
 	}
-	$("#resultPanel").css("color", "orange").html("Sign the transaction <b>output#1</b> and <b>fee</b> with your hardware device to send it to the Dash network!");
+	$("#resultPanel").css("color", "orange").html("Sign the transaction <b>output#1</b> and <b>fee</b> with your hardware device to send it to the Vpub network!");
 	// Sign on hardware (specifying the change address gets rid of change output confirmation)
 	// Still requires 2 confirmation, first the external output address and then the transaction+fee
 	var remainingAddressPath = "44'/5'/0'/0/" + (getNumberOfAddresses() - 1);
@@ -898,12 +898,12 @@ function signAndSendTransaction() {
 	$("#transactionPanel").hide();
 	var useInstantSend = $("#useInstantSend").is(':checked');
 	var usePrivateSend = $("#usePrivateSend").is(':checked');
-	$("#resultPanel").css("color", "black").text("Sending signed transaction to the Dash network ..");
+	$("#resultPanel").css("color", "black").text("Sending signed transaction to the Vpub network ..");
 	$.get("/SendSignedTx?signedTx=" + signedTx + "&instantSend=" + useInstantSend).done(
 	function (finalTx) {
 		$("#resultPanel").css("color", "orange").html(
-			"Successfully signed transaction and broadcasted it to the Dash network. "+
-			(useInstantSend ? "You used InstantSend, the target wallet will immediately see incoming Dash." : "")+
+			"Successfully signed transaction and broadcasted it to the Vpub network. "+
+			(useInstantSend ? "You used InstantSend, the target wallet will immediately see incoming Vpub." : "")+
 			"You can check the transaction status in a few minutes here: <a href='https://www.vpubchain.net/abe/tx/" + finalTx+"' target='_blank' rel='noopener noreferrer'>"+finalTx+"</a>"+(usePrivateSend?getPrivateSendFinalHelp() : ""));
 	}).fail(function (jqxhr) {
 		$("#resultPanel").css("color", "red").text("Server Error: " + jqxhr.responseText);
@@ -911,7 +911,7 @@ function signAndSendTransaction() {
 }
 
 function getPrivateSendFinalHelp() {
-	return "<br /><br/>PrivateSend transactions require mixing. Usually small amounts are available right away and will arrive on the given target address anonymously in a few minutes, but it could also take a few hours. Please be patient, if you still can't see the Dash arriving a day later please <a href='mailto:Support@MyDashWallet.org'>contact support</a> with all data listed here.";
+	return "<br /><br/>PrivateSend transactions require mixing. Usually small amounts are available right away and will arrive on the given target address anonymously in a few minutes, but it could also take a few hours. Please be patient, if you still can't see the Vpub arriving a day later please <a href='mailto:Support@MyDashWallet.org'>contact support</a> with all data listed here.";
 }
 
 function showRawTxPanel(toAddress, txFee, privateSendAddress, redirectedPrivateSendAmount) {
@@ -932,8 +932,8 @@ function showRawTxPanel(toAddress, txFee, privateSendAddress, redirectedPrivateS
 function showTxDetails() {
 	$("#txDetailsPanel").prop('onclick',null).off('click');
 	$("#txDetailsPanel").html(
-		(rawTx !== "" ? "Confirm raw tx with any Dash node in the debug console:<br />decoderawtransaction " + rawTx + "<br />" : "") +
-		(signedTx !== "" ? "Signed tx send into the Dash network: " + signedTx : ""));
+		(rawTx !== "" ? "Confirm raw tx with any Vpub node in the debug console:<br />decoderawtransaction " + rawTx + "<br />" : "") +
+		(signedTx !== "" ? "Signed tx send into the Vpub network: " + signedTx : ""));
 	return false;
 }
 
@@ -1063,12 +1063,12 @@ function unlockKeystore() {
 			window.getDecryptedAddress(CryptoJS.AES.decrypt(dashKeystoreWallet.d, dashKeystoreWallet.s)
 				.toString(CryptoJS.enc.Utf8));
 		if (!isValidDashAddress(dashKeystoreWallet.address))
-			showFailure("Invalid Dash address from decrypted keystore file, unable to continue: " + dashKeystoreWallet.address);
+			showFailure("Invalid Vpub address from decrypted keystore file, unable to continue: " + dashKeystoreWallet.address);
 		else {
 			goToSendPanel("Successfully unlocked Keystore Wallet!");
 			$("#paperWalletPanel").show();
 			generateReceivingAddressList();
-            $.get("https://www.vpubchain.net/abe/chain/Dash/q/addressbalance/" + dashKeystoreWallet.address,
+            $.get("https://www.vpubchain.net/abe/chain/Vpub/q/addressbalance/" + dashKeystoreWallet.address,
 				function (data, status) {
 					if (status === "success" && data !== "ERROR: address invalid") {
 						//console.log("Updating balance of " + dashKeystoreWallet.address + ": " + data);

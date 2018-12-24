@@ -309,7 +309,7 @@ namespace SocialCryptoBots
 			case Currency.mBCH:
 				return "Bitcoin Cash";
 			case Currency.mVP:
-				return "Dash";
+				return "Vpub";
 			case Currency.COLX:
 				return "ColossusCoinXT";
 			}

@@ -116,7 +116,7 @@ namespace BitcoinLib.RPC.Specifications
 
 			//2017-09-18: added segwit support
 			addwitnessaddress,
-			//2018-01-20: added Dash privatesend mixing support
+			//2018-01-20: added Vpub privatesend mixing support
 			privatesend,
 			//2018-03-02: added getaddressbalance (needs addressindex = 1 in dash.conf)
 	    getaddressbalance

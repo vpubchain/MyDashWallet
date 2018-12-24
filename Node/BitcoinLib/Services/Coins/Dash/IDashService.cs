@@ -1,7 +1,7 @@
-﻿using BitcoinLib.CoinParameters.Dash;
+﻿using BitcoinLib.CoinParameters.Vpub;
 using BitcoinLib.Services.Coins.Base;
 
-namespace BitcoinLib.Services.Coins.Dash
+namespace BitcoinLib.Services.Coins.Vpub
 {
     public interface IDashService : ICoinService, IDashConstants
     {
@@ -20,7 +20,7 @@ namespace BitcoinLib.Services.Coins.Dash
         /// </param>
         /// <param name="subtractFeeFromAmount">
         ///     The fee will be deducted from the amount being sent. The recipient will receive
-        ///     less amount of Dash than you enter in the amount field.
+        ///     less amount of Vpub than you enter in the amount field.
         /// </param>
         /// <param name="useInstantSend">Send this transaction as InstantSend.</param>
         /// <param name="usePrivateSend">Use anonymized funds only.</param>

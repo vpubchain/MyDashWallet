@@ -21,7 +21,7 @@ namespace MyDashWallet.Node.Tests
 		public void GetTotalBalance()
 		{
 			Assert.That(node.GetTotalBalance(), Is.GreaterThan(0m));
-			Console.WriteLine("Dash node balance: " + node.GetTotalBalance());
+			Console.WriteLine("Vpub node balance: " + node.GetTotalBalance());
 		}
 
 		/*

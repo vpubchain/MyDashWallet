@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using BitcoinLib.Services.Coins.Dash;
+using BitcoinLib.Services.Coins.Vpub;
 
 namespace MyDashWallet.Node
 {
@@ -197,7 +197,7 @@ namespace MyDashWallet.Node
 		}
 
 		/// <summary>
-		/// The Dash rpc node will only accept VP numbers that are full duff numbers
+		/// The Vpub rpc node will only accept VP numbers that are full duff numbers
 		/// (1 VP = 100 000 000 duffs), make sure we will not use slight rounding errors.
 		/// Also will remove trailing zeros as described here, which causes confusing values when
 		/// building the raw tx and signing it with hardware devices (might display higher values).

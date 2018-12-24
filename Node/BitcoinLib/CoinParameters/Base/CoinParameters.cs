@@ -9,7 +9,7 @@ using BitcoinLib.Services.Coins.Base;
 using BitcoinLib.Services.Coins.Bitcoin;
 using BitcoinLib.Services.Coins.Colx;
 using BitcoinLib.Services.Coins.Cryptocoin;
-using BitcoinLib.Services.Coins.Dash;
+using BitcoinLib.Services.Coins.Vpub;
 using BitcoinLib.Services.Coins.Dogecoin;
 using BitcoinLib.Services.Coins.Litecoin;
 using BitcoinLib.Services.Coins.Sarcoin;
@@ -257,7 +257,7 @@ namespace BitcoinLib.Services
 
                 #endregion
 
-                #region Dash
+                #region Vpub
 
                 else if (coinService is DashService)
                 {
@@ -277,7 +277,7 @@ namespace BitcoinLib.Services
                         WalletPassword = "078423";
                     }
                     CoinShortName = "VPUB";
-                    CoinLongName = "Dash";
+                    CoinLongName = "Vpub";
                     IsoCurrencyCode = "VPUB";
 
                     TransactionSizeBytesContributedByEachInput = 148;

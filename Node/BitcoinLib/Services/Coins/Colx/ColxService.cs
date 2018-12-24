@@ -1,6 +1,6 @@
 ﻿using BitcoinLib.CoinParameters.Colx;
 using BitcoinLib.Services.Coins.Bitcoin;
-using BitcoinLib.Services.Coins.Dash;
+using BitcoinLib.Services.Coins.Vpub;
 
 namespace BitcoinLib.Services.Coins.Colx
 {

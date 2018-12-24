@@ -1,11 +1,11 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using BitcoinLib.CoinParameters.Dash;
+using BitcoinLib.CoinParameters.Vpub;
 using BitcoinLib.Requests.SignRawTransaction;
 using BitcoinLib.RPC.Specifications;
 using BitcoinLib.Services.Coins.Bitcoin;
 
-namespace BitcoinLib.Services.Coins.Dash
+namespace BitcoinLib.Services.Coins.Vpub
 {
 	/// <summary>
 	/// Mostly the same functionality as <see cref="BitcoinService"/>, just adds a bunch more features

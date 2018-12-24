@@ -2,7 +2,7 @@
 using BitcoinLib.Requests.CreateRawTransaction;
 using BitcoinLib.Requests.SignRawTransaction;
 using BitcoinLib.Responses;
-using BitcoinLib.Services.Coins.Dash;
+using BitcoinLib.Services.Coins.Vpub;
 
 namespace MyDashWallet.Node
 {

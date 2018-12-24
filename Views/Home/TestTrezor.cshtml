@@ -6,7 +6,7 @@
 
 <script>
 	function trezorGetAccount() {
-		TrezorConnect.setCurrency("Dash");
+		TrezorConnect.setCurrency("Vpub");
 		TrezorConnect.getAccountInfo("m/44'/5'/0'", function (response) {
 			if (response.success) {
 				console.log('Account ID: ', response.id);
@@ -55,7 +55,7 @@
 	//https://github.com/trezor/connect
 	function trezorGetAddress() {
 		var path = "m/44'/5'/0'";
-		var coin = "Dash";
+		var coin = "Vpub";
 		TrezorConnect.getAddress(path, coin, false, function (response) {
 			console.log("TrezorConnect.getAddress response", response);
 			document.getElementById("response").innerHTML = JSON.stringify(response, undefined, 2);
@@ -99,7 +99,7 @@
 			"Bitcoin Cash": "m/44'/145'/0'",
 			"Litecoin": "m/49'/2'/0'",
 			"Dogecoin": "m/44'/3'/0'",
-			"Dash": "m/44'/5'/0'",
+			"Vpub": "m/44'/5'/0'",
 			"Zcash": "m/44'/133'/0'",
 			"Testnet": "m/49'/1'/0'",
 			"Namecoin": "m/44'/7'/0'",

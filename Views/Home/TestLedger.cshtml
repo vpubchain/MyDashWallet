@@ -42,10 +42,10 @@
 				"Error code = 2. Not running in secure context (must be https), unable to connect to Ledger.<br/>https://github.com/LedgerHQ/ledger-node-js-api/issues/32";
 		else if (error.errorCode === 4)
 			errorText =
-				"Error code = 4. Dash app is not open on Ledger. Please open the Dash app with <b>Browser support</b> enabled to continue.";
+				"Error code = 4. Vpub app is not open on Ledger. Please open the Vpub app with <b>Browser support</b> enabled to continue.";
 		else if (error.errorCode === 5)
 			errorText = "Error code = 5. Browser support not enabled, unable to connect to Ledger Hardware.<br/>" +
-				"Is your Ledger unlocked and is the <b>Dash</b> app open with <b>Browser support</b> enabled in Settings?";
+				"Is your Ledger unlocked and is the <b>Vpub</b> app open with <b>Browser support</b> enabled in Settings?";
 		else if (error.errorCode === 400)
 			errorText =
 				"Error code = 400. Please update your hardware device, seems like an error occurred while updating. https://ledger.zendesk.com/hc/en-us/articles/115005171225-Error-Code-400";
@@ -56,7 +56,7 @@
 
 		//lets go throguh it step by step:
 		//we start with 0.1mDASH: https://www.vpubchain.net/abe/address/XtW8VbHnnZ2Gv3gwyWCngZBaNY3rBVLbpo
-		//which gives us utxo via: https://www.vpubchain.net/abe/chain/Dash/unspent/XtW8VbHnnZ2Gv3gwyWCngZBaNY3rBVLbpo
+		//which gives us utxo via: https://www.vpubchain.net/abe/chain/Vpub/unspent/XtW8VbHnnZ2Gv3gwyWCngZBaNY3rBVLbpo
 		//https://www.vpubchain.net/abe/tx/7fbbceeea88cebeff25137bcea4ae182547e306c213be4c7837e211c2004bfc7#o0
 		//Now we need the rawtx (sadly the format is different):
 		//https://www.vpubchain.net/abe/rawtx/7fbbceeea88cebeff25137bcea4ae182547e306c213be4c7837e211c2004bfc7
@@ -111,8 +111,8 @@
 					$.get("/SendSignedTx?signedTx=" + signedTx + "&instantSend=" + useInstantSend,
 						function (finalTx) {
 							$("#response").css("color", "black")
-								.html("Successfully signed transaction and broadcasted it to the Dash network now " +
-								"(you can see the transaction in a few minutes in any Dash explorer): <a href='https://explorer.dash.org/tx/" + finalTx+"'>"+finalTx+"</a>");
+								.html("Successfully signed transaction and broadcasted it to the Vpub network now " +
+								"(you can see the transaction in a few minutes in any Vpub explorer): <a href='https://explorer.dash.org/tx/" + finalTx+"'>"+finalTx+"</a>");
 						}).fail(function (jqxhr) {
 							$("#response").css("color", "red").text("Server Error: " + jqxhr.responseText);
 						});

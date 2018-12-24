@@ -1,4 +1,4 @@
-﻿namespace BitcoinLib.CoinParameters.Dash
+﻿namespace BitcoinLib.CoinParameters.Vpub
 {
     public interface IDashConstants
     {

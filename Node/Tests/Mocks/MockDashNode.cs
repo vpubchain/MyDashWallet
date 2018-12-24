@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using BitcoinLib.Services.Coins.Dash;
+using BitcoinLib.Services.Coins.Vpub;
 
 namespace MyDashWallet.Node.Tests.Mocks
 {

@@ -12,15 +12,15 @@ Roadmap for MyDashWallet
 - TREZOR Support, the libraries are a bit more managed on the TREZOR api (you need to enter pin and approve reading the account on each login, and then confirm each transaction twice, it's the TREZOR way), but all features are also supported
 - Import, export of private keys (only for keystore files, hardware wallets won't give you private keys obviously)
 - QR codes for receiving (and when exporting paper wallets also showing an QR code for easy swiping of the whole account)
-- Full support of advanced Dash features: InstantSend and PrivateSend (private send mixing is done on the MyDashWallet node and NOT trustless, only use if you are ok with it, but this is the only non-full node solution out there)
-- Full source code of the website, all javascript and most of the services are available (some files with our configurations are missing on purpose, but all the information is included on how to run it on your own full Dash node rpc connection if this is what you want to do) on https://github.com/DeltaEngine/MyDashWallet
+- Full support of advanced Vpub features: InstantSend and PrivateSend (private send mixing is done on the MyDashWallet node and NOT trustless, only use if you are ok with it, but this is the only non-full node solution out there)
+- Full source code of the website, all javascript and most of the services are available (some files with our configurations are missing on purpose, but all the information is included on how to run it on your own full Vpub node rpc connection if this is what you want to do) on https://github.com/DeltaEngine/MyDashWallet
 
 **Completed: April 2018 Update:**
 - Direct tipping (from the website into an email, twitter, reddit, etc. user account)
 
 **Completed: May 2018 Update: Created MyDashWallet2 proposal, which was funded as well**
-- The Mixing site is used a lot and we have seen a ton of mixing requests in the past days, this will be a focus for MyDashWallet#2, here we plan provide multiple nodes to increase mixing speed and to allow users to customize the number of mixing rounds (2-8, more will have higher fees) and also the ability for users to abort mixing in whatever round it currently is in and send out the pending Dash to the target address as some mixing events have taken days because of the huge demand we have seen recently.
-- And of course ongoing work, integrating the new Dash logos and identity plus support for any user issues (which runs quite smooth right now).
+- The Mixing site is used a lot and we have seen a ton of mixing requests in the past days, this will be a focus for MyDashWallet#2, here we plan provide multiple nodes to increase mixing speed and to allow users to customize the number of mixing rounds (2-8, more will have higher fees) and also the ability for users to abort mixing in whatever round it currently is in and send out the pending Vpub to the target address as some mixing events have taken days because of the huge demand we have seen recently.
+- And of course ongoing work, integrating the new Vpub logos and identity plus support for any user issues (which runs quite smooth right now).
 
 **In-Progress: June 2018: Website update, Languages, Bots with tons of new features, unconfirmed amounts support**
 - Easier tipping without having to wait for confirmations, Trustless Tipping to directly send from hardware wallet to the recipient, merging social accounts with existing hardware or MyDashWallet keystore wallets
@@ -29,12 +29,12 @@ Roadmap for MyDashWallet
 
 **In-Progress: July 2018:**
 - Translations to all major languages (English, Spanish, French, German, Portuguese, Italian, maybe Chinese, Korean, Russian and others if we find good cheap translators)
-- A simple installer to get MyDashWallet hosted on your own server and/or connecting to your own Dash Full Node, this has been requested many times and some users are already running their own version of the website and changed the connection the node, but for non-technical persons it is too difficult, this simple installer will make it possible for anyone.
+- A simple installer to get MyDashWallet hosted on your own server and/or connecting to your own Vpub Full Node, this has been requested many times and some users are already running their own version of the website and changed the connection the node, but for non-technical persons it is too difficult, this simple installer will make it possible for anyone.
 - Native Android and iOS wallets utilizing MyDashWallet.org (either as a native app hosting the website or some other way, not sure yet)
 - Better TREZOR Hardware Wallet Support, also for the new TREZOR Model T. Things work, but Ledger support is much better right now on MyDashWallet due to native javascript implementation, for Trezor a high level api is used and a popup is shown, there are some limitations for InstantSend and low fees, we can do better with a custom low level javascript library.
 
 **In-Progress: August 2018 (might have to cut some features if funding runs out):**
-- Swapping Dash for other coins like BTC, BCH, ETH or LTC, we have a partner providing us with low fees (much lower than Shapeshift or Changelly) and can provide a much better and easier way to exchange any supported coin to and from Dash
+- Swapping Vpub for other coins like BTC, BCH, ETH or LTC, we have a partner providing us with low fees (much lower than Shapeshift or Changelly) and can provide a much better and easier way to exchange any supported coin to and from Vpub
 - InstantSend Block Explorer support, so you see right away that InstantSend tx have 6 confirmations
 
 More details: https://www.dash.org/forum/threads/mydashwallet-with-tipping-and-hardware-wallet-support.20566/

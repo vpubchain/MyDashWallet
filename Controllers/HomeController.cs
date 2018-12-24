@@ -228,7 +228,7 @@ namespace MyDashWallet.Controllers
 		{
 			if (ex.Message == "No information available about transaction")
 				return StatusCode(500,
-					"Unable to generate raw tx, inputs are not found in the Dash blockchain " +
+					"Unable to generate raw tx, inputs are not found in the Vpub blockchain " +
 					"(are you on testnet or have an invalid address or transaction id?)");
 			if (ex.Message.Contains(
 				"16: mandatory-script-verify-flag-failed (Script failed an OP_EQUALVERIFY operation)"))

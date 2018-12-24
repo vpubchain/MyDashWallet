@@ -1,6 +1,6 @@
 ﻿using BitcoinLib.CoinParameters.Base;
 
-namespace BitcoinLib.CoinParameters.Dash
+namespace BitcoinLib.CoinParameters.Vpub
 {
     public static class DashConstants
     {
