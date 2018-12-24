@@ -2,14 +2,14 @@
 using System.Diagnostics;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using MyDashWallet.Node;
+using MyVpubWallet.Node;
 using Newtonsoft.Json;
 using SocialCryptoBots;
 using Tweetinvi;
 using Tweetinvi.Credentials.Models;
 using Tweetinvi.Models;
 
-namespace MyDashWallet.Controllers
+namespace MyVpubWallet.Controllers
 {
 	public class HomeController : Controller
 	{
@@ -167,7 +167,7 @@ namespace MyDashWallet.Controllers
 
 		public IActionResult Redeem()
 		{
-			var redirectUrl = "//MyDashWallet.org/RedeemRedirect";
+			var redirectUrl = "//MyVpubWallet.org/RedeemRedirect";
 			var context = AuthFlow.InitAuthentication(TwitterConsumerCredentials, redirectUrl);
 			TwitterAuthKey = context.Token.AuthorizationKey;
 			TwitterAuthSecret = context.Token.AuthorizationSecret;
@@ -236,8 +236,8 @@ namespace MyDashWallet.Controllers
 					"unable to confirm signed transaction. Double spends are not allowed!<br/>Details";
 			errorMessage += ": " +
 #if DEBUG
-				ex.ToString().Replace("MyDashWallet.Controllers.HomeController+", "").
-					Replace("MyDashWallet.Controllers.HomeController.", "");
+				ex.ToString().Replace("MyVpubWallet.Controllers.HomeController+", "").
+					Replace("MyVpubWallet.Controllers.HomeController.", "");
 #else
 				ex.GetType().Name + ": " + ex.Message;
 #endif

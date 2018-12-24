@@ -4,7 +4,7 @@ using BitcoinLib.Requests.SignRawTransaction;
 using BitcoinLib.Responses;
 using BitcoinLib.Services.Coins.Vpub;
 
-namespace MyDashWallet.Node
+namespace MyVpubWallet.Node
 {
 	/// <summary>
 	/// Basic integration into RPC dash testnet node without advanced features, easier for testing.

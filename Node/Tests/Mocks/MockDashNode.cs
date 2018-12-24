@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using BitcoinLib.Services.Coins.Vpub;
 
-namespace MyDashWallet.Node.Tests.Mocks
+namespace MyVpubWallet.Node.Tests.Mocks
 {
 	public class MockDashNode : DashNode
 	{

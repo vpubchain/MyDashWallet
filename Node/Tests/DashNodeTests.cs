@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Globalization;
-using MyDashWallet.Node.Tests.Mocks;
+using MyVpubWallet.Node.Tests.Mocks;
 using NUnit.Framework;
 
-namespace MyDashWallet.Node.Tests
+namespace MyVpubWallet.Node.Tests
 {
 	public class DashNodeTests
 	{

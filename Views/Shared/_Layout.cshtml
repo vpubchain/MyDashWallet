@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-	<title>MyDashWallet.org</title>
+	<title>MyVpubWallet.org</title>
 	<base href="~/" />
 	<link rel="icon" href="/favicon.ico">
 	@*unused <link rel="stylesheet" href="~/dist/vendor.css" asp-append-version="true" />*@
@@ -19,14 +19,14 @@
 		<section class="bg-gradient header-branding">
 			<section class="container">
 				<a class="brand" href="/" aria-label="Go to homepage">
-					<img src="/images/MyDashWallet.png" height="70" alt="MyDashWallet">
+					<img src="/images/MyVpubWallet.png" height="70" alt="MyVpubWallet">
 				</a>
 				<div class="tagline">
 					@*<span style="margin-right: 4px" title="Data from CoinMarketCap.com">1 VP = @ViewData["DashPrices"]</span>
 					<br />
 					<span style="margin-right: 8px" title="1 mVP = 0.001 VP. Data from CoinMarketCap.com">1 mVP = @ViewData["MilliDashPrices"]</span>
 					<br />
-					<span style="margin-right: 8px; font-size: 10px;" title="PrivateSend Mixing pool at MyDashWallet.org full node">Mixing Pool: @ViewData["DashMixingPoolAmount"] mVP (@ViewData["DashMixingPoolPremixed"] premixed)</span>*@
+					<span style="margin-right: 8px; font-size: 10px;" title="PrivateSend Mixing pool at MyVpubWallet.org full node">Mixing Pool: @ViewData["DashMixingPoolAmount"] mVP (@ViewData["DashMixingPoolPremixed"] premixed)</span>*@
 				</div>
 				<div class="skip-when-small skip-when-medium" style="width: 250px; height: 20px; float: right;">
 					<img src="/images/DashWallet.png" alt="Wallet" style="position: absolute; top: 27px" />
@@ -44,18 +44,18 @@
 			<li>
 				<a asp-area="" asp-controller="Home" asp-action="Transaction"><span class="skip-when-small">Check </span>Transaction</a>
 			</li>
-			<li>
+			@*<li>
 				<a asp-area="" asp-controller="Home" asp-action="Tipping">Tipping</a>
-			</li>
+			</li>*@
 			<li>
 				<a asp-area="" asp-controller="Home" asp-action="Mixing">Mixing</a>
 			</li>
-			<li>
+			@*<li>
 				<a asp-area="" asp-controller="Home" asp-action="About">Help</a>
-			</li>
-			<li class="skip-when-small skip-when-medium">
+			</li>*@
+			@*<li class="skip-when-small skip-when-medium">
 				<a asp-area="" asp-controller="Home" asp-action="AboutVideos">Videos</a>
-			</li>
+			</li>*@
 		</ul>
 		<div style="clear: both;"></div>
 		<script src="https://ajax.aspnetcdn.com/ajax/jquery/jquery-2.2.0.min.js"
@@ -79,15 +79,15 @@
 	<footer>
 	<div class="container">
 		<p>
-			&copy; 2018 MyDashWallet, funded by the <a href="https://www.dashcentral.org/">VP network</a>, idea based on <a href="//MyEtherWallet.com">MyEtherWallet.com</a>, created by <a href="https://DeltaEngine.net">DeltaEngine.net</a>
+			&copy; 2018 MyVpubWallet, funded by the <a href="https://www.dashcentral.org/">VP network</a>, idea based on <a href="//MyEtherWallet.com">MyEtherWallet.com</a>, created by <a href="https://DeltaEngine.net">DeltaEngine.net</a>
 		</p>
 		<p>
-			MyDashWallet.org does not hold your keys for you. We cannot access accounts, recover keys, reset passwords, nor reverse transactions. Protect your keys!
+			MyVpubWallet.org does not hold your keys for you. We cannot access accounts, recover keys, reset passwords, nor reverse transactions. Protect your keys!
 			<a href="/About" role="link" tabindex="0" data-toggle="modal" data-target="#disclaimerModal">You are responsible for your security.</a>
 		</p>
 		<p>
-			<a href="https://github.com/DeltaEngine/MyDashWallet" target='_blank' rel='noopener noreferrer'><icon aria-hidden="true">📄</icon> Open Source Code</a>
-			<icon aria-hidden="true" style="margin-left: 20px">❔</icon> Need Help? <a href='mailto:Support@MyDashWallet.org'>Contact support</a>
+			<a href="https://github.com/DeltaEngine/MyVpubWallet" target='_blank' rel='noopener noreferrer'><icon aria-hidden="true">📄</icon> Open Source Code</a>
+			<icon aria-hidden="true" style="margin-left: 20px">❔</icon> Need Help? <a href='mailto:Support@MyVpubWallet.org'>Contact support</a>
 			<icon aria-hidden="true" style="margin-left: 20px">💝</icon> Donations are always appreciated! Vpub: <span class="mono wrap"><a title="Click to copy this Vpub address" id="donationAddress" onclick="copyToClipboard('XoASepVfo1cegWp52HS9gbcKuarLyqxsKT')">XoASepVfo1cegWp52HS9gbcKuarLyqxsKT</a></span> <a title="Click to send Vpub to our donation address" href="dash:XoASepVfo1cegWp52HS9gbcKuarLyqxsKT" target="_blank" rel="noopener noreferrer">Donate via external wallet</a>
 		</p>
 	</div>

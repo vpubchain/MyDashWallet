@@ -5,7 +5,7 @@
 <h3>@ViewData["Message"]</h3>
 
 <article class="block block__content clearfix" itemscope="" itemtype="http://schema.org/Article">
-	<h1 class="page__title" itemprop="headline">Getting Started on MyDashWallet.org</h1>
+	<h1 class="page__title" itemprop="headline">Getting Started on MyVpubWallet.org</h1>
 	<div class="content">
 		<ul>
 			<li> Please take some time to understand this for your own safety. 🙏 </li>
@@ -13,10 +13,10 @@
 		<section class="row align-items-center">
 			<div class="col col-sm-7">
 				<h3>
-					What is MyDashWallet.org?
+					What is MyVpubWallet.org?
 				</h3>
 				<ul>
-					<li>  MyDashWallet is a free, open-source, client-side interface.  </li>
+					<li>  MyVpubWallet is a free, open-source, client-side interface.  </li>
 					<li>  We allow you to interact directly with the blockchain while remaining in full control of your keys &amp; your funds.  </li>
 					<li>  Includes support for great features of Vpub: <a href="/AboutInstantSend">InstantSend</a> and <a href="/AboutPrivateSend">PrivateSend</a></li>
 					<li>  You and only you are responsible for your security.  </li>
@@ -38,10 +38,10 @@
 					<li>  <a href="/AboutTrezorHardwareWallet">How to send via TREZOR hardware wallet</a>.  </li>
 					<li>  <a href="/AboutHardwareWallets">Get a hardware wallet</a>.  </li>
 					<li>  <a href="/AboutCreateNewWallet">How to create a new wallet via Keystore file</a>.  </li>
-					<li>  <a href="/AboutMyDashWallet">Why is MyDashWallet so fast? How does it work?</a>  </li>
-					<li>  <a href="/AboutTransactionFees">Why are VP transactions so cheap on MyDashWallet?</a>  </li>
-					<li>  <a href="/AboutInstantSend">How to does VP InstantSend work on MyDashWallet?</a>  </li>
-					<li>  <a href="/AboutPrivateSend">How to does VP PrivateSend work on MyDashWallet?</a>  </li>
+					<li>  <a href="/AboutMyDashWallet">Why is MyVpubWallet so fast? How does it work?</a>  </li>
+					<li>  <a href="/AboutTransactionFees">Why are VP transactions so cheap on MyVpubWallet?</a>  </li>
+					<li>  <a href="/AboutInstantSend">How to does VP InstantSend work on MyVpubWallet?</a>  </li>
+					<li>  <a href="/AboutPrivateSend">How to does VP PrivateSend work on MyVpubWallet?</a>  </li>
 				</ul>
 			</div>
 			<div class="col col-sm-4 offset-sm-1">
@@ -52,7 +52,7 @@
 		<section class="row align-items-center">
 			<div class="col col-sm-7">
 				<h3>
-					MyDashWallet is not a Bank
+					MyVpubWallet is not a Bank
 				</h3>
 				<ul>
 					<li>  When you open an account with a bank or exchange, they create an account for you in their system.  </li>
@@ -70,10 +70,10 @@
 		<section class="row align-items-center">
 			<div class="col col-sm-7">
 				<h3>
-					MyDashWallet is an Interface
+					MyVpubWallet is an Interface
 				</h3>
 				<ul>
-					<li>  When you create an account on MyDashWallet you are generating a cryptographic set of numbers: your private key and your public key (address).  </li>
+					<li>  When you create an account on MyVpubWallet you are generating a cryptographic set of numbers: your private key and your public key (address).  </li>
 					<li>  The handling of your keys happens entirely on your computer, inside your browser.  </li>
 					<li>  We never transmit, receive or store your private key, password, or other account information.  </li>
 					<li>  We do not charge a transaction fee.  </li>
@@ -96,8 +96,8 @@
 					<li>  The blockchain is like a huge, global, decentralized spreadsheet.  </li>
 					<li>  It keeps track of who sent how many coins to whom, and what the balance of every account is.  </li>
 					<li>  It is stored and maintained by thousands of people (miners) across the globe who have special computers.  </li>
-					<li>  The blocks in the blockchain are made up of all the individual transactions sent from MyDashWallet and everywhere else.  </li>
-					<li>  When you see your balance on MyDashWallet.org or view your transactions on <a href="//www.vpubchain.net/abe/chain/Vpub">www.vpubchain.net/abe/chain/Vpub</a>, you are seeing data on the blockchain, not in our personal systems.  </li>
+					<li>  The blocks in the blockchain are made up of all the individual transactions sent from MyVpubWallet and everywhere else.  </li>
+					<li>  When you see your balance on MyVpubWallet.org or view your transactions on <a href="//www.vpubchain.net/abe/chain/Vpub">www.vpubchain.net/abe/chain/Vpub</a>, you are seeing data on the blockchain, not in our personal systems.  </li>
 					<li>  Again: we are not a bank  </li>
 				</ul>
 			</div>
@@ -135,7 +135,7 @@
 		<section class="row align-items-center">
 			<div class="col col-sm-7">
 				<h3>
-					If MyDashWallet can't do those things, what's the point?
+					If MyVpubWallet can't do those things, what's the point?
 				</h3>
 				<ul>
 					<li>  Because that is the point of decentralization and the blockchain.  </li>
@@ -143,7 +143,7 @@
 					<li>  You don't have to rely on the security of an exchange or bank to keep your funds safe.  </li>
 					<li>  If you don't find these things valuable, ask yourself why you think the blockchain and cryptocurrencies are valuable. 😉  </li>
 					<li>  If you don't like the sound of this, consider using <a href="https://uphold.com/">Uphold</a>, <a href="https://www.coinbase.com/">Coinbase</a> or any online exchange or service supporting Vpub. They have more familiar accounts with usernames &amp; passwords.  </li>
-					<li>  If you are scared but want to use MyDashWallet, <a href="/AboutHardwareWallets">get a hardware wallet</a>! These keep your keys secure.  </li>
+					<li>  If you are scared but want to use MyVpubWallet, <a href="/AboutHardwareWallets">get a hardware wallet</a>! These keep your keys secure.  </li>
 				</ul>
 			</div>
 			<div class="col col-sm-4 offset-sm-1">
@@ -156,10 +156,10 @@
 				<h3>
 					How To Protect Yourself from Phishers
 				</h3>
-				Phishers send you a message with a link to a website that looks just like MyDashWallet, Paypal, or your bank, but is not the real website. They steal your information and then steal your money.
+				Phishers send you a message with a link to a website that looks just like MyVpubWallet, Paypal, or your bank, but is not the real website. They steal your information and then steal your money.
 				<ul>
-					<li>  Always check the URL: <code>https://MyDashWallet.org</code>.  </li>
-					<li>  Always make sure the <code>MyDashWallet.org</code> URL bar has <b>Secure</b> in green.  </li>
+					<li>  Always check the URL: <code>https://MyVpubWallet.org</code>.  </li>
+					<li>  Always make sure the <code>MyVpubWallet.org</code> URL bar has <b>Secure</b> in green.  </li>
 					<li>  Do not trust messages or links sent to you randomly via email, Slack, Reddit, Twitter, etc.  </li>
 					<li>  Always navigate directly to a site before you enter information. Do not enter information after clicking a link from a message or email.  </li>
 					<li>  <a href="https://chrome.google.com/webstore/detail/ublock-origin/cjpalhdlnbpafiamejdnhcphjbkeiagm?hl=en">Install an AdBlocker</a> and do not click ads on your search engine (e.g. Google).  </li>
@@ -218,7 +218,7 @@
 					<li>  <a href="https://myetherwallet.github.io/knowledge-base/getting-started/accessing-your-new-eth-wallet.html">How to verify you have access to the wallet</a>.  </li>
 					<li>  <a href="https://myetherwallet.github.io/knowledge-base/faq/buying-selling-exchanging-eth-tokens-fiat.html">How to send funds to your wallet</a>.  </li>
 					<li>  <a href="https://myetherwallet.github.io/knowledge-base/getting-started/checking-balance-of-my-account.html">How to check your balance</a>.  </li>
-					<li>  <a href="https://youtu.be/phht73IvUDI?t=58">Prefer a video walkthrough? Here's one for MyEtherWallet, MyDashWallet is similar</a>  </li>
+					<li>  <a href="https://youtu.be/phht73IvUDI?t=58">Prefer a video walkthrough? Here's one for MyEtherWallet, MyVpubWallet is similar</a>  </li>
 =======
 					<li> <a href="/AboutHardwareWallets">Hardware Wallets</a> </li>
 					<li> <a href="/AboutCreateNewWallet">Create new wallet</a> </li>
@@ -226,8 +226,8 @@
 					<li> <a href="/AboutPrivateSend">How does PrivateSend work?</a> </li>
 					<li> <a href="/AboutInstantSend">About Transaction Fees</a> </li>
 					<li> <a href="/AboutVideos">Great videos about Vpub and how blockchains work</a> </li>
-					<li> <a href="/AboutMyDashWallet">About MyDashWallet</a> </li>
-					<li> <a href="https://youtu.be/phht73IvUDI?t=58">Prefer a video walkthrough? Here's one for MyEtherWallet, MyDashWallet is similar</a> </li>
+					<li> <a href="/AboutMyDashWallet">About MyVpubWallet</a> </li>
+					<li> <a href="https://youtu.be/phht73IvUDI?t=58">Prefer a video walkthrough? Here's one for MyEtherWallet, MyVpubWallet is similar</a> </li>
 >>>>>>> other
 				</ul>
 			</div>

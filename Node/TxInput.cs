@@ -1,4 +1,4 @@
-﻿namespace MyDashWallet.Node
+﻿namespace MyVpubWallet.Node
 {
 	public class TxInput
 	{

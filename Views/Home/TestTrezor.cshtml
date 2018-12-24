@@ -37,7 +37,7 @@
 		}];
 		TrezorConnect.composeAndSignTx(outputs, function (result) {
 			if (result.success) {
-				/*requires a second confirmation, rather do it on MyDashWallet and also support InstantSend there
+				/*requires a second confirmation, rather do it on MyVpubWallet and also support InstantSend there
 				TrezorConnect.pushTransaction(result.serialized_tx, function (pushResult) {
 					if (pushResult.success) {
 						console.log('Transaction pushed. Id:', pushResult.txid); // ID of the transaction

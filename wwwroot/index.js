@@ -593,7 +593,7 @@ function generateTransaction() {
 		return;
 	}
 	// Okay, we have all data ready, pick the oldest addresses until we have the required amount and
-	// find all unspend outputs and send it all to the MyDashWallet server to prepare the raw
+	// find all unspend outputs and send it all to the MyVpubWallet server to prepare the raw
 	// transaction to sign. Doing this locally is possible too, but too much work right now.
 	$("#resultPanel").css("color","black").text("Waiting for raw transaction to be generated ...");
 	if (trezorDash)
@@ -626,7 +626,7 @@ function generateTrezorSignedTx() {
 	$("#transactionPanel").show();
 	$("#txDetailsPanel").hide();
 	// InstantSend is not really supported on TREZOR, but if we set the fee correctly and send with
-	// our MyDashWallet service, it still will work out of the box. PrivateSend is deferred anyway.
+	// our MyVpubWallet service, it still will work out of the box. PrivateSend is deferred anyway.
 	var useInstantSend = $("#useInstantSend").is(':checked');
 	var usePrivateSend = $("#usePrivateSend").is(':checked');
 	if (usePrivateSend || channel !== "Address") {
@@ -911,7 +911,7 @@ function signAndSendTransaction() {
 }
 
 function getPrivateSendFinalHelp() {
-	return "<br /><br/>PrivateSend transactions require mixing. Usually small amounts are available right away and will arrive on the given target address anonymously in a few minutes, but it could also take a few hours. Please be patient, if you still can't see the Vpub arriving a day later please <a href='mailto:Support@MyDashWallet.org'>contact support</a> with all data listed here.";
+	return "<br /><br/>PrivateSend transactions require mixing. Usually small amounts are available right away and will arrive on the given target address anonymously in a few minutes, but it could also take a few hours. Please be patient, if you still can't see the Vpub arriving a day later please <a href='mailto:Support@MyVpubWallet.org'>contact support</a> with all data listed here.";
 }
 
 function showRawTxPanel(toAddress, txFee, privateSendAddress, redirectedPrivateSendAmount) {
@@ -1049,7 +1049,7 @@ function generateKeystoreFile() {
 	var encryptedData = CryptoJS.AES.encrypt(key, $("#keystorePassword").val());
 	localStorage.setItem("keystore", encryptedData);
 	var currentDate = new Date();
-	download("MyDashWallet"+currentDate.getFullYear()+"-"+(currentDate.getMonth()+1)+"-"+currentDate.getDate()+".KeyStore", encryptedData);
+	download("MyVpubWallet"+currentDate.getFullYear()+"-"+(currentDate.getMonth()+1)+"-"+currentDate.getDate()+".KeyStore", encryptedData);
 	$("#createLocalWalletPanel").hide();
 	$("#importKeystorePanel").hide();
 	$("#unlockKeystorePanel").show();

@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace MyDashWallet.Node
+namespace MyVpubWallet.Node
 {
 	public class SigningRawTxFailed : Exception
 	{

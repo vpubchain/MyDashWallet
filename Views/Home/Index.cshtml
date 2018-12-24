@@ -171,12 +171,12 @@
 					$("#autoConnectLedgerPanel").hide();
 			</script>
 		</section>
-		<section class="block__help">
+		@*<section class="block__help">
 			<h2>Important</h2>
 			<ul>
 				<li>
 					<p>
-						<strong>MyDashWallet.org is NOT an online wallet</strong>:
+						<strong>MyVpubWallet.org is NOT an online wallet</strong>:
 						This site NEVER stores or uses your private keys or wallet. All funds are 100% under your control and local.
 					</p>
 				</li>
@@ -192,7 +192,7 @@
 				</li>
 				<li>
 					<p>
-						<a href="https://github.com/DeltaEngine/MyDashWallet" target='_blank' rel='noopener noreferrer'>Open source</a>, non-profit and free to use.
+						<a href="https://github.com/DeltaEngine/MyVpubWallet" target='_blank' rel='noopener noreferrer'>Open source</a>, non-profit and free to use.
 					</p>
 				</li>
 				<li>
@@ -201,7 +201,7 @@
 					</p>
 				</li>
 			</ul>
-		</section>
+		</section>*@
 	</article>
 	<br />
 </main>
@@ -282,34 +282,34 @@
 						<input class="form-control is-invalid" style="margin-top: 1px" type="text" id="toEmail" oninput="updateAmountInfo()" placeholder="Some@@Email.com">
 						<input class="form-control is-invalid" style="margin-top: 1px" type="text" id="toEmailExtraText" placeholder="Optional Message to the receiver, e.g. Thanks for Dinner">
 						<div class="small-info-box">
-							<a href="/Tipping" target="_blank">How it works</a>: You can tip anyone via email. If the receiver has received Vpub via Email before, the funds will be send directly to his wallet and a notification email is send out. Otherwise the receiver will get a redeem link to a fresh MyDashWallet with his tip that. If the receiver does not redeem his Vpub within 7 days, all Vpub will be returned to you.
+							<a href="/Tipping" target="_blank">How it works</a>: You can tip anyone via email. If the receiver has received Vpub via Email before, the funds will be send directly to his wallet and a notification email is send out. Otherwise the receiver will get a redeem link to a fresh MyVpubWallet with his tip that. If the receiver does not redeem his Vpub within 7 days, all Vpub will be returned to you.
 						</div>
 					</section>
 					<section id="contentToTwitter">
 						<input class="form-control is-invalid" style="margin-top: 1px" type="text" id="toTwitter" oninput="updateAmountInfo()" placeholder="@@TwitterUsername">
 						<input class="form-control is-invalid" style="margin-top: 1px" type="text" id="toTwitterExtraText" placeholder="Optional Message to the receiver, e.g. Thanks for the retweet">
 						<div class="small-info-box">
-							<a href="/Tipping" target="_blank">How it works</a>: If the receiver has a MyDashWallet address, the funds will be send directly to his wallet. Otherwise the receiver will get a tweet with the tip only he can redeem (times out after 7 days and will return to you if not collected).
+							<a href="/Tipping" target="_blank">How it works</a>: If the receiver has a MyVpubWallet address, the funds will be send directly to his wallet. Otherwise the receiver will get a tweet with the tip only he can redeem (times out after 7 days and will return to you if not collected).
 						</div>
 					</section>
 					<section id="contentToReddit">
 						<input class="form-control is-invalid" style="margin-top: 1px" type="text" id="toReddit" oninput="updateAmountInfo()" placeholder="/u/RedditUsername">
 						<input class="form-control is-invalid" style="margin-top: 1px" type="text" id="toRedditExtraText" placeholder="Optional Message to the receiver, e.g. Thanks for the article">
 						<div class="small-info-box">
-							<a href="/Tipping" target="_blank">How it works</a>: If the receiver has a MyDashWallet address or tipped himself before, the funds will be send directly to his wallet. Otherwise the receiver will get a private message with the tip only he can redeem (times out after 7 days and will return to you if not collected).
+							<a href="/Tipping" target="_blank">How it works</a>: If the receiver has a MyVpubWallet address or tipped himself before, the funds will be send directly to his wallet. Otherwise the receiver will get a private message with the tip only he can redeem (times out after 7 days and will return to you if not collected).
 						</div>
 					</section>
 					<section id="contentToDiscord">
 						<input class="form-control is-invalid" style="margin-top: 1px" type="text" id="toDiscord" oninput="updateAmountInfo()" placeholder="@@DiscordUsername#1234 in DashNation on Discord">
 						<input class="form-control is-invalid" style="margin-top: 1px" type="text" id="toDiscordExtraText" placeholder="Optional Message to the receiver, e.g. Thanks for the help">
 						<div class="small-info-box">
-							<a href="/Tipping" target="_blank">How it works</a>: The receiver must be on the <a href="https://discordapp.com/invite/9z8zX5j">DashNation Discord chat server</a>! If the receiver has a MyDashWallet address or used the bot on Discord before, the funds will be send directly to his wallet. Otherwise the receiver will get a private message with the tip only he can redeem (times out after 7 days and will return to you if not collected).
+							<a href="/Tipping" target="_blank">How it works</a>: The receiver must be on the <a href="https://discordapp.com/invite/9z8zX5j">DashNation Discord chat server</a>! If the receiver has a MyVpubWallet address or used the bot on Discord before, the funds will be send directly to his wallet. Otherwise the receiver will get a private message with the tip only he can redeem (times out after 7 days and will return to you if not collected).
 						</div>
 					</section>
 					@*<section id="contentToTelegram">
 							<input class="form-control is-invalid" style="margin-top:1px" type="text" id="toTelegram" oninput="updateAmountInfo()" placeholder="@@TelegramUsername in t.me/DashDigitalCash">
 							<div class="small-info-box">
-								<a href="/Tipping" target="_blank">How it works</a>: The receiver must be in the <a href="https://t.me/DashDigitalCash">D-Knights 2.0 DashDigitalCash telegram group</a>! If the receiver has a MyDashWallet address or tipped himself before, the funds will be send directly to his wallet. Otherwise the receiver will get a private message with the tip only he can redeem (times out after 7 days and will return to you if not collected).
+								<a href="/Tipping" target="_blank">How it works</a>: The receiver must be in the <a href="https://t.me/DashDigitalCash">D-Knights 2.0 DashDigitalCash telegram group</a>! If the receiver has a MyVpubWallet address or tipped himself before, the funds will be send directly to his wallet. Otherwise the receiver will get a private message with the tip only he can redeem (times out after 7 days and will return to you if not collected).
 							</div>
 						</section>*@
 				</div>
@@ -341,8 +341,8 @@
 			<div style="display:none">
 				<input type="password" />@*dummy to prevent storing pw for private key unlocking*@
 			</div>
-			<input type="password" id="paperWalletPasswordUnlock" class="form-control" placeholder="Password to unlock private key for PaperWallet" />
-			<a class="btn btn-info btn-block" id="createPaperWalletButton" onclick="createPaperWallet()">Unlock Private Key for PaperWallet</a>
+			@*<input type="password" id="paperWalletPasswordUnlock" class="form-control" placeholder="Password to unlock private key for PaperWallet" />
+			<a class="btn btn-info btn-block" id="createPaperWalletButton" onclick="createPaperWallet()">Unlock Private Key for PaperWallet</a>*@
 			<span id="paperWalletError"></span>
 			<div id="paperWalletDetails" style="display: none">
 				<table style="width: 100%; border: 0;margin:0">
@@ -363,7 +363,7 @@
 					</tr>
 				</table>
 				<div class="small-info-box" style="margin-top: 8px;">
-					You can also go to <a href="https://paper.dash.org" target="_blank" rel="noopener noreferrer">https://paper.dash.org</a> (do this completely offline for better safety), you don't need to be online on MyDashWallet.org or paper.dash.org. On <a href="https://paper.dash.org" target="_blank" rel="noopener noreferrer">paper.dash.org</a> click Wallet Details and enter your private key for more formats: WIF, Compressed
+					You can also go to <a href="https://paper.dash.org" target="_blank" rel="noopener noreferrer">https://paper.dash.org</a> (do this completely offline for better safety), you don't need to be online on MyVpubWallet.org or paper.dash.org. On <a href="https://paper.dash.org" target="_blank" rel="noopener noreferrer">paper.dash.org</a> click Wallet Details and enter your private key for more formats: WIF, Compressed
 				</div>
 			</div>
 		</article>
@@ -398,7 +398,7 @@
 				</ul>
 			</div>
 			<!-- Hardware Wallets -->
-			<a href="/AboutHardwareWallets" ng-show="slide==1 || ajaxReq.type!=='VP'" class="block swap--hw ng-hide" target="_blank" rel="noopener noreferrer" id="hardware-wallets-panel">
+			@*<a href="/AboutHardwareWallets" ng-show="slide==1 || ajaxReq.type!=='VP'" class="block swap--hw ng-hide" target="_blank" rel="noopener noreferrer" id="hardware-wallets-panel">
 				<div class="col-sm-7">
 					<h6 class="swap__cta ng-hide" ng-show="wallet.balance<=1">Learn more about protecting your funds.</h6>
 					<p>Are you as secure as you can be?</p>
@@ -433,7 +433,7 @@
 					Use Piiko to top up your mobile phone
 					<img src="/images/Piiko.png" alt="Piiko" />
 				</div>
-			</a>
+			</a>*@
 		</aside>
 	</article>
 </div>

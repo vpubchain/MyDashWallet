@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using BitcoinLib.Services.Coins.Vpub;
 
-namespace MyDashWallet.Node
+namespace MyVpubWallet.Node
 {
 	public abstract class DashNode
 	{
@@ -77,7 +77,7 @@ namespace MyDashWallet.Node
 				CalculateTxFee(inputs.Count, hasRemainingOutput ? 2 : 1, instantSend, false);
 			result.RedirectedPrivateSendAddress = sendTo;
 			result.RedirectedPrivateSendAmount = amount;
-			// For PrivateSend redirect to new address created on MyDashWallet and send from mixed pool
+			// For PrivateSend redirect to new address created on MyVpubWallet and send from mixed pool
 			if (privateSend)
 			{
 				result.RedirectedPrivateSendAddress = GenerateNewAddress(amount + "|" + sendTo, true);
