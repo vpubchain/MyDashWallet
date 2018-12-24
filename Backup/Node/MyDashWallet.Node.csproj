@@ -1,10 +1,9 @@
-<Project Sdk="Microsoft.NET.Sdk" ToolsVersion="15.0">
+<Project Sdk="Microsoft.NET.Sdk">
+
   <PropertyGroup>
     <TargetFramework>netcoreapp2.0</TargetFramework>
-    <FileUpgradeFlags>40</FileUpgradeFlags>
-    <UpgradeBackupLocation>F:\90svn\Dev\SourceCode\vpub\MyDashWallet\Backup\Node\</UpgradeBackupLocation>
-    <OldToolsVersion>2.0</OldToolsVersion>
   </PropertyGroup>
+
   <ItemGroup>
     <Compile Remove="BitcoinLib\**" />
     <Compile Remove="Database\**" />
@@ -19,10 +18,13 @@
     <None Remove="Full\**" />
     <None Remove="Tests\**" />
   </ItemGroup>
+
   <ItemGroup>
     <PackageReference Include="Newtonsoft.Json" Version="11.0.2" />
   </ItemGroup>
+
   <ItemGroup>
     <ProjectReference Include="BitcoinLib\BitcoinLib.csproj" />
   </ItemGroup>
+
 </Project>

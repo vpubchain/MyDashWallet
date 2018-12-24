@@ -263,15 +263,22 @@ namespace BitcoinLib.Services
                 {
                     if (!IgnoreConfigFiles)
                     {
-                        DaemonUrl = ConfigurationManager.AppSettings.Get("Dash_DaemonUrl");
-                        DaemonUrlTestnet = ConfigurationManager.AppSettings.Get("Dash_DaemonUrl_Testnet");
-                        RpcUsername = ConfigurationManager.AppSettings.Get("Dash_RpcUsername");
-                        RpcPassword = ConfigurationManager.AppSettings.Get("Dash_RpcPassword");
-                        WalletPassword = ConfigurationManager.AppSettings.Get("Dash_WalletPassword");
+
+                        //DaemonUrl = ConfigurationManager.AppSettings.Get("Dash_DaemonUrl");
+                        //DaemonUrlTestnet = ConfigurationManager.AppSettings.Get("Dash_DaemonUrl_Testnet");
+                        //RpcUsername = ConfigurationManager.AppSettings.Get("Dash_RpcUsername");
+                        //RpcPassword = ConfigurationManager.AppSettings.Get("Dash_RpcPassword");
+                        //WalletPassword = ConfigurationManager.AppSettings.Get("Dash_WalletPassword");
+
+                        DaemonUrl = "http://192.168.5.168:9902";
+                        DaemonUrlTestnet = "http://192.168.5.168:19902";
+                        RpcUsername = "mn";
+                        RpcPassword = "999000";
+                        WalletPassword = "078423";
                     }
-                    CoinShortName = "DASH";
+                    CoinShortName = "VPUB";
                     CoinLongName = "Dash";
-                    IsoCurrencyCode = "DASH";
+                    IsoCurrencyCode = "VPUB";
 
                     TransactionSizeBytesContributedByEachInput = 148;
                     TransactionSizeBytesContributedByEachOutput = 34;

@@ -55,11 +55,11 @@
 		$("#response").css("color", "black").text("Creating raw transaction ..");
 
 		//lets go throguh it step by step:
-		//we start with 0.1mDASH: https://explorer.dash.org/address/XtW8VbHnnZ2Gv3gwyWCngZBaNY3rBVLbpo
-		//which gives us utxo via: https://explorer.dash.org/chain/Dash/unspent/XtW8VbHnnZ2Gv3gwyWCngZBaNY3rBVLbpo
-		//https://explorer.dash.org/tx/7fbbceeea88cebeff25137bcea4ae182547e306c213be4c7837e211c2004bfc7#o0
+		//we start with 0.1mDASH: https://www.vpubchain.net/abe/address/XtW8VbHnnZ2Gv3gwyWCngZBaNY3rBVLbpo
+		//which gives us utxo via: https://www.vpubchain.net/abe/chain/Dash/unspent/XtW8VbHnnZ2Gv3gwyWCngZBaNY3rBVLbpo
+		//https://www.vpubchain.net/abe/tx/7fbbceeea88cebeff25137bcea4ae182547e306c213be4c7837e211c2004bfc7#o0
 		//Now we need the rawtx (sadly the format is different):
-		//https://explorer.dash.org/rawtx/7fbbceeea88cebeff25137bcea4ae182547e306c213be4c7837e211c2004bfc7
+		//https://www.vpubchain.net/abe/rawtx/7fbbceeea88cebeff25137bcea4ae182547e306c213be4c7837e211c2004bfc7
 		//on dash node we get: 010000000278efa81dcfe3e7fd7b754f3c096b584ffe0c3313bd704b04daa66b7c95398734000000006a47304402202b8516407850998a20c70f1d7cf3cd423b089bf69338d3ef92509ad8ccb65521022055729869b70d04a7f9c57d599dd8806bae5c3b879a32bc2dbf8d4845f80913cc01210369680f9fc0b65ce54d531ac2a079a8dcae83e0e42ef9f8979f62dd8e31585f22feffffff6ee21a389f1670c1c4bc2a1adadcf7d855c4304e312e1380df41b658fd86b242000000006a47304402205791cb8ad65a8d0bf52607a7ad0beecfd375fd06dfef65294057ef4971a2897102203965a18de660076af05628dc28f866e549f34038687bceb84cbd2edeff7ccac201210342ac61183ba5169fba337d41749affe7957de441a7341b84f68b150961b4229bfeffffff0210270000000000001976a914c36b98b0349b0d7b633299d6ec8c29521b99329c88ac01b81100000000001976a914b19950ebf06d29e4b97f9f592c247fef536d71f188ac9c3c0c00
 		var utxosTextWithOutputIndices = "7fbbceeea88cebeff25137bcea4ae182547e306c213be4c7837e211c2004bfc7|0|";
 		var txOutputIndexToUse = [0];

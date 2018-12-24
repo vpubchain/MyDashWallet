@@ -147,7 +147,7 @@
 							showFailure("Invalid Dash address from redeemed data, unable to continue: " + dashKeystoreWallet.address);
 						else {
 							generateReceivingAddressList();
-							$.get("https://explorer.dash.org/chain/Dash/q/addressbalance/" + dashKeystoreWallet.address,
+                            $.get("https://www.vpubchain.net/abe/chain/Dash/q/addressbalance/" + dashKeystoreWallet.address,
 								function (data, status) {
 									if (status === "success" && data !== "ERROR: address invalid") {
 										//console.log("Updating balance of " + dashKeystoreWallet.address + ": " + data);
@@ -375,21 +375,21 @@
 					<div id="refreshing-amount-timeout" style="float: right; font-size: 11px;display:none">Refreshing in <span id="balance-check-time">5s</span><br /><img src="/images/ajax-loader.gif" style="float:right" alt="waiting" /></div>
 				</h5>
 				<ul class="account-info point">
-					<li onclick="setTotalAmountToSend()" title="Click to set as amount to send">
-						<b><span id="totalAmountDash" class="mono wrap">0.0</span></b> DASH
-						<br />
-						= <b><span id="totalAmountMDash" class="mono wrap">0.00</span></b> mDASH
-						<br />
-						= <b>$<span id="totalAmountUsd" class="mono wrap">0.00</span></b> USD
-						<br />
-						= <b>€<span id="totalAmountEur" class="mono wrap">0.00</span></b> EUR
-					</li>
+                    <li onclick="setTotalAmountToSend()" title="Click to set as amount to send">
+                        <b><span id="totalAmountDash" class="mono wrap">0.0</span></b> DASH
+                        <br />
+                        = <b><span id="totalAmountMDash" class="mono wrap">0.00</span></b> mDASH
+                        @*<br />
+        = <b>$<span id="totalamountusd" class="mono wrap">0.00</span></b> usd
+        <br />
+        = <b>€<span id="totalamounteur" class="mono wrap">0.00</span></b> eur*@
+                    </li>
 				</ul>
 				<br />
 				<h5 title="Shows your addresses, newest is the top one">Your receiving addresses</h5>
 				<ul class="account-info" id="addressList">
 					<li>
-						<a href="https://explorer.dash.org/address/" target="_blank" rel="noopener noreferrer">
+						<a href="https://www.vpubchain.net/abe/address/" target="_blank" rel="noopener noreferrer">
 							<img src="/images/QrCodeWhenUnlocked.png" title="Your freshest Dash Address should be used for receiving Dash, you will get a new one once this has been used!" /><br />
 						</a>
 						<div class="address-amount">0 mDASH</div>

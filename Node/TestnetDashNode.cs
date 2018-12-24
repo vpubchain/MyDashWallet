@@ -11,11 +11,12 @@ namespace MyDashWallet.Node
 	/// </summary>
 	public class TestnetDashNode : DashNode
 	{
+        
 		/// <summary>
 		/// None of the default values are used in production, this is just for local testing
 		/// </summary>
-		public TestnetDashNode(string server = "http://localhost:19998", string user = "mydashwallet",
-			string password = "localOnly", short requestTimeoutInSeconds = 30)
+		public TestnetDashNode(string server = "http://192.168.5.168:9902", string user = "mn",
+			string password = "999000", short requestTimeoutInSeconds = 30)
 			=> service = new DashService(server, user, password, password, requestTimeoutInSeconds);
 
 		protected readonly DashService service;

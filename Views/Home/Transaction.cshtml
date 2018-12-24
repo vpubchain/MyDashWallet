@@ -5,7 +5,7 @@
 <h3>@ViewData["Message"]</h3>
 <script>
 	function checkTx(txId) {
-		location.href = "https://explorer.dash.org/tx/" + txId;
+        location.href = "https://www.vpubchain.net/abe/tx/" + txId;
 	}
 </script>
 
@@ -13,7 +13,7 @@ Enter Transaction Id to check (if you received or send any Dash, each action sho
 <input id="tx" name="tx" class="form-control ng-pristine ng-valid ng-empty is-invalid ng-touched" placeholder="Transaction Id you got when sending or receiving DASH" aria-label="Enter a tx id" onchange="checkTx(this.value)">
 <ul class="account-info">
 	<li ng-show="ajaxReq.type != 'CUS'" class="">
-		<a class="btn btn-primary ng-scope" href="https://explorer.dash.org/tx/e0cc04d1eb274d6cbfd51e6965931d74ec225c4f2032bac04f08781f600c2f33" target="_blank" rel="noopener noreferrer">
+		<a class="btn btn-primary ng-scope" href="https://www.vpubchain.net/abe/tx/e0cc04d1eb274d6cbfd51e6965931d74ec225c4f2032bac04f08781f600c2f33" target="_blank" rel="noopener noreferrer">
 			Use DASH Explorer
 		</a>
 	</li>

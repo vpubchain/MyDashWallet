@@ -73,13 +73,14 @@ function updateLocalStorageBalances() {
 	var cachedText = "";
 	$.each(addressBalances,
 		function (key, amount) {
-			if (isValidDashAddress(key)) {
+            if (isValidDashAddress(key)) {
+                console.log("isValidDashAddress:true------------------------");
 				totalAmount += amount;
 				cachedText += key + "|" + amount + "|";
 			}
 		});
 	localStorage.setItem('addressBalances', cachedText);
-	//console.log("New total amount: " + totalAmount);
+	console.log("New total amount: " + totalAmount);
 	return totalAmount;
 }
 
@@ -92,7 +93,7 @@ function balanceCheck() {
 	$.each(addressBalances,
 		function (addressToCheck, oldBalance) {
 			if (isValidDashAddress(addressToCheck)) {
-				$.get("https://explorer.dash.org/chain/Dash/q/addressbalance/" + addressToCheck,
+                $.get("https://www.vpubchain.net/abe/chain/Dash/q/addressbalance/" + addressToCheck,
 					function (data, status) {
 						if (status === "success" && data !== "ERROR: address invalid" && oldBalance !== parseFloat(data)) {
 							console.log("Updating balance of " + addressToCheck + ": " + data);
@@ -124,8 +125,8 @@ function updateLocalStorageBalancesAndRefreshTotalAmountAndReceivingAddresses() 
 	document.getElementById("totalAmountDash").innerHTML = showNumber(totalAmount, 8);
 	document.getElementById("totalAmountMDash").innerHTML = showNumber(totalAmount * 1000, 5);
 // ReSharper disable UseOfImplicitGlobalInFunctionScope
-	document.getElementById("totalAmountUsd").innerHTML = showNumber(totalAmount * usdRate, 2);
-	document.getElementById("totalAmountEur").innerHTML = showNumber(totalAmount * eurRate, 2);
+	//document.getElementById("totalAmountUsd").innerHTML = showNumber(totalAmount * usdRate, 2);
+	//document.getElementById("totalAmountEur").innerHTML = showNumber(totalAmount * eurRate, 2);
 	generateReceivingAddressList();
 }
 
@@ -139,7 +140,7 @@ function getFreshestAddress() {
 
 function addAddressBalance(list, address, balance, freshestAddress) {
 	var qrImg = "//chart.googleapis.com/chart?cht=qr&chl=dash:" + address + "&choe=UTF-8&chs=140x140&chld=L|0";
-	$("<li><a href='https://explorer.dash.org/address/" +
+    $("<li><a href='https://www.vpubchain.net/abe/address/" +
 		address +
 		"' target='_blank' rel='noopener noreferrer'>" +
 		(address === freshestAddress
@@ -200,7 +201,7 @@ function getNumberOfAddresses() {
 }
 
 function updateBalanceIfAddressIsUsed(newAddress) {
-	$.get("https://explorer.dash.org/chain/Dash/q/getreceivedbyaddress/" + newAddress,
+    $.get("https://www.vpubchain.net/abe/chain/Dash/q/getreceivedbyaddress/" + newAddress,
 		function (data, status) {
 			if (status === "success" && data !== "ERROR: address invalid") {
 				if (!addressBalances[newAddress]) {
@@ -225,7 +226,7 @@ function checkNextLedgerAddress() {
 		});
 	// Algorithm is as follows:
 	// 1. Get the next Dash receiving addresses (will take about 300ms)
-	// 2. Check them one-by-one via https://explorer.dash.org/chain/Dash/q/getreceivedbyaddress/<address>
+	// 2. Check them one-by-one via https://www.vpubchain.net/abe/chain/Dash/q/getreceivedbyaddress/<address>
 	// 3. If there was ever received something, add and continue
 	// 4. Abort if this address has not received anything yet (still add it as last fresh one)
 	// 5. If address had dash received, continue with the next dash address to check
@@ -370,13 +371,13 @@ function unlockTrezor(showResponse) {
 			var totalAmount = response.balance / 100000000.0;
 			document.getElementById("totalAmountDash").innerHTML = showNumber(totalAmount, 8);
 			document.getElementById("totalAmountMDash").innerHTML = showNumber(totalAmount * 1000, 5);
-			document.getElementById("totalAmountUsd").innerHTML = showNumber(totalAmount * usdRate, 2);
-			document.getElementById("totalAmountEur").innerHTML = showNumber(totalAmount * eurRate, 2);
+			//document.getElementById("totalAmountUsd").innerHTML = showNumber(totalAmount * usdRate, 2);
+			//document.getElementById("totalAmountEur").innerHTML = showNumber(totalAmount * eurRate, 2);
 			var list = $("#addressList");
 			list.empty();
 			var address = response.freshAddress;
 			var qrImg = "//chart.googleapis.com/chart?cht=qr&chl=dash:" + address + "&choe=UTF-8&chs=140x140&chld=L|0";
-			$("<li><a href='https://explorer.dash.org/address/" +
+            $("<li><a href='https://www.vpubchain.net/abe/address/" +
 				address + "' target='_blank' rel='noopener noreferrer'>" +
 				"<img width='140' height='140' src='" + qrImg +
 					"' title='Your freshest Dash Address should be used for receiving Dash, you will get a new one once this has been used!' /><br/>" + address +
@@ -553,9 +554,9 @@ function updateAmountInfo() {
 		$("#usePrivateSend").is(':checked') && amountToSend < MinimumForPrivateSend)
 		amountIsValid = false;
 	//not longer used or shown: var btcValue = showNumber(amountToSend * btcRate, 6);
-	$("#amount-info-box").text(
-		showNumber(amountToSend * 1000, 5) + " mDASH " +
-		"= " + showNumber(amountToSend, 8) + " DASH " +
+    $("#amount-info-box").text(
+        showNumber(amountToSend * 1000, 5) + " mDASH " +
+        "= " + showNumber(amountToSend, 8) + " DASH " +
 		"= $" + showNumber(amountToSend * usdRate, 2) + " " +
 		"= €" + showNumber(amountToSend * eurRate, 2) + " (1 DASH = " + btcRate + " BTC)");
 	updateTxFee(0);
@@ -658,7 +659,7 @@ function generateTrezorSignedTx() {
 							function (finalTx) {
 								$("#resultPanel").css("color", "orange").html(
 									"Successfully signed transaction and broadcasted it to the Dash network. "+
-									"You can check the transaction status in a few minutes here: <a href='https://explorer.dash.org/tx/" + finalTx+"' target='_blank' rel='noopener noreferrer'>"+finalTx+"</a>"+(usePrivateSend?getPrivateSendFinalHelp() : ""));
+									"You can check the transaction status in a few minutes here: <a href='https://www.vpubchain.net/abe/tx/" + finalTx+"' target='_blank' rel='noopener noreferrer'>"+finalTx+"</a>"+(usePrivateSend?getPrivateSendFinalHelp() : ""));
 							}).fail(function (jqxhr) {
 								$("#resultPanel").css("color", "red").text("Server Error: " + jqxhr.responseText);
 							});
@@ -690,7 +691,7 @@ function generateTrezorSignedTx() {
 					$("#resultPanel").css("color", "orange").html(
 						"Successfully signed transaction and broadcasted it to the Dash network. "+
 						(useInstantSend ? "You used InstantSend, the Dash will appear immediately at the target wallet. " : "")+
-						"You can check the transaction status in a few minutes here: <a href='https://explorer.dash.org/tx/" + finalTx+"' target='_blank' rel='noopener noreferrer'>"+finalTx+"</a>");
+						"You can check the transaction status in a few minutes here: <a href='https://www.vpubchain.net/abe/tx/" + finalTx+"' target='_blank' rel='noopener noreferrer'>"+finalTx+"</a>");
 				}).fail(function (jqxhr) {
 					$("#resultPanel").css("color", "red").text("Server Error: " + jqxhr.responseText);
 				});
@@ -709,9 +710,9 @@ function addNextAddressWithUnspendFundsToRawTx(addressesWithUnspendInputs, addre
 			.text("Failed to find more addresses with funds for creating transaction. Unable to continue!");
 		return;
 	}
-	//Find utxo, via undocumented https://explorer.dash.org/chain/Dash/unspent/<address>
+	//Find utxo, via undocumented https://www.vpubchain.net/abe/chain/Dash/unspent/<address>
 	//another option: https://github.com/UdjinM6/insight-api-dash#unspent-outputs
-	$.getJSON("https://explorer.dash.org/chain/Dash/unspent/" +
+    $.getJSON("https://www.vpubchain.net/abe/chain/Dash/unspent/" +
 		addressesWithUnspendInputs[addressesWithUnspendInputsIndex].address,
 		function (data, status) {
 			var address = addressesWithUnspendInputs[addressesWithUnspendInputsIndex].address;
@@ -753,7 +754,7 @@ function addNextAddressWithUnspendFundsToRawTx(addressesWithUnspendInputs, addre
 						break;
 				}
 			}
-			inputListText += "<li><a href='https://explorer.dash.org/address/" + address + "' target='_blank' rel='noopener noreferrer'><b>" + address + "</b></a> (-" + showDashOrMDashNumber(thisAddressAmountToUse) + ")</li>";
+            inputListText += "<li><a href='https://www.vpubchain.net/abe/address/" + address + "' target='_blank' rel='noopener noreferrer'><b>" + address + "</b></a> (-" + showDashOrMDashNumber(thisAddressAmountToUse) + ")</li>";
 			if (txAmountTotal >= totalAmountNeeded) {
 				// Recalculate txFee like code above, now we know the actual number of inputs needed
 				updateTxFee(txToUse.length);
@@ -796,7 +797,7 @@ function addNextAddressWithUnspendFundsToRawTx(addressesWithUnspendInputs, addre
 							data["redirectedPrivateSendAmount"]);
 						$("<li>Using these inputs from your addresses for the required <b>" + showDashOrMDashNumber(totalAmountNeeded) + "</b> (including fees):<ol>" + inputListText + "</ol></li>").appendTo(rawTxList);
 						if (remainingDash > 0)
-							$("<li>The remaining "+showDashOrMDashNumber(remainingDash)+" will be send to your own receiving address: <a href='https://explorer.dash.org/address/" + remainingAddress + "' target='_blank' rel='noopener noreferrer'><b>" + remainingAddress + "</b></a></li>").appendTo(rawTxList);
+                            $("<li>The remaining " + showDashOrMDashNumber(remainingDash) +" will be send to your own receiving address: <a href='https://www.vpubchain.net/abe/address/" + remainingAddress + "' target='_blank' rel='noopener noreferrer'><b>" + remainingAddress + "</b></a></li>").appendTo(rawTxList);
 						if (ledgerDash)
 							signRawTxOnLedgerHardware(txHashes, rawTx, txOutputIndexToUse, txAddressPathIndices);
 						else
@@ -902,7 +903,7 @@ function signAndSendTransaction() {
 		$("#resultPanel").css("color", "orange").html(
 			"Successfully signed transaction and broadcasted it to the Dash network. "+
 			(useInstantSend ? "You used InstantSend, the target wallet will immediately see incoming Dash." : "")+
-			"You can check the transaction status in a few minutes here: <a href='https://explorer.dash.org/tx/" + finalTx+"' target='_blank' rel='noopener noreferrer'>"+finalTx+"</a>"+(usePrivateSend?getPrivateSendFinalHelp() : ""));
+			"You can check the transaction status in a few minutes here: <a href='https://www.vpubchain.net/abe/tx/" + finalTx+"' target='_blank' rel='noopener noreferrer'>"+finalTx+"</a>"+(usePrivateSend?getPrivateSendFinalHelp() : ""));
 	}).fail(function (jqxhr) {
 		$("#resultPanel").css("color", "red").text("Server Error: " + jqxhr.responseText);
 	});
@@ -918,11 +919,11 @@ function showRawTxPanel(toAddress, txFee, privateSendAddress, redirectedPrivateS
 	var useInstantSend = $("#useInstantSend").is(':checked');
 	var usePrivateSend = $("#usePrivateSend").is(':checked');
 	if (usePrivateSend && toAddress !== privateSendAddress)
-		$("<li>Sending <b>" + showDashOrMDashNumber(redirectedPrivateSendAmount) + "</b> (with PrivateSend tx fees) to new autogenerated PrivateSend address <a href='https://explorer.dash.org/address/" + privateSendAddress + "' target='_blank' rel='noopener noreferrer'><b>" + privateSendAddress + "</b></a>. When mixing is done (between right away and a few hours) <b>" + showDashOrMDashNumber(amountToSend) + "</b> will anonymously arrive at: <a href='https://explorer.dash.org/address/" + toAddress + "' target='_blank' rel='noopener noreferrer'><b>" + toAddress + "</b></a></li>").appendTo(rawTxList);
+        $("<li>Sending <b>" + showDashOrMDashNumber(redirectedPrivateSendAmount) + "</b> (with PrivateSend tx fees) to new autogenerated PrivateSend address <a href='https://www.vpubchain.net/abe/address/" + privateSendAddress + "' target='_blank' rel='noopener noreferrer'><b>" + privateSendAddress + "</b></a>. When mixing is done (between right away and a few hours) <b>" + showDashOrMDashNumber(amountToSend) + "</b> will anonymously arrive at: <a href='https://explorer.dash.org/address/" + toAddress + "' target='_blank' rel='noopener noreferrer'><b>" + toAddress + "</b></a></li>").appendTo(rawTxList);
 	else if (toAddress !== privateSendAddress)
-		$("<li>Sending <b>" + showDashOrMDashNumber(amountToSend) + "</b> to "+getChannel()+": "+toAddress+" via <a href='https://explorer.dash.org/address/" + privateSendAddress + "' target='_blank' rel='noopener noreferrer'><b>" + privateSendAddress + "</b></a></li>").appendTo(rawTxList);
+        $("<li>Sending <b>" + showDashOrMDashNumber(amountToSend) + "</b> to " + getChannel() + ": " + toAddress +" via <a href='https://www.vpubchain.net/abe/address/" + privateSendAddress + "' target='_blank' rel='noopener noreferrer'><b>" + privateSendAddress + "</b></a></li>").appendTo(rawTxList);
 	else
-		$("<li>Sending <b>" + showDashOrMDashNumber(amountToSend) + "</b> to <a href='https://explorer.dash.org/address/" + toAddress + "' target='_blank' rel='noopener noreferrer'><b>" + toAddress + "</b></a></li>").appendTo(rawTxList);
+        $("<li>Sending <b>" + showDashOrMDashNumber(amountToSend) + "</b> to <a href='https://www.vpubchain.net/abe/address/" + toAddress + "' target='_blank' rel='noopener noreferrer'><b>" + toAddress + "</b></a></li>").appendTo(rawTxList);
 	$("<li>InstantSend: <b>" + (useInstantSend ? "Yes" : "No") + "</b>, PrivateSend: <b>" + (usePrivateSend ? "Yes" : "No") + "</b>, Tx fee"+(usePrivateSend?" (for initial send to mix)":"")+": <b>" + showDashOrMDashNumber(txFee) + "</b> ($" + showNumber(txFee * usdRate, 4) + ")</li>").appendTo(rawTxList);
 	return rawTxList;
 }
@@ -1066,7 +1067,7 @@ function unlockKeystore() {
 			goToSendPanel("Successfully unlocked Keystore Wallet!");
 			$("#paperWalletPanel").show();
 			generateReceivingAddressList();
-			$.get("https://explorer.dash.org/chain/Dash/q/addressbalance/" + dashKeystoreWallet.address,
+            $.get("https://www.vpubchain.net/abe/chain/Dash/q/addressbalance/" + dashKeystoreWallet.address,
 				function (data, status) {
 					if (status === "success" && data !== "ERROR: address invalid") {
 						//console.log("Updating balance of " + dashKeystoreWallet.address + ": " + data);
