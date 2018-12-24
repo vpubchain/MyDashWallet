@@ -213,21 +213,22 @@
 				<div class="col-sm-11">
 					<label>How much do you want to send?</label>
 				</div>
-				<div class="col-sm-11" style="width: 95%">
-					<div class="input-group">
-						<input type="number" min="0" step="0.01" class="form-control ng-pristine ng-untouched ng-valid ng-empty is-invalid" placeholder="Amount" id="amount" oninput="updateAmountInfo()" ng-model="tx.value" ng-disabled="tx.readOnly || checkTxReadOnly" ng-class="Validator.isPositiveNumber(tx.value) ? 'is-valid' : 'is-invalid'">
-						<div class="dropdown input-group-btn">
-							<button id="selectCurrency" style="min-width: 100px" class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span id="selectedSendCurrency">mDASH</span> <i class="caret"></i></button>
-							<div class="dropdown-menu" aria-labelledby="selectCurrency">
-								<a class="dropdown-item" onclick="setSendCurrency('mDASH')">mDASH</a>
-								<a class='dropdown-item' onclick="setSendCurrency('DASH')">DASH</a>
-								<a class="dropdown-item" onclick="setSendCurrency('USD')">USD</a>
-								<a class="dropdown-item" onclick="setSendCurrency('EUR')">EUR</a>
-							</div>
-						</div>
-					</div>
-					<div id="amount-info-box">1 mDASH = 0.001 mDASH = @ViewData["MilliDashPrices"] (1 DASH = @ViewData["BtcRate"] BTC)</div>
-				</div>
+                <div class="col-sm-11" style="width: 95%">
+                    <div class="input-group">
+                        <input type="number" min="0" step="0.01" class="form-control ng-pristine ng-untouched ng-valid ng-empty is-invalid" placeholder="Amount" id="amount" oninput="updateAmountInfo()" ng-model="tx.value" ng-disabled="tx.readOnly || checkTxReadOnly" ng-class="Validator.isPositiveNumber(tx.value) ? 'is-valid' : 'is-invalid'">
+                        <div class="dropdown input-group-btn">
+                            <button id="selectCurrency" style="min-width: 100px" class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span id="selectedSendCurrency">mDASH</span> <i class="caret"></i></button>
+                            <div class="dropdown-menu" aria-labelledby="selectCurrency">
+                                <a class="dropdown-item" onclick="setSendCurrency('mDASH')">mDASH</a>
+                                <a class='dropdown-item' onclick="setSendCurrency('DASH')">DASH</a>
+                                <a class="dropdown-item" onclick="setSendCurrency('USD')">USD</a>
+                                <a class="dropdown-item" onclick="setSendCurrency('EUR')">EUR</a>
+                            </div>
+                        </div>
+                    </div>
+                    @*<div id="amount-info-box">1 mDASH = 0.001 mDASH = @ViewData["MilliDashPrices"] (1 DASH = @ViewData["BtcRate"] BTC)</div>*@
+                    <div id="amount-info-box"></div>
+                </div>
 			</section>
 			<!-- To Address -->
 			<div class="row form-group">

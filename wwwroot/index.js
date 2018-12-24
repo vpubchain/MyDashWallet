@@ -554,11 +554,12 @@ function updateAmountInfo() {
 		$("#usePrivateSend").is(':checked') && amountToSend < MinimumForPrivateSend)
 		amountIsValid = false;
 	//not longer used or shown: var btcValue = showNumber(amountToSend * btcRate, 6);
-    $("#amount-info-box").text(
-        showNumber(amountToSend * 1000, 5) + " mDASH " +
-        "= " + showNumber(amountToSend, 8) + " DASH " +
-		"= $" + showNumber(amountToSend * usdRate, 2) + " " +
-		"= €" + showNumber(amountToSend * eurRate, 2) + " (1 DASH = " + btcRate + " BTC)");
+    $("#amount-info-box").text(""
+  //      showNumber(amountToSend * 1000, 5) + " mDASH " +
+  //      "= " + showNumber(amountToSend, 8) + " DASH " +
+		//"= $" + showNumber(amountToSend * usdRate, 2) + " " +
+  //      "= €" + showNumber(amountToSend * eurRate, 2) + " (1 DASH = " + btcRate + " BTC)"
+    );
 	updateTxFee(0);
 	if (amountIsValid && isValidSendTo()) {
 		$("#generateButton").css("backgroundColor", "#1c75bc").removeAttr("disabled");
