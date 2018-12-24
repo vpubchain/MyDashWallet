@@ -6,12 +6,12 @@
 
 <script src="~/ledger.js"></script>
 <script>
-	var dash;
+	var vpub;
 	function ledgerGetAddress() {
 		$("#response").css("color", "black").text("Initializing Ledger Hardware Wallet .. make sure it is unlocked, in the VP app and your browser settings are enabled!");
 		ledger.comm_u2f.create_async().then(function (comm) {
-			dash = new ledger.btc(comm);
-			dash.getWalletPublicKey_async("44'/5'/0'/0/0").then(
+			vpub = new ledger.btc(comm);
+			vpub.getWalletPublicKey_async("44'/5'/0'/0/0").then(
 				function (result) {
 					var address = result.bitcoinAddress;
 					document.getElementById("response").innerHTML = "Successfully connected to Ledger Hardware Wallet: " + address;
@@ -60,7 +60,7 @@
 		//https://www.vpubchain.net/abe/tx/7fbbceeea88cebeff25137bcea4ae182547e306c213be4c7837e211c2004bfc7#o0
 		//Now we need the rawtx (sadly the format is different):
 		//https://www.vpubchain.net/abe/rawtx/7fbbceeea88cebeff25137bcea4ae182547e306c213be4c7837e211c2004bfc7
-		//on dash node we get: 010000000278efa81dcfe3e7fd7b754f3c096b584ffe0c3313bd704b04daa66b7c95398734000000006a47304402202b8516407850998a20c70f1d7cf3cd423b089bf69338d3ef92509ad8ccb65521022055729869b70d04a7f9c57d599dd8806bae5c3b879a32bc2dbf8d4845f80913cc01210369680f9fc0b65ce54d531ac2a079a8dcae83e0e42ef9f8979f62dd8e31585f22feffffff6ee21a389f1670c1c4bc2a1adadcf7d855c4304e312e1380df41b658fd86b242000000006a47304402205791cb8ad65a8d0bf52607a7ad0beecfd375fd06dfef65294057ef4971a2897102203965a18de660076af05628dc28f866e549f34038687bceb84cbd2edeff7ccac201210342ac61183ba5169fba337d41749affe7957de441a7341b84f68b150961b4229bfeffffff0210270000000000001976a914c36b98b0349b0d7b633299d6ec8c29521b99329c88ac01b81100000000001976a914b19950ebf06d29e4b97f9f592c247fef536d71f188ac9c3c0c00
+		//on vpub node we get: 010000000278efa81dcfe3e7fd7b754f3c096b584ffe0c3313bd704b04daa66b7c95398734000000006a47304402202b8516407850998a20c70f1d7cf3cd423b089bf69338d3ef92509ad8ccb65521022055729869b70d04a7f9c57d599dd8806bae5c3b879a32bc2dbf8d4845f80913cc01210369680f9fc0b65ce54d531ac2a079a8dcae83e0e42ef9f8979f62dd8e31585f22feffffff6ee21a389f1670c1c4bc2a1adadcf7d855c4304e312e1380df41b658fd86b242000000006a47304402205791cb8ad65a8d0bf52607a7ad0beecfd375fd06dfef65294057ef4971a2897102203965a18de660076af05628dc28f866e549f34038687bceb84cbd2edeff7ccac201210342ac61183ba5169fba337d41749affe7957de441a7341b84f68b150961b4229bfeffffff0210270000000000001976a914c36b98b0349b0d7b633299d6ec8c29521b99329c88ac01b81100000000001976a914b19950ebf06d29e4b97f9f592c247fef536d71f188ac9c3c0c00
 		var utxosTextWithOutputIndices = "7fbbceeea88cebeff25137bcea4ae182547e306c213be4c7837e211c2004bfc7|0|";
 		var txOutputIndexToUse = [0];
 		var addressIndex = 0;
@@ -80,7 +80,7 @@
 			var txs = [];
 			var addressPaths = [];
 			for (var i = 0; i < txHashes.length; i++) {
-				var parsedTx = dash.splitTransaction(txHashes[i]);
+				var parsedTx = vpub.splitTransaction(txHashes[i]);
 				console.log("parsed tx " + i + ": %O", parsedTx);
 				if (!parsedTx.inputs || parsedTx.inputs.length === 0) {
 					$("#response").css("color", "red").text("Empty broken raw tx inputs, unable to continue");
@@ -90,13 +90,13 @@
 				console.log("address path: 44'/5'/0'/0/" + addressIndex);
 				addressPaths.push("44'/5'/0'/0/" + addressIndex);
 			}
-			var parsedRawtx = dash.splitTransaction(rawtx);
+			var parsedRawtx = vpub.splitTransaction(rawtx);
 			console.log("parsedRawtx: %O", parsedRawtx);
 			if (!parsedRawtx || parsedRawtx.outputs.length === 0) {
 				$("#response").css("color", "red").text("Empty broken raw tx outputs, unable to continue");
 				return;
 			}
-			var outputScript = dash.serializeTransactionOutputs(parsedRawtx).toString('hex');
+			var outputScript = vpub.serializeTransactionOutputs(parsedRawtx).toString('hex');
 			console.log("outputScript: %O", outputScript);
 			if (!outputScript) {
 				$("#response").css("color", "red").text("Empty broken raw tx output script, unable to continue");
@@ -104,7 +104,7 @@
 			}
 			// Sign on hardware (specifying the change address helps with getting rid of change output confirmation)
 			// Still requires 2 confirmation, first the external output address and then the transaction+fee
-			dash.createPaymentTransactionNew_async(txs, addressPaths, "44'/5'/0'/0/3", outputScript).then(
+			vpub.createPaymentTransactionNew_async(txs, addressPaths, "44'/5'/0'/0/3", outputScript).then(
 				function (signedTx) {
 					console.log("signed tx %O", signedTx);
 					/*TODO
@@ -112,7 +112,7 @@
 						function (finalTx) {
 							$("#response").css("color", "black")
 								.html("Successfully signed transaction and broadcasted it to the Vpub network now " +
-								"(you can see the transaction in a few minutes in any Vpub explorer): <a href='https://explorer.dash.org/tx/" + finalTx+"'>"+finalTx+"</a>");
+								"(you can see the transaction in a few minutes in any Vpub explorer): <a href='https://explorer.vpub.org/tx/" + finalTx+"'>"+finalTx+"</a>");
 						}).fail(function (jqxhr) {
 							$("#response").css("color", "red").text("Server Error: " + jqxhr.responseText);
 						});
@@ -125,11 +125,11 @@
 		});
 		/*TODO: integrate rest
 		//looks to be way too much work with js and the crappy libraries, maybe just create raw tx on server side and just send it back for
-		var tx1 = dash.splitTransaction(
+		var tx1 = vpub.splitTransaction(
 			"010000000278efa81dcfe3e7fd7b754f3c096b584ffe0c3313bd704b04daa66b7c95398734000000006a47304402202b8516407850998a20c70f1d7cf3cd423b089bf69338d3ef92509ad8ccb65521022055729869b70d04a7f9c57d599dd8806bae5c3b879a32bc2dbf8d4845f80913cc01210369680f9fc0b65ce54d531ac2a079a8dcae83e0e42ef9f8979f62dd8e31585f22feffffff6ee21a389f1670c1c4bc2a1adadcf7d855c4304e312e1380df41b658fd86b242000000006a47304402205791cb8ad65a8d0bf52607a7ad0beecfd375fd06dfef65294057ef4971a2897102203965a18de660076af05628dc28f866e549f34038687bceb84cbd2edeff7ccac201210342ac61183ba5169fba337d41749affe7957de441a7341b84f68b150961b4229bfeffffff0210270000000000001976a914c36b98b0349b0d7b633299d6ec8c29521b99329c88ac01b81100000000001976a914b19950ebf06d29e4b97f9f592c247fef536d71f188ac9c3c0c00"
 		);
 		console.log("input tx1 %O", tx1);
-		dash.displayTransactionDebug(tx1);
+		vpub.displayTransactionDebug(tx1);
 		//works, can see 10k duff=0.1mDASH amount in output 1 we wanna use
 
 		//looks to be much simpler:
@@ -146,12 +146,12 @@
 		//rawtx: 0100000001c7bf04201c217e83c7e43b216c307e5482e14aeabc3751f2efeb8ca8eecebb7f0000000000ffffffff0228230000000000001976a91488d9ce86369df69ee9fb0aa0f887c4297133bf1788ac84030000000000001976a914d3efcb09c5d3615d06d9438efe4af7d7d556880e88ac00000000
 		
 		//serialize it back to hex:
-		var rawtx = dash.splitTransaction("0100000001c7bf04201c217e83c7e43b216c307e5482e14aeabc3751f2efeb8ca8eecebb7f0000000000ffffffff0228230000000000001976a91488d9ce86369df69ee9fb0aa0f887c4297133bf1788ac84030000000000001976a914d3efcb09c5d3615d06d9438efe4af7d7d556880e88ac00000000");
+		var rawtx = vpub.splitTransaction("0100000001c7bf04201c217e83c7e43b216c307e5482e14aeabc3751f2efeb8ca8eecebb7f0000000000ffffffff0228230000000000001976a91488d9ce86369df69ee9fb0aa0f887c4297133bf1788ac84030000000000001976a914d3efcb09c5d3615d06d9438efe4af7d7d556880e88ac00000000");
 		console.log("rawtx %O", rawtx);
-		var outputScript = dash.serializeTransactionOutputs(rawtx).toString('hex');
+		var outputScript = vpub.serializeTransactionOutputs(rawtx).toString('hex');
 		console.log("rawtx hex " + outputScript);
 
-		dash.createPaymentTransactionNew_async(
+		vpub.createPaymentTransactionNew_async(
       [[tx1, 0]], // 1 is tx1 outputs that got into our addressindex
       ["44'/5'/0'/0/0"], // last 0 is addressindex for the tx1
 			"44'/5'/0'/0/3",//undefined, //path for changeaddress, optional, not needed, we could just use last
@@ -163,9 +163,9 @@
 				//worked, start signing with hardware
 				document.getElementById("response").innerHTML = result;
 				console.log("signed tx %O", result);
-				//yeah, fully works, we can push this into the dash node and the dash will be send :)
+				//yeah, fully works, we can push this into the vpub node and the vpub will be send :)
 				//note: if "66: insufficient priority (code -26)" happens when broadcasting this it means our fee is too low (usually 0), make sure we use at least the minimum fee (1000duffs):
-				//https://dash-docs.github.io/en/developer-guide#transaction-fees-and-change
+				//https://vpub-docs.github.io/en/developer-guide#transaction-fees-and-change
 				//0100000001c7bf04201c217e83c7e43b216c307e5482e14aeabc3751f2efeb8ca8eecebb7f000000006b483045022100ffccfcaa2f52b1a065113f1946619cf6c3149bb599bbd008a0aebd1b597bae0e02205f6ea6c627a626096a9dc0bf6bcceb3c7e75c8dd1e83bfcae288309eb97fa1c60121020e60c217c5ca3da285174e648556854f24e4383fc57ede54cab4d86240d2f77dffffffff0110270000000000001976a914d3efcb09c5d3615d06d9438efe4af7d7d556880e88ac00000000
 			}).catch(function (error) {
 				document.getElementById("response").innerHTML = getLedgerErrorText(error);

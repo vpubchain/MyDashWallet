@@ -79,9 +79,9 @@ var
 	// Make sure we trim BOM and NBSP
 	rtrim = /^[\s\uFEFF\xA0]+|[\s\uFEFF\xA0]+$/g,
 
-	// Matches dashed string for camelizing
+	// Matches vpubed string for camelizing
 	rmsPrefix = /^-ms-/,
-	rdashAlpha = /-([\da-z])/gi,
+	rvpubAlpha = /-([\da-z])/gi,
 
 	// Used by jQuery.camelCase as callback to replace()
 	fcamelCase = function( all, letter ) {
@@ -340,11 +340,11 @@ jQuery.extend( {
 		}
 	},
 
-	// Convert dashed to camelCase; used by the css and data modules
+	// Convert vpubed to camelCase; used by the css and data modules
 	// Support: IE9-11+
 	// Microsoft forgot to hump their vendor prefix (#9572)
 	camelCase: function( string ) {
-		return string.replace( rmsPrefix, "ms-" ).replace( rdashAlpha, fcamelCase );
+		return string.replace( rmsPrefix, "ms-" ).replace( rvpubAlpha, fcamelCase );
 	},
 
 	nodeName: function( elem, name ) {
@@ -3969,7 +3969,7 @@ jQuery.fn.extend( {
 				// with the key as-is
 				data = dataUser.get( elem, key ) ||
 
-					// Try to find dashed key if it exists (gh-2779)
+					// Try to find vpubed key if it exists (gh-2779)
 					// This is for 2.2.x only
 					dataUser.get( elem, key.replace( rmultiDash, "-$&" ).toLowerCase() );
 
@@ -4006,12 +4006,12 @@ jQuery.fn.extend( {
 				var data = dataUser.get( this, camelKey );
 
 				// For HTML5 data-* attribute interop, we have to
-				// store property names with dashes in a camelCase form.
+				// store property names with vpubes in a camelCase form.
 				// This might not apply to all properties...*
 				dataUser.set( this, camelKey, value );
 
 				// *... In the case of properties that might _actually_
-				// have dashes, we need to also store a copy of that
+				// have vpubes, we need to also store a copy of that
 				// unchanged property.
 				if ( key.indexOf( "-" ) > -1 && data !== undefined ) {
 					dataUser.set( this, key, value );

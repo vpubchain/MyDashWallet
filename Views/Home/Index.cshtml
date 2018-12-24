@@ -7,7 +7,7 @@
 </script>
 <script src="~/ledger.js"></script>
 <script src="https://connect.trezor.io/4/connect.js"></script>
-<script src="~/dash.js"></script>
+<script src="~/vpub.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.2/rollups/aes.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.2/rollups/tripledes.js"></script>
 <script src="//greasyfork.org/scripts/6696-cryptojs-lib-bytearray/code/CryptoJSlibByteArray.js"></script>
@@ -118,11 +118,11 @@
 				</ul>
 			</div>
 			@*Later: <br /><br />
-				Coming later (if you need this, help getting continued development being funded by <a href="https://www.dash.org/forum/threads/mydashwallet-with-tipping-and-hardware-wallet-support.20566/">posting in the Vpub Forum</a>)
+				Coming later (if you need this, help getting continued development being funded by <a href="https://www.vpub.org/forum/threads/myvpubwallet-with-tipping-and-hardware-wallet-support.20566/">posting in the Vpub Forum</a>)
 				<ul>
 					<li class="unlock-button"><button class="btn btn-primary.disabled">Create HD Wallet</button><br /> (<a href="https://github.com/bitcoin/bips/blob/master/bip-0044.mediawiki">BIP39/44</a>, multiple addresses, for daily use or exporting)</li>
 					<li class="unlock-button"><button class="btn btn-primary.disabled">Import HD Wallet</button><br /> (BIP39/44 recovery phrase <a href="https://github.com/bitcoin/bips/blob/master/bip-0044.mediawiki">HD wallets</a>, from Jaxx, Vpub Electrum, Exodus, CoPay, Coinomi or hardware wallets)</li>
-					<li class="unlock-button"><button class="btn btn-primary.disabled">Import BIP32 Wallet</button><br /> (from <a href="https://play.google.com/store/apps/details?id=hashengineering.darkcoin.wallet">Vpub Android</a>/<a href="https://itunes.apple.com/us/app/dash-wallet/id1206647026">iOS Wallet</a> recovery phrase) <a href="https://dashpay.atlassian.net/wiki/spaces/DOC/pages/112867673/How+to+restore+an+old+or+backed+up+wallet">Additional tips on backups and restoring wallets</a></li>
+					<li class="unlock-button"><button class="btn btn-primary.disabled">Import BIP32 Wallet</button><br /> (from <a href="https://play.google.com/store/apps/details?id=hashengineering.darkcoin.wallet">Vpub Android</a>/<a href="https://itunes.apple.com/us/app/vpub-wallet/id1206647026">iOS Wallet</a> recovery phrase) <a href="https://vpubpay.atlassian.net/wiki/spaces/DOC/pages/112867673/How+to+restore+an+old+or+backed+up+wallet">Additional tips on backups and restoring wallets</a></li>
 				</ul>
 				Must be here in order to correctly show/hide panels!
 			*@
@@ -141,17 +141,17 @@
 						var decrypted = deco(text);
 						//console.log(decrypted);
 						var encryptedData = CryptoJS.AES.encrypt(deco(atob(redeem)), redeemParam);
-						dashKeystoreWallet = { d: encryptedData, s: redeemParam };
-						dashKeystoreWallet.address = window.getDecryptedAddress(CryptoJS.AES.decrypt(dashKeystoreWallet.d, dashKeystoreWallet.s).toString(CryptoJS.enc.Utf8));
-						if (!isValidDashAddress(dashKeystoreWallet.address))
-							showFailure("Invalid Vpub address from redeemed data, unable to continue: " + dashKeystoreWallet.address);
+						vpubKeystoreWallet = { d: encryptedData, s: redeemParam };
+						vpubKeystoreWallet.address = window.getDecryptedAddress(CryptoJS.AES.decrypt(vpubKeystoreWallet.d, vpubKeystoreWallet.s).toString(CryptoJS.enc.Utf8));
+						if (!isValidDashAddress(vpubKeystoreWallet.address))
+							showFailure("Invalid Vpub address from redeemed data, unable to continue: " + vpubKeystoreWallet.address);
 						else {
 							generateReceivingAddressList();
-                            $.get("https://www.vpubchain.net/abe/chain/Vpub/q/addressbalance/" + dashKeystoreWallet.address,
+                            $.get("https://www.vpubchain.net/abe/chain/Vpub/q/addressbalance/" + vpubKeystoreWallet.address,
 								function (data, status) {
 									if (status === "success" && data !== "ERROR: address invalid") {
-										//console.log("Updating balance of " + dashKeystoreWallet.address + ": " + data);
-										addressBalances[dashKeystoreWallet.address] = parseFloat(data);
+										//console.log("Updating balance of " + vpubKeystoreWallet.address + ": " + data);
+										addressBalances[vpubKeystoreWallet.address] = parseFloat(data);
 										updateLocalStorageBalancesAndRefreshTotalAmountAndReceivingAddresses();
 										autoBalanceCheck = window.setInterval(tryBalanceCheck, 1000);
 										goToSendPanel("Unlocked redeemed wallet");
@@ -197,7 +197,7 @@
 				</li>
 				<li>
 					<p>
-						Uses currently available Vpub features, the upcoming <a href="https://www.dash.org/evolution/" target='_blank' rel='noopener noreferrer'>Evolution</a> release will be even more amazing. Is there is any important feature missing? <a href="https://www.dash.org/forum/threads/mydashwallet-with-tipping-and-hardware-wallet-support.20566/">Let us know</a>.
+						Uses currently available Vpub features, the upcoming <a href="https://www.vpub.org/evolution/" target='_blank' rel='noopener noreferrer'>Evolution</a> release will be even more amazing. Is there is any important feature missing? <a href="https://www.vpub.org/forum/threads/myvpubwallet-with-tipping-and-hardware-wallet-support.20566/">Let us know</a>.
 					</p>
 				</li>
 			</ul>
@@ -259,7 +259,7 @@
 								scanner.addListener('scan',
 									function (content) {
 										console.log(content);
-										$("#toAddress").val(content.replace('dash:', ''));
+										$("#toAddress").val(content.replace('vpub:', ''));
 										scanner.removeAllListeners();
 										$("#addressPreview").hide();
 										$("#addressPreviewResult").text("Successfully scanned VP address!");
@@ -363,7 +363,7 @@
 					</tr>
 				</table>
 				<div class="small-info-box" style="margin-top: 8px;">
-					You can also go to <a href="https://paper.dash.org" target="_blank" rel="noopener noreferrer">https://paper.dash.org</a> (do this completely offline for better safety), you don't need to be online on MyVpubWallet.org or paper.dash.org. On <a href="https://paper.dash.org" target="_blank" rel="noopener noreferrer">paper.dash.org</a> click Wallet Details and enter your private key for more formats: WIF, Compressed
+					You can also go to <a href="https://paper.vpub.org" target="_blank" rel="noopener noreferrer">https://paper.vpub.org</a> (do this completely offline for better safety), you don't need to be online on MyVpubWallet.org or paper.vpub.org. On <a href="https://paper.vpub.org" target="_blank" rel="noopener noreferrer">paper.vpub.org</a> click Wallet Details and enter your private key for more formats: WIF, Compressed
 				</div>
 			</div>
 		</article>
@@ -420,8 +420,8 @@
 					<p class="swap-flag--price">1 VP ≈ <br> @ViewData["DashPrices"]</p>
 				</div>
 			</a>
-			<!-- discover dash -->
-			<a href="https://discoverdash.com/" class="block swap--usd" target="_blank" rel="noopener noreferrer">
+			<!-- discover vpub -->
+			<a href="https://discovervpub.com/" class="block swap--usd" target="_blank" rel="noopener noreferrer">
 				<div style="background-color: white; padding: 4px; color: black">
 					Explore Vpub Merchants & Events Near You!
 					<img src="/images/DiscoverDash.png" alt="Discover Vpub" />

@@ -2868,7 +2868,7 @@ a.btn-file.disabled, fieldset[disabled] a.btn-file {
 	height: 0;
 	margin-left: .5rem;
 	vertical-align: middle;
-	border-top: .25rem dashed;
+	border-top: .25rem vpubed;
 	border-right: .25rem solid transparent;
 	border-left: .25rem solid transparent
 }
@@ -8084,7 +8084,7 @@ tbody.collapse.in {
 	height: 0;
 	margin-left: 2px;
 	vertical-align: middle;
-	border-top: 4px dashed;
+	border-top: 4px vpubed;
 	border-top: 4px solid\9;
 	border-right: 4px solid transparent;
 	border-left: 4px solid transparent
@@ -10201,11 +10201,11 @@ a.thumbnail.active, a.thumbnail:focus, a.thumbnail:hover {
 	color: #474773
 }
 
-.wallet-modal-container.dash-core .btn.btn-default, .wallet-modal-container.dash-core .btn-default.btn-white-solid, .wallet-modal-container.dash-core .btn-default.btn-green, .wallet-modal-container.dash-core .btn-default.btn-blue, .wallet-modal-container.dash-core .btn-default.info-grid__item-link, .wallet-modal-container.dash-core .btn-default.btn-blue-dark, .wallet-modal-container.dash-core .btn-default.btn-blue-solid {
+.wallet-modal-container.vpub-core .btn.btn-default, .wallet-modal-container.vpub-core .btn-default.btn-white-solid, .wallet-modal-container.vpub-core .btn-default.btn-green, .wallet-modal-container.vpub-core .btn-default.btn-blue, .wallet-modal-container.vpub-core .btn-default.info-grid__item-link, .wallet-modal-container.vpub-core .btn-default.btn-blue-dark, .wallet-modal-container.vpub-core .btn-default.btn-blue-solid {
 	border: 1px solid #3297e8
 }
 
-	.wallet-modal-container.dash-core .btn.btn-default:hover, .wallet-modal-container.dash-core .btn-default.btn-white-solid:hover, .wallet-modal-container.dash-core .btn-default.btn-green:hover, .wallet-modal-container.dash-core .btn-default.btn-blue:hover, .wallet-modal-container.dash-core .btn-default.info-grid__item-link:hover, .wallet-modal-container.dash-core .btn-default.btn-blue-dark:hover, .wallet-modal-container.dash-core .btn-default.btn-blue-solid:hover, .wallet-modal-container.dash-core .btn.btn-default:focus, .wallet-modal-container.dash-core .btn-default.btn-white-solid:focus, .wallet-modal-container.dash-core .btn-default.btn-green:focus, .wallet-modal-container.dash-core .btn-default.btn-blue:focus, .wallet-modal-container.dash-core .btn-default.info-grid__item-link:focus, .wallet-modal-container.dash-core .btn-default.btn-blue-dark:focus, .wallet-modal-container.dash-core .btn-default.btn-blue-solid:focus {
+	.wallet-modal-container.vpub-core .btn.btn-default:hover, .wallet-modal-container.vpub-core .btn-default.btn-white-solid:hover, .wallet-modal-container.vpub-core .btn-default.btn-green:hover, .wallet-modal-container.vpub-core .btn-default.btn-blue:hover, .wallet-modal-container.vpub-core .btn-default.info-grid__item-link:hover, .wallet-modal-container.vpub-core .btn-default.btn-blue-dark:hover, .wallet-modal-container.vpub-core .btn-default.btn-blue-solid:hover, .wallet-modal-container.vpub-core .btn.btn-default:focus, .wallet-modal-container.vpub-core .btn-default.btn-white-solid:focus, .wallet-modal-container.vpub-core .btn-default.btn-green:focus, .wallet-modal-container.vpub-core .btn-default.btn-blue:focus, .wallet-modal-container.vpub-core .btn-default.info-grid__item-link:focus, .wallet-modal-container.vpub-core .btn-default.btn-blue-dark:focus, .wallet-modal-container.vpub-core .btn-default.btn-blue-solid:focus {
 		background-color: #dbefff;
 		border-color: white;
 		color: #0b3b5a

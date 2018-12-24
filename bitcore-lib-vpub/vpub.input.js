@@ -1,4 +1,4 @@
-var bitcore = require('bitcore-lib-dash');
+var bitcore = require('bitcore-lib-vpub');
 window.generatePrivateKey = function() {
 	return new bitcore.PrivateKey().toString();
 }

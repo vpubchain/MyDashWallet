@@ -26,10 +26,10 @@ namespace BitcoinLib.Services.Coins.Vpub
 		/// Adds InstantSend and PrivateSend to SendToAddress from our wallet.
 		/// </summary>
 		/// <inheritdoc />
-		public string SendToAddress(string dashAddress, decimal amount, string comment = null,
+		public string SendToAddress(string vpubAddress, decimal amount, string comment = null,
 			string commentTo = null, bool subtractFeeFromAmount = false, bool useInstantSend = false,
 			bool usePrivateSend = false)
-			=> _rpcConnector.MakeRequest<string>(RpcMethods.sendtoaddress, dashAddress, amount,
+			=> _rpcConnector.MakeRequest<string>(RpcMethods.sendtoaddress, vpubAddress, amount,
 				comment, commentTo, subtractFeeFromAmount, useInstantSend, usePrivateSend);
 
 		/// <summary>

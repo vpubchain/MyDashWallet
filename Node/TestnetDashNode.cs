@@ -7,7 +7,7 @@ using BitcoinLib.Services.Coins.Vpub;
 namespace MyVpubWallet.Node
 {
 	/// <summary>
-	/// Basic integration into RPC dash testnet node without advanced features, easier for testing.
+	/// Basic integration into RPC vpub testnet node without advanced features, easier for testing.
 	/// </summary>
 	public class TestnetDashNode : DashNode
 	{

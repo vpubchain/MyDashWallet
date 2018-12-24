@@ -44,8 +44,8 @@
 		var address = $("#address").val();
 		window.history.pushState('Address', 'VP Address '+address, '/Address?'+address);
         $("#link1").attr("href", "https://www.vpubchain.net/abe/address/" + address);
-		$("#link2").attr("href", "https://live.blockcypher.com/dash/address/" + address);
-		$("#link3").attr("href", "https://chainz.cryptoid.info/dash/address.dws?" + address);
+		$("#link2").attr("href", "https://live.blockcypher.com/vpub/address/" + address);
+		$("#link3").attr("href", "https://chainz.cryptoid.info/vpub/address.dws?" + address);
 	}
 	function copyToClipboard(element) {
 		var $temp = $("<input>");
@@ -67,7 +67,7 @@
 		Unlike <a href="/">Unlock Wallet</a> you won't need to access your hardware wallet or stored private key here. As long as you know your (or any other) address, you can always check whats going on via <a href="//www.vpubchain.net/abe/chain/Vpub">www.vpubchain.net/abe/chain/Vpub</a>. If your unlocked your wallet before your last used wallet address is shown here automatically, but you can enter any other address just as well.<br />
 		<br />
 		Enter Wallet Address to check; it looks like this: <span style="font-style: italic">XoASepVfo1cegWp52HS9gbcKuarLyqxsKT</span>
-		<input id="address" name="address" class="form-control is-invalid" placeholder="VP Wallet address to check" aria-label="Enter a dash address" oninput="updateAddressLinks()" onkeyup="checkAddressOnEnter(event)">
+		<input id="address" name="address" class="form-control is-invalid" placeholder="VP Wallet address to check" aria-label="Enter a vpub address" oninput="updateAddressLinks()" onkeyup="checkAddressOnEnter(event)">
 		<ul class="account-info">
 			<li>
 				<a id="link1" class="btn btn-primary" href="https://www.vpubchain.net/abe/address/XoASepVfo1cegWp52HS9gbcKuarLyqxsKT" target="_blank" rel="noopener noreferrer">
@@ -75,12 +75,12 @@
 				</a>
 			</li>
 			@*<li>
-				<a id="link2" href="https://live.blockcypher.com/dash/address/XoASepVfo1cegWp52HS9gbcKuarLyqxsKT/" target="_blank" rel="noopener noreferrer" class="btn btn-primary">
+				<a id="link2" href="https://live.blockcypher.com/vpub/address/XoASepVfo1cegWp52HS9gbcKuarLyqxsKT/" target="_blank" rel="noopener noreferrer" class="btn btn-primary">
 					Use Blockcypher.com
 				</a>
 			</li>
 			<li>
-				<a id="link3" href="https://chainz.cryptoid.info/dash/address.dws?XoASepVfo1cegWp52HS9gbcKuarLyqxsKT" target="_blank" rel="noopener noreferrer" class="btn btn-primary">
+				<a id="link3" href="https://chainz.cryptoid.info/vpub/address.dws?XoASepVfo1cegWp52HS9gbcKuarLyqxsKT" target="_blank" rel="noopener noreferrer" class="btn btn-primary">
 					Use CryptoId.info
 				</a>
 			</li>*@

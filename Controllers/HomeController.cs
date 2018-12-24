@@ -33,8 +33,8 @@ namespace MyVpubWallet.Controllers
 			ViewData["MilliDashPrices"] = "$" + (ticker.price_usd / 1000.0m).ToString("#0.00") +
 				" = €" + (ticker.price_eur / 1000.0m).ToString("#0.00");
 			UpdateCachedMixingPoolAmounts();
-			ViewData["DashMixingPoolAmount"] = dashMixingPoolAmount.ToString("#0.#");
-			ViewData["DashMixingPoolPremixed"] = dashMixingPoolPremixed.ToString("#0.#");
+			ViewData["DashMixingPoolAmount"] = vpubMixingPoolAmount.ToString("#0.#");
+			ViewData["DashMixingPoolPremixed"] = vpubMixingPoolPremixed.ToString("#0.#");
 		}
 
 		private void UpdateCachedMixingPoolAmounts()
@@ -42,15 +42,15 @@ namespace MyVpubWallet.Controllers
 			if (DateTime.UtcNow.AddMinutes(-5) < lastTimeCheckedDashMixingPool)
 				return;
 			lastTimeCheckedDashMixingPool = DateTime.UtcNow;
-			dashMixingPoolAmount = 0m;
-			dashMixingPoolPremixed = 0m;
+			vpubMixingPoolAmount = 0m;
+			vpubMixingPoolPremixed = 0m;
 			try
 			{
 				foreach (var output in node.GetUnspentDashOutputs())
 				{
-					dashMixingPoolAmount += output.Amount * 1000m;
+					vpubMixingPoolAmount += output.Amount * 1000m;
 					if (output.Ps_Rounds >= 2)
-						dashMixingPoolPremixed += output.Amount * 1000m;
+						vpubMixingPoolPremixed += output.Amount * 1000m;
 				}
 			}
 			catch
@@ -60,8 +60,8 @@ namespace MyVpubWallet.Controllers
 		}
 
 		private DateTime lastTimeCheckedDashMixingPool;
-		private decimal dashMixingPoolAmount;
-		private decimal dashMixingPoolPremixed;
+		private decimal vpubMixingPoolAmount;
+		private decimal vpubMixingPoolPremixed;
 
 		public async Task<IActionResult> Swap()
 		{

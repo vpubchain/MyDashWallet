@@ -44,10 +44,10 @@ namespace SocialCryptoBots
 			case "euro":
 			case "eur":
 			case "€": return Currency.EUR;
-			case "dash":
-			case "mdash":
-			case "µdash":
-			case "udash":
+			case "vpub":
+			case "mvpub":
+			case "µvpub":
+			case "uvpub":
 			case "duffs":
 			case "duff": return Currency.mVP;
 			case "bitcoin":
@@ -107,7 +107,7 @@ namespace SocialCryptoBots
 				// https://trello.com/c/bSJxGfZo/30-segwit-addresses#comment-59c4d089bb7f659d59f6b8d6
 				return targetAddress.Length <= BitcoinExampleAddress.Length || targetAddress.StartsWith("bc");
 			case Currency.mVP:
-				//https://www.dash.org/forum/threads/how-do-you-recieve-dash-coins-from-a-cryptonote-dashcoin-wallet-f21c4c6.8924/
+				//https://www.vpub.org/forum/threads/how-do-you-recieve-vpub-coins-from-a-cryptonote-vpubcoin-wallet-f21c4c6.8924/
 				return targetAddress.Length <= DashExampleAddress.Length &&
 					(targetAddress.ToLower().StartsWith("x") ||
 					allowTestnetAddresses && targetAddress.ToLower().StartsWith("y"));
@@ -162,7 +162,7 @@ namespace SocialCryptoBots
 		/// <summary>
 		/// Different queue wait times make sense for different coins as the block generation is very
 		/// different, e.g. litecoin is 4 times faster (2.5minutes) than bitcoin (10 minutes),
-		/// dash is 5 times faster (2 minutes), eth is superfast (10-15 seconds) and with Bitcoin Cash
+		/// vpub is 5 times faster (2 minutes), eth is superfast (10-15 seconds) and with Bitcoin Cash
 		/// it is very hard to say, currently at 2-10h, will probably go to 10-20 minutes after a while.
 		/// Also the more withdrawals we queue up the cheaper it gets for us fee-wise, so minimum is 3.
 		/// </summary>
@@ -289,7 +289,7 @@ namespace SocialCryptoBots
 			case Currency.mBCH:
 				return "bitcoin-cash";
 			case Currency.mVP:
-				return "dash";
+				return "vpub";
 			case Currency.COLX:
 				return "colossuscoinxt";
 			}

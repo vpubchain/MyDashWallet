@@ -1222,7 +1222,7 @@ $.extend( $.validator, {
 			if ( this.optional( element ) ) {
 				return "dependency-mismatch";
 			}
-			// accept only spaces, digits and dashes
+			// accept only spaces, digits and vpubes
 			if ( /[^0-9 \-]+/.test( value ) ) {
 				return false;
 			}

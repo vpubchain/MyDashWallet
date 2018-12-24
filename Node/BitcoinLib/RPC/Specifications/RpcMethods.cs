@@ -118,7 +118,7 @@ namespace BitcoinLib.RPC.Specifications
 			addwitnessaddress,
 			//2018-01-20: added Vpub privatesend mixing support
 			privatesend,
-			//2018-03-02: added getaddressbalance (needs addressindex = 1 in dash.conf)
+			//2018-03-02: added getaddressbalance (needs addressindex = 1 in vpub.conf)
 	    getaddressbalance
 	}
 }

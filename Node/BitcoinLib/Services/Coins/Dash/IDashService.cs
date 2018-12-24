@@ -8,7 +8,7 @@ namespace BitcoinLib.Services.Coins.Vpub
         /// <summary>
         ///     Send an amount to a given address.
         /// </summary>
-        /// <param name="dashAddress">The dash address to send to.</param>
+        /// <param name="vpubAddress">The vpub address to send to.</param>
         /// <param name="amount">The amount in VP to send. eg 0.1.</param>
         /// <param name="comment">
         ///     A comment used to store what the transaction is for. This is not part of the transaction,
@@ -25,7 +25,7 @@ namespace BitcoinLib.Services.Coins.Vpub
         /// <param name="useInstantSend">Send this transaction as InstantSend.</param>
         /// <param name="usePrivateSend">Use anonymized funds only.</param>
         /// <returns>The transaction id.</returns>
-        string SendToAddress(string dashAddress, decimal amount, string comment = null,
+        string SendToAddress(string vpubAddress, decimal amount, string comment = null,
             string commentTo = null, bool subtractFeeFromAmount = false, bool useInstantSend = false,
             bool usePrivateSend = false);
     }

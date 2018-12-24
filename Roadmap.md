@@ -25,7 +25,7 @@ Roadmap for MyVpubWallet
 **In-Progress: June 2018: Website update, Languages, Bots with tons of new features, unconfirmed amounts support**
 - Easier tipping without having to wait for confirmations, Trustless Tipping to directly send from hardware wallet to the recipient, merging social accounts with existing hardware or MyVpubWallet keystore wallets
 - Bot Improvements for Twitter, Reddit and most importantly Discord (the bot also runs of Telegram and email, but we mostly focus on the 3 active platforms): Improvements to tipping, rain and other existing commands, adding mini games and community focused features like: Dice Betting Games, Lottery, Voting, CoinFlip, Russian Roulette, Contests
-- MyVpubWallet has its own block explorer now and we can finally support unconfirmed amounts, also we don't have to wait for tx or addresses to appear anymore as our block explorer can directly show the latest state: https://mydashwallet.org:3001/insight/
+- MyVpubWallet has its own block explorer now and we can finally support unconfirmed amounts, also we don't have to wait for tx or addresses to appear anymore as our block explorer can directly show the latest state: https://myvpubwallet.org:3001/insight/
 
 **In-Progress: July 2018:**
 - Translations to all major languages (English, Spanish, French, German, Portuguese, Italian, maybe Chinese, Korean, Russian and others if we find good cheap translators)
@@ -37,4 +37,4 @@ Roadmap for MyVpubWallet
 - Swapping Vpub for other coins like BTC, BCH, ETH or LTC, we have a partner providing us with low fees (much lower than Shapeshift or Changelly) and can provide a much better and easier way to exchange any supported coin to and from Vpub
 - InstantSend Block Explorer support, so you see right away that InstantSend tx have 6 confirmations
 
-More details: https://www.dash.org/forum/threads/mydashwallet-with-tipping-and-hardware-wallet-support.20566/
+More details: https://www.vpub.org/forum/threads/myvpubwallet-with-tipping-and-hardware-wallet-support.20566/

@@ -124,7 +124,7 @@ namespace MyVpubWallet.Node
 		/// <summary>
 		/// Same code as in index.js getPrivateSendNumberOfInputsBasedOnAmount
 		/// Amounts are: 10mDASH, 100mDASH, 1 VP, 10 VP
-		/// https://dashpay.atlassian.net/wiki/spaces/DOC/pages/1146924/PrivateSend
+		/// https://vpubpay.atlassian.net/wiki/spaces/DOC/pages/1146924/PrivateSend
 		/// </summary>
 		private static int GetPrivateSendNumberOfInputsBasedOnAmount(decimal amountToSend)
 		{

@@ -2840,7 +2840,7 @@ LedgerBtc.prototype.getWalletPublicKey_async = function(path) {
 		var result = {};
 		//publicKey is needed internally to build inputs for raw tx
 		result['publicKey'] = response.slice(1, 1 + publicKeyLength).toString('hex');
-		//we care mostly about the dash address
+		//we care mostly about the vpub address
 		result['bitcoinAddress'] = response.slice(1 + publicKeyLength + 1, 1 + publicKeyLength + 1 + addressLength).toString('ascii');
 		result['chainCode'] = response.slice(1 + publicKeyLength + 1 + addressLength, 1 + publicKeyLength + 1 + addressLength + 32).toString('hex');
 		return result;
