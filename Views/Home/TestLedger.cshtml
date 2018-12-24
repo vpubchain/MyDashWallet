@@ -8,7 +8,7 @@
 <script>
 	var dash;
 	function ledgerGetAddress() {
-		$("#response").css("color", "black").text("Initializing Ledger Hardware Wallet .. make sure it is unlocked, in the DASH app and your browser settings are enabled!");
+		$("#response").css("color", "black").text("Initializing Ledger Hardware Wallet .. make sure it is unlocked, in the VP app and your browser settings are enabled!");
 		ledger.comm_u2f.create_async().then(function (comm) {
 			dash = new ledger.btc(comm);
 			dash.getWalletPublicKey_async("44'/5'/0'/0/0").then(
@@ -187,7 +187,7 @@
 	}
 </script>
 
-<button onclick="ledgerGetAddress()" style="display: inline-block;">Get Ledger DASH Address</button>
+<button onclick="ledgerGetAddress()" style="display: inline-block;">Get Ledger VP Address</button>
 <pre id="response"></pre>
 
 <button onclick="ledgerGenerateTransaction()" style="display: inline-block;">Generate Transaction to sign on Ledger</button>

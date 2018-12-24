@@ -81,7 +81,7 @@
 					<li class="unlock-button" id="privateKeyInputPanel" style="display: none">
 						<button onclick="enableQrScanPrivateKey()" class="btn btn-primary">Enable QR Code Scanner</button>
 						<video id="preview" style="display: none"></video><br />
-						<span id="previewResult" style="display: none">QR Code Scanner ready, please scan a DASH private key!</span>
+						<span id="previewResult" style="display: none">QR Code Scanner ready, please scan a VP private key!</span>
 						<script type="text/javascript">
 							function enableQrScanPrivateKey() {
 								$("#preview").show();
@@ -93,7 +93,7 @@
 										$("#privateKeyInput").val(content);
 										scanner.removeAllListeners();
 										$("#preview").hide();
-										$("#previewResult").text("Successfully scanned DASH private key!");
+										$("#previewResult").text("Successfully scanned VP private key!");
 									});
 								Instascan.Camera.getCameras().then(function (cameras) {
 									if (cameras.length > 0) {
@@ -182,7 +182,7 @@
 				</li>
 				<li>
 					<p>
-						You can use this website offline, only for sending DASH you need to communicate with the blockchain!
+						You can use this website offline, only for sending VP you need to communicate with the blockchain!
 					</p>
 				</li>
 				<li>
@@ -217,16 +217,16 @@
                     <div class="input-group">
                         <input type="number" min="0" step="0.01" class="form-control ng-pristine ng-untouched ng-valid ng-empty is-invalid" placeholder="Amount" id="amount" oninput="updateAmountInfo()" ng-model="tx.value" ng-disabled="tx.readOnly || checkTxReadOnly" ng-class="Validator.isPositiveNumber(tx.value) ? 'is-valid' : 'is-invalid'">
                         <div class="dropdown input-group-btn">
-                            <button id="selectCurrency" style="min-width: 100px" class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span id="selectedSendCurrency">mDASH</span> <i class="caret"></i></button>
+                            <button id="selectCurrency" style="min-width: 100px" class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span id="selectedSendCurrency">mVP</span> <i class="caret"></i></button>
                             <div class="dropdown-menu" aria-labelledby="selectCurrency">
-                                <a class="dropdown-item" onclick="setSendCurrency('mDASH')">mDASH</a>
-                                <a class='dropdown-item' onclick="setSendCurrency('DASH')">DASH</a>
+                                <a class="dropdown-item" onclick="setSendCurrency('mVP')">mVP</a>
+                                <a class='dropdown-item' onclick="setSendCurrency('VP')">VP</a>
                                 <a class="dropdown-item" onclick="setSendCurrency('USD')">USD</a>
                                 <a class="dropdown-item" onclick="setSendCurrency('EUR')">EUR</a>
                             </div>
                         </div>
                     </div>
-                    @*<div id="amount-info-box">1 mDASH = 0.001 mDASH = @ViewData["MilliDashPrices"] (1 DASH = @ViewData["BtcRate"] BTC)</div>*@
+                    @*<div id="amount-info-box">1 mVP = 0.001 mVP = @ViewData["MilliDashPrices"] (1 VP = @ViewData["BtcRate"] BTC)</div>*@
                     <div id="amount-info-box"></div>
                 </div>
 			</section>
@@ -250,7 +250,7 @@
 						<input class="form-control is-invalid" style="margin-top: 1px" type="text" id="toAddress" oninput="updateAmountInfo()" placeholder="XoASepVfo1cegWp52HS9gbcKuarLyqxsKT">
 						<button onclick="enableQrScanAddress()" class="btn btn-primary">Scan QR Code Address</button>
 						<video id="addressPreview" style="display: none"></video><br />
-						<span id="addressPreviewResult" style="display: none">QR Code Scanner ready, please scan a DASH address!</span><br />
+						<span id="addressPreviewResult" style="display: none">QR Code Scanner ready, please scan a VP address!</span><br />
 						<script type="text/javascript">
 							function enableQrScanAddress() {
 								$("#addressPreview").show();
@@ -262,7 +262,7 @@
 										$("#toAddress").val(content.replace('dash:', ''));
 										scanner.removeAllListeners();
 										$("#addressPreview").hide();
-										$("#addressPreviewResult").text("Successfully scanned DASH address!");
+										$("#addressPreviewResult").text("Successfully scanned VP address!");
 									});
 								Instascan.Camera.getCameras().then(function (cameras) {
 									if (cameras.length > 0) {
@@ -316,11 +316,11 @@
 			</div>
 
 			<!-- Advanced Options: InstantSend and PrivateSend -->
-			<label><input type="checkbox" id="useInstantSend" value="false" onclick="updateTxFee(0)"> InstantSend: Confirms within 1-2 seconds, tx fee = 0.1 mDASH</label> <a href="/AboutInstantSend" target="_blank">About</a><br />
-			<label><input type="checkbox" id="usePrivateSend" value="false" onclick="updateTxFee(0)"> PrivateSend: Makes transaction untraceable, tx fee = 0.25+ mDASH</label> <a href="/AboutPrivateSend" target="_blank">About</a><br />
+			<label><input type="checkbox" id="useInstantSend" value="false" onclick="updateTxFee(0)"> InstantSend: Confirms within 1-2 seconds, tx fee = 0.1 mVP</label> <a href="/AboutInstantSend" target="_blank">About</a><br />
+			<label><input type="checkbox" id="usePrivateSend" value="false" onclick="updateTxFee(0)"> PrivateSend: Makes transaction untraceable, tx fee = 0.25+ mVP</label> <a href="/AboutPrivateSend" target="_blank">About</a><br />
 
 			<div class="small-info-box">
-				Transaction cost: <span id="txFeeMDash">0.00226</span> mDASH ($<span id="txFeeUsd">0.0017</span>) <span id="extraTxNotes"></span><a href="/AboutTransactionFees" target="_blank">About</a>
+				Transaction cost: <span id="txFeeMDash">0.00226</span> mVP ($<span id="txFeeUsd">0.0017</span>) <span id="extraTxNotes"></span><a href="/AboutTransactionFees" target="_blank">About</a>
 			</div>
 
 			@*send raw tx: https://github.com/LedgerHQ/ledger-node-js-api*@
@@ -377,9 +377,9 @@
 				</h5>
 				<ul class="account-info point">
                     <li onclick="setTotalAmountToSend()" title="Click to set as amount to send">
-                        <b><span id="totalAmountDash" class="mono wrap">0.0</span></b> DASH
+                        <b><span id="totalAmountDash" class="mono wrap">0.0</span></b> VP
                         <br />
-                        = <b><span id="totalAmountMDash" class="mono wrap">0.00</span></b> mDASH
+                        = <b><span id="totalAmountMDash" class="mono wrap">0.00</span></b> mVP
                         @*<br />
         = <b>$<span id="totalamountusd" class="mono wrap">0.00</span></b> usd
         <br />
@@ -393,12 +393,12 @@
 						<a href="https://www.vpubchain.net/abe/address/" target="_blank" rel="noopener noreferrer">
 							<img src="/images/QrCodeWhenUnlocked.png" title="Your freshest Dash Address should be used for receiving Dash, you will get a new one once this has been used!" /><br />
 						</a>
-						<div class="address-amount">0 mDASH</div>
+						<div class="address-amount">0 mVP</div>
 					</li>
 				</ul>
 			</div>
 			<!-- Hardware Wallets -->
-			<a href="/AboutHardwareWallets" ng-show="slide==1 || ajaxReq.type!=='DASH'" class="block swap--hw ng-hide" target="_blank" rel="noopener noreferrer" id="hardware-wallets-panel">
+			<a href="/AboutHardwareWallets" ng-show="slide==1 || ajaxReq.type!=='VP'" class="block swap--hw ng-hide" target="_blank" rel="noopener noreferrer" id="hardware-wallets-panel">
 				<div class="col-sm-7">
 					<h6 class="swap__cta ng-hide" ng-show="wallet.balance<=1">Learn more about protecting your funds.</h6>
 					<p>Are you as secure as you can be?</p>
@@ -410,14 +410,14 @@
 				</div>
 			</a>
 			<!-- uphold -->
-			<a href="https://uphold.com/" ng-show="ajaxReq.type=='DASH' &amp;&amp; slide==2" class="block swap--usd" target="_blank" rel="noopener noreferrer">
+			<a href="https://uphold.com/" ng-show="ajaxReq.type=='VP' &amp;&amp; slide==2" class="block swap--usd" target="_blank" rel="noopener noreferrer">
 				<div class="col-sm-8">
-					<p class="swap__subhead ng-hide" ng-show="wallet.balance<=0">Need a fast and quick way to get some DASH?</p>
-					<h6 class="swap__cta">Easily Buy DASH with USD or EUR</h6>
+					<p class="swap__subhead ng-hide" ng-show="wallet.balance<=0">Need a fast and quick way to get some VP?</p>
+					<h6 class="swap__cta">Easily Buy VP with USD or EUR</h6>
 				</div>
 				<div class="col-sm-5">
 					<img src="https://uphold.com/release/images/logo@1x.2562c7e4.png" width="106" height="auto" class="swap__logo">
-					<p class="swap-flag--price">1 DASH ≈ <br> @ViewData["DashPrices"]</p>
+					<p class="swap-flag--price">1 VP ≈ <br> @ViewData["DashPrices"]</p>
 				</div>
 			</a>
 			<!-- discover dash -->

@@ -123,7 +123,7 @@ namespace MyDashWallet.Node
 
 		/// <summary>
 		/// Same code as in index.js getPrivateSendNumberOfInputsBasedOnAmount
-		/// Amounts are: 10mDASH, 100mDASH, 1 DASH, 10 DASH
+		/// Amounts are: 10mDASH, 100mDASH, 1 VP, 10 VP
 		/// https://dashpay.atlassian.net/wiki/spaces/DOC/pages/1146924/PrivateSend
 		/// </summary>
 		private static int GetPrivateSendNumberOfInputsBasedOnAmount(decimal amountToSend)
@@ -154,7 +154,7 @@ namespace MyDashWallet.Node
 		{
 			public TxFeeIsWrongForPrivateSend(decimal privateSendActualFee, decimal privateSendNeededFee)
 				: base("Unable to generate PrivateSend transaction, not enough (" + privateSendActualFee +
-				") DASH for PrivateSend tx fee was provided, but " + privateSendNeededFee +
+				") VP for PrivateSend tx fee was provided, but " + privateSendNeededFee +
 				" is needed!") {}
 		}
 
@@ -197,8 +197,8 @@ namespace MyDashWallet.Node
 		}
 
 		/// <summary>
-		/// The Dash rpc node will only accept DASH numbers that are full duff numbers
-		/// (1 DASH = 100 000 000 duffs), make sure we will not use slight rounding errors.
+		/// The Dash rpc node will only accept VP numbers that are full duff numbers
+		/// (1 VP = 100 000 000 duffs), make sure we will not use slight rounding errors.
 		/// Also will remove trailing zeros as described here, which causes confusing values when
 		/// building the raw tx and signing it with hardware devices (might display higher values).
 		/// https://stackoverflow.com/questions/4525854/remove-trailing-zeros

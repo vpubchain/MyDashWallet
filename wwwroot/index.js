@@ -51,12 +51,12 @@ function showNumber(amount, decimals) {
 	return result;
 }
 
-// Helper to show amount in DASH if it is above 0.1 DASH, otherwise show it in mDASH. Will always
-// show the exact number up to 8 (for DASH) or 5 (for mDASH) decimals to represent all duffs!
+// Helper to show amount in VP if it is above 0.1 VP, otherwise show it in mVP. Will always
+// show the exact number up to 8 (for VP) or 5 (for mVP) decimals to represent all duffs!
 function showDashOrMDashNumber(amount) {
 	if (amount > 0.1)
-		return showNumber(amount, 8) + " DASH";
-	return showNumber(amount * 1000, 5) + " mDASH";
+		return showNumber(amount, 8) + " VP";
+	return showNumber(amount * 1000, 5) + " mVP";
 }
 
 var ledgerDash;
@@ -277,7 +277,7 @@ function unlockLedger(showResponse) {
 		document.getElementById("response").style.display = "block";
 		document.getElementById("response").style.color = "black";
 		document.getElementById("response").innerHTML =
-			"Connecting to Ledger Hardware Wallet ..<br />Make sure it is unlocked, in the DASH app and browser settings are enabled!";
+			"Connecting to Ledger Hardware Wallet ..<br />Make sure it is unlocked, in the VP app and browser settings are enabled!";
 	}
 	if (!ledgerDash && !trezorDash)
 		ledger.comm_u2f.create_async(90).then(function (comm) {
@@ -349,7 +349,7 @@ function unlockTrezor(showResponse) {
 			"Connecting to TREZOR Hardware Wallet .. Please follow the instructions in the popup window!";
 	}
 	TrezorConnect.setCurrency("Dash");
-	TrezorConnect.setCurrencyUnits("mDASH");
+	TrezorConnect.setCurrencyUnits("mVP");
 	TrezorConnect.getAccountInfo("m/44'/5'/0'", function (response) {
 		if (response.success) {
 			trezorDash = response;
@@ -397,7 +397,7 @@ function setTotalAmountToSend() {
 function setAmountToSend(amount) {
 	var sendCurrency = $("#selectedSendCurrency").text();
 	// We have to do the inverse as below to convert from Dash to the selected format!
-	if (sendCurrency === "mDASH")
+	if (sendCurrency === "mVP")
 		amount *= 1000;
 	if (sendCurrency === "USD")
 		amount *= usdRate;
@@ -410,7 +410,7 @@ function setAmountToSend(amount) {
 var amountToSend = 0.001;
 function getPrivateSendNumberOfInputsBasedOnAmount() {
 	// Everything below 10mDASH will be send in one transaction.
-	// Amounts are: 10mDASH, 100mDASH, 1 DASH, 10 DASH
+	// Amounts are: 10mDASH, 100mDASH, 1 VP, 10 VP
 	// https://dashpay.atlassian.net/wiki/spaces/DOC/pages/1146924/PrivateSend
 	if (amountToSend <= 0.01)
 		return 1;
@@ -451,7 +451,7 @@ function updateTxFee(numberOfInputs) {
 			numberOfInputs = lastKnownNumberOfInputs;
 	}
 	lastKnownNumberOfInputs = numberOfInputs;
-	// mDASH tx fee with 1 duff/byte with default 226 byte tx for 1 input, 374 for 2 inputs (78+148*
+	// mVP tx fee with 1 duff/byte with default 226 byte tx for 1 input, 374 for 2 inputs (78+148*
 	// inputs). All this is recalculated below and on the server side once number of inputs is known.
 	var txFee = 0.00078 + 0.00148 * numberOfInputs;
 	if ($("#useInstantSend").is(':checked'))
@@ -535,7 +535,7 @@ function isValidSendTo() {
 		return isValidRedditUsername(sendTo);
 	return false;
 }
-// Doesn't make much sense to send less than 1 mDASH for PrivateSend (as fees will be >25%)
+// Doesn't make much sense to send less than 1 mVP for PrivateSend (as fees will be >25%)
 var MinimumForPrivateSend = 0.001;
 function updateAmountInfo() {
 	var amount = parseFloat($("#amount").val());
@@ -543,7 +543,7 @@ function updateAmountInfo() {
 	if (isNaN(amount))
 		amount = 1;
 	var sendCurrency = $("#selectedSendCurrency").text();
-	if (sendCurrency === "mDASH")
+	if (sendCurrency === "mVP")
 		amount /= 1000;
 	if (sendCurrency === "USD")
 		amount /= usdRate;
@@ -555,10 +555,10 @@ function updateAmountInfo() {
 		amountIsValid = false;
 	//not longer used or shown: var btcValue = showNumber(amountToSend * btcRate, 6);
     $("#amount-info-box").text(""
-  //      showNumber(amountToSend * 1000, 5) + " mDASH " +
-  //      "= " + showNumber(amountToSend, 8) + " DASH " +
+  //      showNumber(amountToSend * 1000, 5) + " mVP " +
+  //      "= " + showNumber(amountToSend, 8) + " VP " +
 		//"= $" + showNumber(amountToSend * usdRate, 2) + " " +
-  //      "= €" + showNumber(amountToSend * eurRate, 2) + " (1 DASH = " + btcRate + " BTC)"
+  //      "= €" + showNumber(amountToSend * eurRate, 2) + " (1 VP = " + btcRate + " BTC)"
     );
 	updateTxFee(0);
 	if (amountIsValid && isValidSendTo()) {
@@ -666,7 +666,7 @@ function generateTrezorSignedTx() {
 							});
 					} else {
 						$("#resultPanel").css("color","red").text("Error signing with TREZOR: " + result.error+
-							(result.error === "Amount is to low" ? " (Sorry, TREZOR currently only allows transactions above 5000 duffs, use more than 0.05 mDASH)":""));
+							(result.error === "Amount is to low" ? " (Sorry, TREZOR currently only allows transactions above 5000 duffs, use more than 0.05 mVP)":""));
 					}
 				});
 			}).fail(function (jqxhr) {
@@ -698,7 +698,7 @@ function generateTrezorSignedTx() {
 				});
 		} else {
 			$("#resultPanel").css("color","red").text("Error signing with TREZOR: " + result.error+
-				(result.error === "Amount is to low" ? " (Sorry, TREZOR currently only allows transactions above 5000 duffs, use more than 0.05 mDASH)":""));
+				(result.error === "Amount is to low" ? " (Sorry, TREZOR currently only allows transactions above 5000 duffs, use more than 0.05 mVP)":""));
 		}
 	});
 }

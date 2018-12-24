@@ -49,7 +49,7 @@ namespace SocialCryptoBots
 			case "µdash":
 			case "udash":
 			case "duffs":
-			case "duff": return Currency.mDASH;
+			case "duff": return Currency.mVP;
 			case "bitcoin":
 			case "btc":
 			case "mbtc":
@@ -106,7 +106,7 @@ namespace SocialCryptoBots
 				// Allow segwit and non segwit bitcoin addresses
 				// https://trello.com/c/bSJxGfZo/30-segwit-addresses#comment-59c4d089bb7f659d59f6b8d6
 				return targetAddress.Length <= BitcoinExampleAddress.Length || targetAddress.StartsWith("bc");
-			case Currency.mDASH:
+			case Currency.mVP:
 				//https://www.dash.org/forum/threads/how-do-you-recieve-dash-coins-from-a-cryptonote-dashcoin-wallet-f21c4c6.8924/
 				return targetAddress.Length <= DashExampleAddress.Length &&
 					(targetAddress.ToLower().StartsWith("x") ||
@@ -146,7 +146,7 @@ namespace SocialCryptoBots
 			{
 			case Currency.mBTC:
 				return BitcoinExampleAddress;
-			case Currency.mDASH:
+			case Currency.mVP:
 				return DashExampleAddress;
 			case Currency.mLTC:
 				return LitecoinExampleAddress;
@@ -288,7 +288,7 @@ namespace SocialCryptoBots
 				return "ethereum";
 			case Currency.mBCH:
 				return "bitcoin-cash";
-			case Currency.mDASH:
+			case Currency.mVP:
 				return "dash";
 			case Currency.COLX:
 				return "colossuscoinxt";
@@ -308,7 +308,7 @@ namespace SocialCryptoBots
 				return "Ethereum";
 			case Currency.mBCH:
 				return "Bitcoin Cash";
-			case Currency.mDASH:
+			case Currency.mVP:
 				return "Dash";
 			case Currency.COLX:
 				return "ColossusCoinXT";

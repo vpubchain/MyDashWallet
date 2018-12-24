@@ -9,7 +9,7 @@ namespace BitcoinLib.Services.Coins.Dash
         ///     Send an amount to a given address.
         /// </summary>
         /// <param name="dashAddress">The dash address to send to.</param>
-        /// <param name="amount">The amount in DASH to send. eg 0.1.</param>
+        /// <param name="amount">The amount in VP to send. eg 0.1.</param>
         /// <param name="comment">
         ///     A comment used to store what the transaction is for. This is not part of the transaction,
         ///     just kept in your wallet.

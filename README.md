@@ -1,7 +1,7 @@
 # MyDashWallet
-https://MyDashWallet.org provides an easy way for anyone to create DASH wallets locally in the browser or use existing hardware wallets and send DASH to anyone. For details about DASH see www.dash.org
+https://MyDashWallet.org provides an easy way for anyone to create VP wallets locally in the browser or use existing hardware wallets and send VP to anyone. For details about VP see www.dash.org
 
-This project is open-source, free to use and development is funded by the DASH DAO (Decentralized Autonomous Organization): https://www.dashcentral.org/p/MyDashWallet
+This project is open-source, free to use and development is funded by the VP DAO (Decentralized Autonomous Organization): https://www.dashcentral.org/p/MyDashWallet
 
 # Runs locally
 You can simply download the website https://MyDashWallet.org and run it locally, the whole wallet functionality (including hardware wallets, creating keystore wallets, unlocking, etc.) all runs offline and in your browser. However when you want to see the current dash amount or send out dash you need to be online as the website communicates with https://www.vpubchain.net/abe/chain/Dash for the dash amount in your addresses and will communicate with the full Dash node on MyDashWallet when sending out locally signed transactions.

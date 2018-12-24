@@ -12,7 +12,7 @@ namespace BitcoinLib.CoinParameters.Dash
             public readonly decimal OneDuffInDash = 0.00000001M;
             public readonly decimal OneMicrodashInDash = 0.000001M;
             public readonly decimal OneMillidashInDash = 0.001M;
-            public readonly string Symbol = "DASH";
+            public readonly string Symbol = "VP";
         }
     }
 }

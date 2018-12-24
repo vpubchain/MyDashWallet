@@ -8,7 +8,7 @@ MyDashWallet allows you to mix your Dash without having to create a wallet here,
 <br /><br />
 <h3>Enter Address to send to anonymously</h3>
 <input class="form-control is-invalid" style="margin-top:1px" type="text" id="toAddress" oninput="updateGenerateAddressButton()" placeholder="XoASepVfo1cegWp52HS9gbcKuarLyqxsKT">
-PrivateSend tx fee: <b>0.25 mDASH + 0.05 mDASH</b> per mixed input (e.g. 15.2 mDASH is split into 10+5*1+0.2 mDASH -> tx fee: 0.6 mDASH) <a href="/AboutPrivateSend" target="_blank">About</a><br />
+PrivateSend tx fee: <b>0.25 mVP + 0.05 mVP</b> per mixed input (e.g. 15.2 mVP is split into 10+5*1+0.2 mVP -> tx fee: 0.6 mVP) <a href="/AboutPrivateSend" target="_blank">About</a><br />
 <a class="btn btn-info btn-block" id="generateAddressButton" onclick="generateAddress()" style="background-color: gray">Generate Private Send Address</a>
 <br />
 <div id="generateAddressPanel"></div>
@@ -41,7 +41,7 @@ PrivateSend tx fee: <b>0.25 mDASH + 0.05 mDASH</b> per mixed input (e.g. 15.2 mD
 				function(address) {
 					var qrCodeSrc = "//chart.googleapis.com/chart?cht=qr&chl=dash:" + address + "&choe=UTF-8&chs=240x240&chld=L|0";
 					$("#generateAddressPanel").html(
-						"Send any amount of DASH to the following address, it will be mixed and send to <b>" +
+						"Send any amount of VP to the following address, it will be mixed and send to <b>" +
 						toAddress +
 						"</b> when done.<br />" +
 						"Once Dash is received and mixed at this address, the receive address will be deleted and cannot be used anymore.<br />" +

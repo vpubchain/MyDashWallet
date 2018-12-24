@@ -24,7 +24,7 @@ namespace MyDashWallet.Controllers
 
 		private async Task UpdateDashPrice()
 		{
-			var ticker = await CurrencyExtensions.GetTicker(Currency.mDASH);
+			var ticker = await CurrencyExtensions.GetTicker(Currency.mVP);
 			ViewData["UsdRate"] = ticker.price_usd;
 			ViewData["EurRate"] = ticker.price_eur;
 			ViewData["BtcRate"] = ticker.price_btc;

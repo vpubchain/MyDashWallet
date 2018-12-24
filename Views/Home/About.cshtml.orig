@@ -39,9 +39,9 @@
 					<li>  <a href="/AboutHardwareWallets">Get a hardware wallet</a>.  </li>
 					<li>  <a href="/AboutCreateNewWallet">How to create a new wallet via Keystore file</a>.  </li>
 					<li>  <a href="/AboutMyDashWallet">Why is MyDashWallet so fast? How does it work?</a>  </li>
-					<li>  <a href="/AboutTransactionFees">Why are DASH transactions so cheap on MyDashWallet?</a>  </li>
-					<li>  <a href="/AboutInstantSend">How to does DASH InstantSend work on MyDashWallet?</a>  </li>
-					<li>  <a href="/AboutPrivateSend">How to does DASH PrivateSend work on MyDashWallet?</a>  </li>
+					<li>  <a href="/AboutTransactionFees">Why are VP transactions so cheap on MyDashWallet?</a>  </li>
+					<li>  <a href="/AboutInstantSend">How to does VP InstantSend work on MyDashWallet?</a>  </li>
+					<li>  <a href="/AboutPrivateSend">How to does VP PrivateSend work on MyDashWallet?</a>  </li>
 				</ul>
 			</div>
 			<div class="col col-sm-4 offset-sm-1">
@@ -78,7 +78,7 @@
 					<li>  We never transmit, receive or store your private key, password, or other account information.  </li>
 					<li>  We do not charge a transaction fee.  </li>
 					<li>  You are simply using our interface to interact directly with the blockchain.  </li>
-					<li>  If you send your public key (address) to someone, they can send you DASH. 👍  </li>
+					<li>  If you send your public key (address) to someone, they can send you VP. 👍  </li>
 					<li>  If you send your private key to someone, they now have full control of your account. 👎  </li>
 				</ul>
 			</div>
