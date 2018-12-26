@@ -94,7 +94,7 @@ function balanceCheck() {
 		function (addressToCheck, oldBalance) {
 			if (isValidDashAddress(addressToCheck)) {
                 $.get("https://www.vpubchain.net/abe/chain/Vpub/q/addressbalance/" + addressToCheck,
-					function (data, status) {
+                    function (data, status) {
 						if (status === "success" && data !== "ERROR: address invalid" && oldBalance !== parseFloat(data)) {
 							console.log("Updating balance of " + addressToCheck + ": " + data);
 							addressBalances[addressToCheck] = parseFloat(data);
@@ -738,7 +738,10 @@ function addNextAddressWithUnspendFundsToRawTx(addressesWithUnspendInputs, addre
 			var utxos = data["unspent_outputs"];
 			var thisAddressAmountToUse = 0;
 			var txFee = parseFloat($("#txFeeMDash").text()) / 1000;
-			var totalAmountNeeded = amountToSend + txFee;
+            var totalAmountNeeded = amountToSend + txFee;
+            console.log("txFee:" + txFee);
+            console.log("amountToSend:" + amountToSend);
+            console.log("totalAmountNeeded:" + totalAmountNeeded);
 			var maxAmountPossible = parseFloat($("#totalAmountDash").text());
 			// If we send everything, subtract txFee so we can actually send everything
 			if (totalAmountNeeded >= maxAmountPossible)
@@ -756,13 +759,16 @@ function addNextAddressWithUnspendFundsToRawTx(addressesWithUnspendInputs, addre
 				}
 			}
             inputListText += "<li><a href='https://www.vpubchain.net/abe/address/" + address + "' target='_blank' rel='noopener noreferrer'><b>" + address + "</b></a> (-" + showDashOrMDashNumber(thisAddressAmountToUse) + ")</li>";
-			if (txAmountTotal >= totalAmountNeeded) {
+            
+            if (txAmountTotal >= totalAmountNeeded) {
 				// Recalculate txFee like code above, now we know the actual number of inputs needed
 				updateTxFee(txToUse.length);
 				txFee = parseFloat($("#txFeeMDash").text()) / 1000;
 				totalAmountNeeded = amountToSend + txFee;
 				if (totalAmountNeeded >= maxAmountPossible)
-					totalAmountNeeded = maxAmountPossible;
+                    totalAmountNeeded = maxAmountPossible;
+                console.log("txAmountTotal:" + txAmountTotal);
+                console.log("totalAmountNeeded:" + totalAmountNeeded);
 				// Extra check if we are still have enough inputs to what we need
 				if (txAmountTotal >= totalAmountNeeded) {
 					// We have all the inputs we need, we can now create the raw tx
@@ -810,7 +816,10 @@ function addNextAddressWithUnspendFundsToRawTx(addressesWithUnspendInputs, addre
 				}
 			}
 			// Not done yet, get next address
-			addressesWithUnspendInputsIndex++;
+            addressesWithUnspendInputsIndex++;
+            console.log("addressesWithUnspendInputsIndex:" + addressesWithUnspendInputsIndex);
+            console.log("addressesWithUnspendInputs.length:" + addressesWithUnspendInputs.length);
+            console.log(addressesWithUnspendInputs);
 			if (addressesWithUnspendInputsIndex < addressesWithUnspendInputs.length)
 				addNextAddressWithUnspendFundsToRawTx(addressesWithUnspendInputs,
 					addressesWithUnspendInputsIndex,
@@ -820,7 +829,7 @@ function addNextAddressWithUnspendFundsToRawTx(addressesWithUnspendInputs, addre
 					txOutputIndexToUse,
 					txAddressPathIndices,
 					inputListText);
-			else {
+            else {
 				$("#transactionPanel").hide();
 				$("#resultPanel").css("color", "red").text("Insufficient funds, cannot send " +
 					totalAmountNeeded + " Vpub (including tx fee), you only have " + maxAmountPossible +

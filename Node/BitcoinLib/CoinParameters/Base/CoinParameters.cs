@@ -270,11 +270,11 @@ namespace BitcoinLib.Services
                         //RpcPassword = ConfigurationManager.AppSettings.Get("Dash_RpcPassword");
                         //WalletPassword = ConfigurationManager.AppSettings.Get("Dash_WalletPassword");
 
-                        DaemonUrl = "http://192.168.5.168:9902";
-                        DaemonUrlTestnet = "http://192.168.5.168:19902";
+                        DaemonUrl = "http://192.168.5.161:9902";
+                        DaemonUrlTestnet = "http://192.168.5.161:19902";
                         RpcUsername = "mn";
                         RpcPassword = "999000";
-                        WalletPassword = "078423";
+                        WalletPassword = "999000";
                     }
                     CoinShortName = "VPUB";
                     CoinLongName = "Vpub";
