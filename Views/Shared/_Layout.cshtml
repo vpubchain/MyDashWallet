@@ -22,14 +22,14 @@
 					<img src="/images/MyVpubWallet.png" height="70" alt="MyVpubWallet">
 				</a>
 				<div class="tagline">
-					@*<span style="margin-right: 4px" title="Data from CoinMarketCap.com">1 VP = @ViewData["DashPrices"]</span>
+					@*<span style="margin-right: 4px" title="Data from CoinMarketCap.com">1 VP = @ViewData["VpubPrices"]</span>
 					<br />
-					<span style="margin-right: 8px" title="1 mVP = 0.001 VP. Data from CoinMarketCap.com">1 mVP = @ViewData["MilliDashPrices"]</span>
+					<span style="margin-right: 8px" title="1 mVP = 0.001 VP. Data from CoinMarketCap.com">1 mVP = @ViewData["MilliVpubPrices"]</span>
 					<br />
-					<span style="margin-right: 8px; font-size: 10px;" title="PrivateSend Mixing pool at MyVpubWallet.org full node">Mixing Pool: @ViewData["DashMixingPoolAmount"] mVP (@ViewData["DashMixingPoolPremixed"] premixed)</span>*@
+					<span style="margin-right: 8px; font-size: 10px;" title="PrivateSend Mixing pool at MyVpubWallet.org full node">Mixing Pool: @ViewData["VpubMixingPoolAmount"] mVP (@ViewData["VpubMixingPoolPremixed"] premixed)</span>*@
 				</div>
 				<div class="skip-when-small skip-when-medium" style="width: 250px; height: 20px; float: right;">
-					<img src="/images/DashWallet.png" alt="Wallet" style="position: absolute; top: 27px" />
+					<img src="/images/VpubWallet.png" alt="Wallet" style="position: absolute; top: 27px" />
 				</div>
 			</section>
 		</section>
@@ -79,16 +79,16 @@
 	<footer>
 	<div class="container">
 		<p>
-			&copy; 2018 MyVpubWallet, funded by the <a href="https://www.vpubcentral.org/">VP network</a>, idea based on <a href="//MyEtherWallet.com">MyEtherWallet.com</a>, created by <a href="https://DeltaEngine.net">DeltaEngine.net</a>
+			&copy; 2018 MyVpubWallet, funded by the <a href="https://www.vpubchain.net/insight/">VP network</a>, idea based on <a href="//MyEtherWallet.com">MyEtherWallet.com</a>, created by <a href="https://DeltaEngine.net">DeltaEngine.net</a>
 		</p>
-		<p>
+		@*<p>
 			MyVpubWallet.org does not hold your keys for you. We cannot access accounts, recover keys, reset passwords, nor reverse transactions. Protect your keys!
 			<a href="/About" role="link" tabindex="0" data-toggle="modal" data-target="#disclaimerModal">You are responsible for your security.</a>
-		</p>
+		</p>*@
 		<p>
-			<a href="https://github.com/DeltaEngine/MyVpubWallet" target='_blank' rel='noopener noreferrer'><icon aria-hidden="true">📄</icon> Open Source Code</a>
-			<icon aria-hidden="true" style="margin-left: 20px">❔</icon> Need Help? <a href='mailto:Support@MyVpubWallet.org'>Contact support</a>
-			<icon aria-hidden="true" style="margin-left: 20px">💝</icon> Donations are always appreciated! Vpub: <span class="mono wrap"><a title="Click to copy this Vpub address" id="donationAddress" onclick="copyToClipboard('XoASepVfo1cegWp52HS9gbcKuarLyqxsKT')">XoASepVfo1cegWp52HS9gbcKuarLyqxsKT</a></span> <a title="Click to send Vpub to our donation address" href="vpub:XoASepVfo1cegWp52HS9gbcKuarLyqxsKT" target="_blank" rel="noopener noreferrer">Donate via external wallet</a>
+			<a href="https://github.com/vpubchain/MyVpubWallet" target='_blank' rel='noopener noreferrer'><icon aria-hidden="true">📄</icon> Open Source Code</a>
+			<icon aria-hidden="true" style="margin-left: 20px">❔</icon> Need Help? <a href='mailto:vp@vpubchain.org'>Contact support</a>
+			@*<icon aria-hidden="true" style="margin-left: 20px">💝</icon> Donations are always appreciated! Vpub: <span class="mono wrap"><a title="Click to copy this Vpub address" id="donationAddress" onclick="copyToClipboard('XoASepVfo1cegWp52HS9gbcKuarLyqxsKT')">XoASepVfo1cegWp52HS9gbcKuarLyqxsKT</a></span> <a title="Click to send Vpub to our donation address" href="vpub:XoASepVfo1cegWp52HS9gbcKuarLyqxsKT" target="_blank" rel="noopener noreferrer">Donate via external wallet</a>*@
 		</p>
 	</div>
 	</footer>

@@ -2,7 +2,7 @@
 
 namespace BitcoinLib.Services.Coins.Vpub
 {
-	public class ListUnspentDashResponse : ListUnspentResponse
+	public class ListUnspentVpubResponse : ListUnspentResponse
 	{
 		public decimal Ps_Rounds { get; set; }
 	}

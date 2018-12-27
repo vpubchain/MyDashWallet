@@ -13,40 +13,40 @@ namespace MyVpubWallet.Controllers
 {
 	public class HomeController : Controller
 	{
-		public HomeController(DashNode node) => this.node = node;
-		private readonly DashNode node;
+		public HomeController(VpubNode node) => this.node = node;
+		private readonly VpubNode node;
 
 		public async Task<IActionResult> Index()
 		{
-			await UpdateDashPrice();
+			await UpdateVpubPrice();
 			return View();
 		}
 
-		private async Task UpdateDashPrice()
+		private async Task UpdateVpubPrice()
 		{
 			var ticker = await CurrencyExtensions.GetTicker(Currency.mVP);
 			ViewData["UsdRate"] = ticker.price_usd;
 			ViewData["EurRate"] = ticker.price_eur;
 			ViewData["BtcRate"] = ticker.price_btc;
-			ViewData["DashPrices"] = "$" + ticker.price_usd.ToString("#0.00") + " = €" +
+			ViewData["VpubPrices"] = "$" + ticker.price_usd.ToString("#0.00") + " = €" +
 				ticker.price_eur.ToString("#0.00");
-			ViewData["MilliDashPrices"] = "$" + (ticker.price_usd / 1000.0m).ToString("#0.00") +
+			ViewData["MilliVpubPrices"] = "$" + (ticker.price_usd / 1000.0m).ToString("#0.00") +
 				" = €" + (ticker.price_eur / 1000.0m).ToString("#0.00");
 			UpdateCachedMixingPoolAmounts();
-			ViewData["DashMixingPoolAmount"] = vpubMixingPoolAmount.ToString("#0.#");
-			ViewData["DashMixingPoolPremixed"] = vpubMixingPoolPremixed.ToString("#0.#");
+			ViewData["VpubMixingPoolAmount"] = vpubMixingPoolAmount.ToString("#0.#");
+			ViewData["VpubMixingPoolPremixed"] = vpubMixingPoolPremixed.ToString("#0.#");
 		}
 
 		private void UpdateCachedMixingPoolAmounts()
 		{
-			if (DateTime.UtcNow.AddMinutes(-5) < lastTimeCheckedDashMixingPool)
+			if (DateTime.UtcNow.AddMinutes(-5) < lastTimeCheckedVpubMixingPool)
 				return;
-			lastTimeCheckedDashMixingPool = DateTime.UtcNow;
+			lastTimeCheckedVpubMixingPool = DateTime.UtcNow;
 			vpubMixingPoolAmount = 0m;
 			vpubMixingPoolPremixed = 0m;
 			try
 			{
-				foreach (var output in node.GetUnspentDashOutputs())
+				foreach (var output in node.GetUnspentVpubOutputs())
 				{
 					vpubMixingPoolAmount += output.Amount * 1000m;
 					if (output.Ps_Rounds >= 2)
@@ -59,97 +59,97 @@ namespace MyVpubWallet.Controllers
 			}
 		}
 
-		private DateTime lastTimeCheckedDashMixingPool;
+		private DateTime lastTimeCheckedVpubMixingPool;
 		private decimal vpubMixingPoolAmount;
 		private decimal vpubMixingPoolPremixed;
 
 		public async Task<IActionResult> Swap()
 		{
-			await UpdateDashPrice();
+			await UpdateVpubPrice();
 			return View();
 		}
 
 		public async Task<IActionResult> Address()
 		{
-			await UpdateDashPrice();
+			await UpdateVpubPrice();
 			return View();
 		}
 
 		public async Task<IActionResult> Transaction()
 		{
-			await UpdateDashPrice();
+			await UpdateVpubPrice();
 			return View();
 		}
 
 		public async Task<IActionResult> Tipping()
 		{
-			await UpdateDashPrice();
+			await UpdateVpubPrice();
 			return View();
 		}
 		
 		public async Task<IActionResult> Mixing()
 		{
-			await UpdateDashPrice();
+			await UpdateVpubPrice();
 			return View();
 		}
 
 		public async Task<IActionResult> About()
 		{
-			await UpdateDashPrice();
+			await UpdateVpubPrice();
 			return View();
 		}
 
 		public async Task<IActionResult> AboutCreateNewWallet()
 		{
-			await UpdateDashPrice();
+			await UpdateVpubPrice();
 			return View();
 		}
 
 		public async Task<IActionResult> AboutHardwareWallets()
 		{
-			await UpdateDashPrice();
+			await UpdateVpubPrice();
 			return View();
 		}
 
 		public async Task<IActionResult> AboutLedgerHardwareWallet()
 		{
-			await UpdateDashPrice();
+			await UpdateVpubPrice();
 			return View();
 		}
 
 		public async Task<IActionResult> AboutTrezorHardwareWallet()
 		{
-			await UpdateDashPrice();
+			await UpdateVpubPrice();
 			return View();
 		}
 
-		public async Task<IActionResult> AboutMyDashWallet()
+		public async Task<IActionResult> AboutMyVpubWallet()
 		{
-			await UpdateDashPrice();
+			await UpdateVpubPrice();
 			return View();
 		}
 
 		public async Task<IActionResult> AboutTransactionFees()
 		{
-			await UpdateDashPrice();
+			await UpdateVpubPrice();
 			return View();
 		}
 
 		public async Task<IActionResult> AboutInstantSend()
 		{
-			await UpdateDashPrice();
+			await UpdateVpubPrice();
 			return View();
 		}
 
 		public async Task<IActionResult> AboutPrivateSend()
 		{
-			await UpdateDashPrice();
+			await UpdateVpubPrice();
 			return View();
 		}
 
 		public async Task<IActionResult> AboutVideos()
 		{
-			await UpdateDashPrice();
+			await UpdateVpubPrice();
 			return View();
 		}
 
@@ -160,7 +160,7 @@ namespace MyVpubWallet.Controllers
 #endif
 		public async Task<IActionResult> Error()
 		{
-			await UpdateDashPrice();
+			await UpdateVpubPrice();
 			ViewData["RequestId"] = Activity.Current?.Id ?? HttpContext.TraceIdentifier;
 			return View();
 		}
@@ -253,7 +253,7 @@ namespace MyVpubWallet.Controllers
 			try
 			{
 				node.UserIp = HttpContext.Connection.RemoteIpAddress.ToString();
-				var txId = node.BroadcastSignedTxIntoDashNetwork(signedTx, instantSend);
+				var txId = node.BroadcastSignedTxIntoVpubNetwork(signedTx, instantSend);
 				return Ok(txId);
 			}
 			catch (Exception ex)

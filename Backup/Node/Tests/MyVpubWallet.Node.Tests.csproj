@@ -7,8 +7,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="MyDashWallet.Node.Tests.v3.ncrunchproject" />
-    <None Remove="MyDashWallet.Services.Tests.v3.ncrunchproject" />
+    <None Remove="MyVpubWallet.Node.Tests.v3.ncrunchproject" />
+    <None Remove="MyVpubWallet.Services.Tests.v3.ncrunchproject" />
   </ItemGroup>
 
   <ItemGroup>
@@ -21,7 +21,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\BitcoinLib\BitcoinLib.csproj" />
-    <ProjectReference Include="..\MyDashWallet.Node.csproj" />
+    <ProjectReference Include="..\MyVpubWallet.Node.csproj" />
   </ItemGroup>
 
 </Project>

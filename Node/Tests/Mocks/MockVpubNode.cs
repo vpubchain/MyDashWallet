@@ -4,12 +4,12 @@ using BitcoinLib.Services.Coins.Vpub;
 
 namespace MyVpubWallet.Node.Tests.Mocks
 {
-	public class MockDashNode : DashNode
+	public class MockVpubNode : VpubNode
 	{
 		public override decimal GetTotalBalance() => 1m;
 		public override decimal GetUserAddressBalance(string userAddress) => 0m;
 		public override decimal GetUserAddressReceived(string userAddress) => 0m;
-		public override List<ListUnspentDashResponse> GetUnspentDashOutputs() => null;
+		public override List<ListUnspentVpubResponse> GetUnspentVpubOutputs() => null;
 
 		public override string GenerateNewAddress(string userLabel, bool forPrivateSendTx)
 		{
@@ -59,7 +59,7 @@ namespace MyVpubWallet.Node.Tests.Mocks
 			return "signed";
 		}
 
-		public override string BroadcastSignedTxIntoDashNetwork(string signedTx, bool useInstantSend)
+		public override string BroadcastSignedTxIntoVpubNetwork(string signedTx, bool useInstantSend)
 			=> "useTestnetForRealTx";
 	}
 }

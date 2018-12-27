@@ -2,7 +2,7 @@
   <Settings>
     <IgnoredTests>
       <NamedTestSelector>
-        <TestName>MyDashWallet.Services.Tests.DashNodeTests.GenerateRealTransaction</TestName>
+        <TestName>MyVpubWallet.Services.Tests.VpubNodeTests.GenerateRealTransaction</TestName>
       </NamedTestSelector>
     </IgnoredTests>
   </Settings>

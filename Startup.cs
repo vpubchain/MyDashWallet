@@ -13,7 +13,7 @@ namespace MyVpubWallet
 		public void ConfigureServices(IServiceCollection services)
 		{
 			services.AddMvc();
-			services.AddSingleton<Node.DashNode, Node.TestnetDashNode>();
+			services.AddSingleton<Node.VpubNode, Node.TestnetVpubNode>();
 		}
 
 		public void Configure(IApplicationBuilder app, IHostingEnvironment env)

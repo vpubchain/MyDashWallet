@@ -3,7 +3,7 @@ using BitcoinLib.Services.Coins.Base;
 
 namespace BitcoinLib.Services.Coins.Vpub
 {
-    public interface IDashService : ICoinService, IDashConstants
+    public interface IVpubService : ICoinService, IVpubConstants
     {
         /// <summary>
         ///     Send an amount to a given address.

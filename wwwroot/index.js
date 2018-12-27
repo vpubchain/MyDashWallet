@@ -2,7 +2,7 @@
 	window.clearInterval(autoConnect);
 	$("#main-panel").hide();
 	$("#send-panel").show();
-	if (ledgerDash || trezorDash)
+	if (ledgerVpub || trezorVpub)
 		$("#hardware-wallets-panel").hide();
 	$("#title").text("Send Vpub");
 	$("#response").show().css("color", "black").html(successfullyConnectedMessage);
@@ -53,18 +53,18 @@ function showNumber(amount, decimals) {
 
 // Helper to show amount in VP if it is above 0.1 VP, otherwise show it in mVP. Will always
 // show the exact number up to 8 (for VP) or 5 (for mVP) decimals to represent all duffs!
-function showDashOrMDashNumber(amount) {
+function showVpubOrMVpubNumber(amount) {
 	if (amount > 0.1)
 		return showNumber(amount, 8) + " VP";
 	return showNumber(amount * 1000, 5) + " mVP";
 }
 
-var ledgerDash;
+var ledgerVpub;
 //https://stackoverflow.com/questions/1208222/how-to-do-associative-array-hashing-in-javascript
 var addressBalances = {};
 var autoBalanceCheck;
 
-function isValidDashAddress(address) {
+function isValidVpubAddress(address) {
 	return address && address.length >= 34 && (address[0] === 'X' || address[0] === 'x');
 }
 
@@ -73,8 +73,8 @@ function updateLocalStorageBalances() {
 	var cachedText = "";
 	$.each(addressBalances,
 		function (key, amount) {
-            if (isValidDashAddress(key)) {
-                console.log("isValidDashAddress:true------------------------");
+            if (isValidVpubAddress(key)) {
+                console.log("isValidVpubAddress:true------------------------");
 				totalAmount += amount;
 				cachedText += key + "|" + amount + "|";
 			}
@@ -86,19 +86,19 @@ function updateLocalStorageBalances() {
 
 //bitcore.Transaction.DUST_AMOUNT, the minimum we should ever have in an address or tx is 1000duffs
 var DUST_AMOUNT = 1000;
-var DUST_AMOUNT_IN_DASH = 0.00001;
+var DUST_AMOUNT_IN_VPUB = 0.00001;
 // Loops through all known Vpub addresses and checks the balance and sums up to total amount we got
 function balanceCheck() {
 	//keep displaying: document.getElementById("refreshing-amount-timeout").style.display = "none";
 	$.each(addressBalances,
 		function (addressToCheck, oldBalance) {
-			if (isValidDashAddress(addressToCheck)) {
+			if (isValidVpubAddress(addressToCheck)) {
                 $.get("https://www.vpubchain.net/abe/chain/Vpub/q/addressbalance/" + addressToCheck,
                     function (data, status) {
 						if (status === "success" && data !== "ERROR: address invalid" && oldBalance !== parseFloat(data)) {
 							console.log("Updating balance of " + addressToCheck + ": " + data);
 							addressBalances[addressToCheck] = parseFloat(data);
-							if (addressBalances[addressToCheck] < DUST_AMOUNT_IN_DASH)
+							if (addressBalances[addressToCheck] < DUST_AMOUNT_IN_VPUB)
 								addressBalances[addressToCheck] = 0;
 							updateLocalStorageBalancesAndRefreshTotalAmountAndReceivingAddresses();
 						}
@@ -122,8 +122,8 @@ function tryBalanceCheck() {
 
 function updateLocalStorageBalancesAndRefreshTotalAmountAndReceivingAddresses() {
 	var totalAmount = updateLocalStorageBalances();
-	document.getElementById("totalAmountDash").innerHTML = showNumber(totalAmount, 8);
-	document.getElementById("totalAmountMDash").innerHTML = showNumber(totalAmount * 1000, 5);
+	document.getElementById("totalAmountVpub").innerHTML = showNumber(totalAmount, 8);
+	document.getElementById("totalAmountMVpub").innerHTML = showNumber(totalAmount * 1000, 5);
 // ReSharper disable UseOfImplicitGlobalInFunctionScope
 	//document.getElementById("totalAmountUsd").innerHTML = showNumber(totalAmount * usdRate, 2);
 	//document.getElementById("totalAmountEur").innerHTML = showNumber(totalAmount * eurRate, 2);
@@ -131,8 +131,8 @@ function updateLocalStorageBalancesAndRefreshTotalAmountAndReceivingAddresses() 
 }
 
 function getFreshestAddress() {
-	if (trezorDash)
-		return trezorDash.freshAddress;
+	if (trezorVpub)
+		return trezorVpub.freshAddress;
 	var freshestAddress = vpubKeystoreWallet ? vpubKeystoreWallet.address : "";
 	$.each(addressBalances, function (address) { freshestAddress = address; });
 	return freshestAddress;
@@ -150,7 +150,7 @@ function addAddressBalance(list, address, balance, freshestAddress) {
 			: "") +
 		address +
 		"</a><div class='address-amount' onclick='setAmountToSend(" + balance + ")'>" +
-		showDashOrMDashNumber(balance) + "</div></li>").prependTo(list);
+		showVpubOrMVpubNumber(balance) + "</div></li>").prependTo(list);
 }
 
 function generateReceivingAddressList() {
@@ -220,7 +220,7 @@ function updateBalanceIfAddressIsUsed(newAddress) {
 
 function checkNextLedgerAddress() {
 	//console.log("checkNextLedgerAddress got already " + getNumberOfAddresses() + " addresses");
-	ledgerDash.getWalletPublicKey_async("44'/5'/0'/0/" + getNumberOfAddresses()).then(
+	ledgerVpub.getWalletPublicKey_async("44'/5'/0'/0/" + getNumberOfAddresses()).then(
 		function (result) {
 			updateBalanceIfAddressIsUsed(result.bitcoinAddress);
 		});
@@ -279,11 +279,11 @@ function unlockLedger(showResponse) {
 		document.getElementById("response").innerHTML =
 			"Connecting to Ledger Hardware Wallet ..<br />Make sure it is unlocked, in the VP app and browser settings are enabled!";
 	}
-	if (!ledgerDash && !trezorDash)
+	if (!ledgerVpub && !trezorVpub)
 		ledger.comm_u2f.create_async(90).then(function (comm) {
-			ledgerDash = new ledger.btc(comm);
+			ledgerVpub = new ledger.btc(comm);
 			//Retrieve public key with BIP 32 path, see https://www.ledgerwallet.com/api/demo.html
-			ledgerDash.getWalletPublicKey_async("44'/5'/0'/0/0").then(
+			ledgerVpub.getWalletPublicKey_async("44'/5'/0'/0/0").then(
 				function (result) {
 					try {
 						// Remember to automatically connect to ledger next time we open the website
@@ -296,7 +296,7 @@ function unlockLedger(showResponse) {
 					}
 				}).catch(
 				function (error) {
-					ledgerDash = undefined;
+					ledgerVpub = undefined;
 					if (showResponse)
 						document.getElementById("response").innerHTML =
 							"Error connecting to Ledger Hardware Wallet: " + getLedgerErrorText(error) + "<br />" +
@@ -340,7 +340,7 @@ function getLedgerErrorText(error) {
 	return errorText;
 }
 
-var trezorDash;
+var trezorVpub;
 function unlockTrezor(showResponse) {
 	disableAutoConnect();
 	if (showResponse) {
@@ -348,12 +348,14 @@ function unlockTrezor(showResponse) {
 		document.getElementById("response").innerHTML =
 			"Connecting to TREZOR Hardware Wallet .. Please follow the instructions in the popup window!";
 	}
-	TrezorConnect.setCurrency("Vpub");
-	TrezorConnect.setCurrencyUnits("mVP");
+    //TrezorConnect.setCurrency("Vpub");
+    TrezorConnect.setCurrency("Dash");
+	TrezorConnect.setCurrencyUnits("mDASH");
 	TrezorConnect.getAccountInfo("m/44'/5'/0'", function (response) {
-		if (response.success) {
-			trezorDash = response;
-			/*works
+        if (response.success) {
+            
+			trezorVpub = response;
+			
 			console.log('Account ID: ', response.id);
 			console.log('Account path: ', response.path);
 			console.log('Serialized account path: ', response.serializedPath);
@@ -364,13 +366,27 @@ function unlockTrezor(showResponse) {
 			console.log('Serialized fresh address path: ', response.serializedFreshAddressPath);
 			console.log('Balance in satoshis (including unconfirmed):', response.balance);
 			console.log('Balance in satoshis (only confirmed):', response.confirmed);
-			*/
+			
 			goToSendPanel(
 				"Successfully connected to TREZOR Hardware Wallet, you can now confirm all features on this site with your device.");
-			addressBalances = { addressIndex: response.freshAddressId, address: response.freshAddress };
-			var totalAmount = response.balance / 100000000.0;
-			document.getElementById("totalAmountDash").innerHTML = showNumber(totalAmount, 8);
-			document.getElementById("totalAmountMDash").innerHTML = showNumber(totalAmount * 1000, 5);
+
+
+            $.get("https://www.vpubchain.net/abe/chain/Vpub/q/addressbalance/" + response.freshAddress,
+                function (data, status) {
+                    if (status === "success" && data !== "ERROR: address invalid") {
+                        //console.log("Updating balance of " + vpubKeystoreWallet.address + ": " + data);
+                        addressBalances[response.freshAddress] = parseFloat(data);
+                        updateLocalStorageBalancesAndRefreshTotalAmountAndReceivingAddresses();
+                        autoBalanceCheck = window.setInterval(tryBalanceCheck, 1000);
+                    }
+                });
+
+            //addressBalances = { addressIndex: response.freshAddressId, address: response.freshAddress };
+
+            //var totalAmount = response.balance / 100000000.0;
+            //var totalAmount = response.balance;
+			//document.getElementById("totalAmountVpub").innerHTML = showNumber(totalAmount, 8);
+			//document.getElementById("totalAmountMVpub").innerHTML = showNumber(totalAmount * 1000, 5);
 			//document.getElementById("totalAmountUsd").innerHTML = showNumber(totalAmount * usdRate, 2);
 			//document.getElementById("totalAmountEur").innerHTML = showNumber(totalAmount * eurRate, 2);
 			var list = $("#addressList");
@@ -381,8 +397,8 @@ function unlockTrezor(showResponse) {
 				address + "' target='_blank' rel='noopener noreferrer'>" +
 				"<img width='140' height='140' src='" + qrImg +
 					"' title='Your freshest Vpub Address should be used for receiving Vpub, you will get a new one once this has been used!' /><br/>" + address +
-				"</a><div class='address-amount' onclick='setAmountToSend("+totalAmount+")'>" +
-				showDashOrMDashNumber(totalAmount) + "</div></li>").prependTo(list);
+				"</a><div class='address-amount' onclick='setAmountToSend("+0+")'>" +
+				showVpubOrMVpubNumber(0) + "</div></li>").prependTo(list);
 			//allow anyway: Currently not supported on TREZOR $("#useInstantSend").disable()
 		} else {
 			document.getElementById("response").innerHTML = "Error getting TREZOR account: "+ response.error;
@@ -391,7 +407,7 @@ function unlockTrezor(showResponse) {
 }
 
 function setTotalAmountToSend() {
-	setAmountToSend(parseFloat($("#totalAmountDash").text()));
+	setAmountToSend(parseFloat($("#totalAmountVpub").text()));
 }
 
 function setAmountToSend(amount) {
@@ -409,8 +425,8 @@ function setAmountToSend(amount) {
 
 var amountToSend = 0.001;
 function getPrivateSendNumberOfInputsBasedOnAmount() {
-	// Everything below 10mDASH will be send in one transaction.
-	// Amounts are: 10mDASH, 100mDASH, 1 VP, 10 VP
+	// Everything below 10mVPUB will be send in one transaction.
+	// Amounts are: 10mVPUB, 100mVPUB, 1 VP, 10 VP
 	// https://vpubpay.atlassian.net/wiki/spaces/DOC/pages/1146924/PrivateSend
 	if (amountToSend <= 0.01)
 		return 1;
@@ -460,9 +476,9 @@ function updateTxFee(numberOfInputs) {
 	// is already calculated above). Details on the /AboutPrivateSend help page
 	if ($("#usePrivateSend").is(':checked'))
 		txFee += 0.25 + 0.05 * getPrivateSendNumberOfInputsBasedOnAmount();
-	$("#txFeeMDash").text(showNumber(txFee, 5));
+	$("#txFeeMVpub").text(showNumber(txFee, 5));
 	$("#txFeeUsd").text(showNumber(txFee * usdRate / 1000, 4));
-	if (amountToSend < DUST_AMOUNT_IN_DASH || amountToSend > parseFloat($("#totalAmountDash").text()) ||
+	if (amountToSend < DUST_AMOUNT_IN_VPUB || amountToSend > parseFloat($("#totalAmountVpub").text()) ||
 		$("#usePrivateSend").is(':checked') && amountToSend < MinimumForPrivateSend) {
 		$("#generateButton").css("backgroundColor", "gray").attr("disabled", "disabled");
 		amountToSend = 0;
@@ -524,7 +540,7 @@ function isValidSendTo() {
 	var channel = getChannel();
 	var sendTo = getChannelAddress();
 	if (channel === "Address")
-		return isValidDashAddress(sendTo);
+		return isValidVpubAddress(sendTo);
 	else if (channel === "Email")
 		return isValidEmail(sendTo);
 	else if (channel === "Twitter")
@@ -550,7 +566,7 @@ function updateAmountInfo() {
 	if (sendCurrency === "EUR")
 		amount /= eurRate;
 	amountToSend = amount;
-	if (amountToSend < DUST_AMOUNT_IN_DASH || amountToSend > parseFloat($("#totalAmountDash").text()) ||
+	if (amountToSend < DUST_AMOUNT_IN_VPUB || amountToSend > parseFloat($("#totalAmountVpub").text()) ||
 		$("#usePrivateSend").is(':checked') && amountToSend < MinimumForPrivateSend)
 		amountIsValid = false;
 	//not longer used or shown: var btcValue = showNumber(amountToSend * btcRate, 6);
@@ -588,7 +604,7 @@ function generateTransaction() {
 		$("#transactionPanel").hide();
 		$("#resultPanel").css("color", "red")
 			.text(($("#usePrivateSend").is(':checked') && parseFloat($("#amount").val()) < 1 ?
-				"PrivateSend transactions should be done with at least 1mDASH! " : "")+
+				"PrivateSend transactions should be done with at least 1mVPUB! " : "")+
 				"Please enter an amount you have and a valid address to send to. Unable to create transaction!");
 		return;
 	}
@@ -596,24 +612,24 @@ function generateTransaction() {
 	// find all unspend outputs and send it all to the MyVpubWallet server to prepare the raw
 	// transaction to sign. Doing this locally is possible too, but too much work right now.
 	$("#resultPanel").css("color","black").text("Waiting for raw transaction to be generated ...");
-	if (trezorDash)
+	if (trezorVpub)
 		generateTrezorSignedTx();
 	else
 		addNextAddressWithUnspendFundsToRawTx(getAddressesWithUnspendFunds(), 0, getFreshestAddress(), 0, [], [], [], "");
 }
 function generateTrezorSignedTx() {
-	//all this get address/utxo stuff is not required on Trezor, we can simply use (however without InstantSend support, maybe the user can select 10000duff fee (10mDASH) to allow InstantSend):
+	//all this get address/utxo stuff is not required on Trezor, we can simply use (however without InstantSend support, maybe the user can select 10000duff fee (10mVPUB) to allow InstantSend):
 	var channel = getChannel();
 	var sendTo = getChannelAddress();
-	var txFee = parseFloat($("#txFeeMDash").text()) / 1000;
-	// Minimum fee we need to use for sending is 0.1mDASH, otherwise trezor reports:
+	var txFee = parseFloat($("#txFeeMVpub").text()) / 1000;
+	// Minimum fee we need to use for sending is 0.1mVPUB, otherwise trezor reports:
 	// Account funds are insufficient. Retrying...
 	if (txFee < 0.1 / 1000) {
 		txFee = 0.1 / 1000;
 		$("#extraTxNotes").text(
-			"TREZOR requires currently to have at least 0.1mDASH for fees, even if you choose lower ones when actually sending. ");
+			"TREZOR requires currently to have at least 0.1mVPUB for fees, even if you choose lower ones when actually sending. ");
 	}
-	var maxAmountPossible = parseFloat($("#totalAmountDash").text());
+	var maxAmountPossible = parseFloat($("#totalAmountVpub").text());
 	// If we send everything, subtract txFee so we can actually send everything
 	if (amountToSend+txFee >= maxAmountPossible)
 		amountToSend = maxAmountPossible - txFee;
@@ -632,9 +648,9 @@ function generateTrezorSignedTx() {
 	if (usePrivateSend || channel !== "Address") {
 		// PrivateSend needs to generate the raw tx just to get the new privatesend address
 		var utxosTextWithOutputIndices = "0";
-		var remainingDash = 0;
+		var remainingVpub = 0;
 		var remainingAddress = getFreshestAddress();
-		$.getJSON("/GenerateRawTx?utxos="+utxosTextWithOutputIndices+"&channel="+channel+"&amount="+showNumber(amountToSend, 8)+"&sendTo="+sendTo.replace('#','|')+"&remainingAmount="+showNumber(remainingDash, 8)+"&remainingAddress="+remainingAddress+"&instantSend="+useInstantSend+"&privateSend="+usePrivateSend+"&extraText="+getChannelExtraText()).done(
+		$.getJSON("/GenerateRawTx?utxos="+utxosTextWithOutputIndices+"&channel="+channel+"&amount="+showNumber(amountToSend, 8)+"&sendTo="+sendTo.replace('#','|')+"&remainingAmount="+showNumber(remainingVpub, 8)+"&remainingAddress="+remainingAddress+"&instantSend="+useInstantSend+"&privateSend="+usePrivateSend+"&extraText="+getChannelExtraText()).done(
 			function (data) {
 				txFee = data["usedSendTxFee"];
 				var rawTxList = showRawTxPanel(sendTo, txFee,
@@ -676,7 +692,7 @@ function generateTrezorSignedTx() {
 	}
 	var rawTxList = showRawTxPanel(sendTo, txFee, sendTo, 1);
 	if (useInstantSend)
-		$("<li>Please confirm this transaction on your TREZOR hardware device. Since you have selected InstantSend, it will only go through if you manually set the fee to 10000 duffs (0.1mDASH)!</li>").appendTo(rawTxList);
+		$("<li>Please confirm this transaction on your TREZOR hardware device. Since you have selected InstantSend, it will only go through if you manually set the fee to 10000 duffs (0.1mVPUB)!</li>").appendTo(rawTxList);
 	else
 		$("<li>Please confirm this transaction on your TREZOR hardware device, use <b>economy</b> fees!</li>").appendTo(rawTxList);
 	TrezorConnect.composeAndSignTx(outputs, function (result) {
@@ -737,18 +753,18 @@ function addNextAddressWithUnspendFundsToRawTx(addressesWithUnspendInputs, addre
 			//}
 			var utxos = data["unspent_outputs"];
 			var thisAddressAmountToUse = 0;
-			var txFee = parseFloat($("#txFeeMDash").text()) / 1000;
+			var txFee = parseFloat($("#txFeeMVpub").text()) / 1000;
             var totalAmountNeeded = amountToSend + txFee;
             console.log("txFee:" + txFee);
             console.log("amountToSend:" + amountToSend);
             console.log("totalAmountNeeded:" + totalAmountNeeded);
-			var maxAmountPossible = parseFloat($("#totalAmountDash").text());
+			var maxAmountPossible = parseFloat($("#totalAmountVpub").text());
 			// If we send everything, subtract txFee so we can actually send everything
 			if (totalAmountNeeded >= maxAmountPossible)
 				totalAmountNeeded = maxAmountPossible;
 			for (var i = 0; i < utxos.length; i++) {
 				var amount = utxos[i]["value"] / 100000000.0;
-				if (amount >= DUST_AMOUNT_IN_DASH) {
+				if (amount >= DUST_AMOUNT_IN_VPUB) {
 					txToUse.push(utxos[i]["tx_hash"]);
 					txOutputIndexToUse.push(utxos[i]["tx_output_n"]);
 					txAddressPathIndices.push(addressesWithUnspendInputs[addressesWithUnspendInputsIndex].addressIndex);
@@ -758,12 +774,12 @@ function addNextAddressWithUnspendFundsToRawTx(addressesWithUnspendInputs, addre
 						break;
 				}
 			}
-            inputListText += "<li><a href='https://www.vpubchain.net/abe/address/" + address + "' target='_blank' rel='noopener noreferrer'><b>" + address + "</b></a> (-" + showDashOrMDashNumber(thisAddressAmountToUse) + ")</li>";
+            inputListText += "<li><a href='https://www.vpubchain.net/abe/address/" + address + "' target='_blank' rel='noopener noreferrer'><b>" + address + "</b></a> (-" + showVpubOrMVpubNumber(thisAddressAmountToUse) + ")</li>";
             
             if (txAmountTotal >= totalAmountNeeded) {
 				// Recalculate txFee like code above, now we know the actual number of inputs needed
 				updateTxFee(txToUse.length);
-				txFee = parseFloat($("#txFeeMDash").text()) / 1000;
+				txFee = parseFloat($("#txFeeMVpub").text()) / 1000;
 				totalAmountNeeded = amountToSend + txFee;
 				if (totalAmountNeeded >= maxAmountPossible)
                     totalAmountNeeded = maxAmountPossible;
@@ -787,12 +803,12 @@ function addNextAddressWithUnspendFundsToRawTx(addressesWithUnspendInputs, addre
 					$("#txDetailsPanel").show();
 					$("#txDetailsPanel").html("Click to show transaction details for techies.");
 					// Finish raw tx to sign, one final check if everything is in order will be done on server!
-					if (!ledgerDash)
+					if (!ledgerVpub)
 						$("#signButton").show();
 					// Update amountToSend in case we had to reduce it a bit to allow for the txFee
 					amountToSend = totalAmountNeeded - txFee;
-					var remainingDash = txAmountTotal - totalAmountNeeded;
-					$.getJSON("/GenerateRawTx?utxos=" + utxosTextWithOutputIndices + "&channel=" + channel + "&amount=" + showNumber(amountToSend, 8) + "&sendTo=" + sendTo.replace('#', '|')+"&remainingAmount="+showNumber(remainingDash, 8)+"&remainingAddress="+remainingAddress+"&instantSend="+useInstantSend+"&privateSend="+usePrivateSend+"&extraText="+getChannelExtraText()).done(
+					var remainingVpub = txAmountTotal - totalAmountNeeded;
+					$.getJSON("/GenerateRawTx?utxos=" + utxosTextWithOutputIndices + "&channel=" + channel + "&amount=" + showNumber(amountToSend, 8) + "&sendTo=" + sendTo.replace('#', '|')+"&remainingAmount="+showNumber(remainingVpub, 8)+"&remainingAddress="+remainingAddress+"&instantSend="+useInstantSend+"&privateSend="+usePrivateSend+"&extraText="+getChannelExtraText()).done(
 					function (data) {
 						var txHashes = data["txHashes"];
 						rawTx = data["rawTx"];
@@ -802,10 +818,10 @@ function addNextAddressWithUnspendFundsToRawTx(addressesWithUnspendInputs, addre
 						var rawTxList = showRawTxPanel(sendTo, txFee,
 							data["redirectedPrivateSendAddress"],
 							data["redirectedPrivateSendAmount"]);
-						$("<li>Using these inputs from your addresses for the required <b>" + showDashOrMDashNumber(totalAmountNeeded) + "</b> (including fees):<ol>" + inputListText + "</ol></li>").appendTo(rawTxList);
-						if (remainingDash > 0)
-                            $("<li>The remaining " + showDashOrMDashNumber(remainingDash) +" will be send to your own receiving address: <a href='https://www.vpubchain.net/abe/address/" + remainingAddress + "' target='_blank' rel='noopener noreferrer'><b>" + remainingAddress + "</b></a></li>").appendTo(rawTxList);
-						if (ledgerDash)
+						$("<li>Using these inputs from your addresses for the required <b>" + showVpubOrMVpubNumber(totalAmountNeeded) + "</b> (including fees):<ol>" + inputListText + "</ol></li>").appendTo(rawTxList);
+						if (remainingVpub > 0)
+                            $("<li>The remaining " + showVpubOrMVpubNumber(remainingVpub) +" will be send to your own receiving address: <a href='https://www.vpubchain.net/abe/address/" + remainingAddress + "' target='_blank' rel='noopener noreferrer'><b>" + remainingAddress + "</b></a></li>").appendTo(rawTxList);
+						if (ledgerVpub)
 							signRawTxOnLedgerHardware(txHashes, rawTx, txOutputIndexToUse, txAddressPathIndices);
 						else
 							signRawTxWithKeystore(txHashes, txOutputIndexToUse, rawTx, txFee);
@@ -842,7 +858,7 @@ function signRawTxOnLedgerHardware(txHashes, rawTx, txOutputIndexToUse, txAddres
 	var txs = [];
 	var addressPaths = [];
 	for (var i = 0; i < txHashes.length; i++) {
-		var parsedTx = ledgerDash.splitTransaction(txHashes[i]);
+		var parsedTx = ledgerVpub.splitTransaction(txHashes[i]);
 		//console.log("parsed tx " + i + ": %O", parsedTx);
 		if (!parsedTx.inputs || parsedTx.inputs.length === 0) {
 			$("#resultPanel").css("color", "red")
@@ -857,13 +873,13 @@ function signRawTxOnLedgerHardware(txHashes, rawTx, txOutputIndexToUse, txAddres
 		}
 		addressPaths.push("44'/5'/0'/0/" + txAddressPathIndices[i]);
 	}
-	var parsedRawtx = ledgerDash.splitTransaction(rawTx);
+	var parsedRawtx = ledgerVpub.splitTransaction(rawTx);
 	//console.log("parsedRawtx: %O", parsedRawtx);
 	if (!parsedRawtx || parsedRawtx.outputs.length === 0) {
 		$("#resultPanel").css("color", "red").text("Empty broken raw tx outputs, unable to continue");
 		return;
 	}
-	var outputScript = ledgerDash.serializeTransactionOutputs(parsedRawtx).toString('hex');
+	var outputScript = ledgerVpub.serializeTransactionOutputs(parsedRawtx).toString('hex');
 	//console.log("outputScript: %O", outputScript);
 	if (!outputScript) {
 		$("#resultPanel").css("color", "red").text("Empty broken raw tx output script, unable to continue");
@@ -874,8 +890,8 @@ function signRawTxOnLedgerHardware(txHashes, rawTx, txOutputIndexToUse, txAddres
 	// Still requires 2 confirmation, first the external output address and then the transaction+fee
 	var remainingAddressPath = "44'/5'/0'/0/" + (getNumberOfAddresses() - 1);
 	//console.log("remainingAddressPath: "+remainingAddressPath);
-	ledgerDash.EXTENSION_TIMEOUT_SEC = 90;
-	ledgerDash.createPaymentTransactionNew_async(txs, addressPaths, remainingAddressPath,
+	ledgerVpub.EXTENSION_TIMEOUT_SEC = 90;
+	ledgerVpub.createPaymentTransactionNew_async(txs, addressPaths, remainingAddressPath,
 		outputScript).then(
 		function (finalSignedTx) {
 			signedTx = finalSignedTx;
@@ -929,12 +945,12 @@ function showRawTxPanel(toAddress, txFee, privateSendAddress, redirectedPrivateS
 	var useInstantSend = $("#useInstantSend").is(':checked');
 	var usePrivateSend = $("#usePrivateSend").is(':checked');
 	if (usePrivateSend && toAddress !== privateSendAddress)
-        $("<li>Sending <b>" + showDashOrMDashNumber(redirectedPrivateSendAmount) + "</b> (with PrivateSend tx fees) to new autogenerated PrivateSend address <a href='https://www.vpubchain.net/abe/address/" + privateSendAddress + "' target='_blank' rel='noopener noreferrer'><b>" + privateSendAddress + "</b></a>. When mixing is done (between right away and a few hours) <b>" + showDashOrMDashNumber(amountToSend) + "</b> will anonymously arrive at: <a href='https://explorer.vpub.org/address/" + toAddress + "' target='_blank' rel='noopener noreferrer'><b>" + toAddress + "</b></a></li>").appendTo(rawTxList);
+        $("<li>Sending <b>" + showVpubOrMVpubNumber(redirectedPrivateSendAmount) + "</b> (with PrivateSend tx fees) to new autogenerated PrivateSend address <a href='https://www.vpubchain.net/abe/address/" + privateSendAddress + "' target='_blank' rel='noopener noreferrer'><b>" + privateSendAddress + "</b></a>. When mixing is done (between right away and a few hours) <b>" + showVpubOrMVpubNumber(amountToSend) + "</b> will anonymously arrive at: <a href='https://explorer.vpub.org/address/" + toAddress + "' target='_blank' rel='noopener noreferrer'><b>" + toAddress + "</b></a></li>").appendTo(rawTxList);
 	else if (toAddress !== privateSendAddress)
-        $("<li>Sending <b>" + showDashOrMDashNumber(amountToSend) + "</b> to " + getChannel() + ": " + toAddress +" via <a href='https://www.vpubchain.net/abe/address/" + privateSendAddress + "' target='_blank' rel='noopener noreferrer'><b>" + privateSendAddress + "</b></a></li>").appendTo(rawTxList);
+        $("<li>Sending <b>" + showVpubOrMVpubNumber(amountToSend) + "</b> to " + getChannel() + ": " + toAddress +" via <a href='https://www.vpubchain.net/abe/address/" + privateSendAddress + "' target='_blank' rel='noopener noreferrer'><b>" + privateSendAddress + "</b></a></li>").appendTo(rawTxList);
 	else
-        $("<li>Sending <b>" + showDashOrMDashNumber(amountToSend) + "</b> to <a href='https://www.vpubchain.net/abe/address/" + toAddress + "' target='_blank' rel='noopener noreferrer'><b>" + toAddress + "</b></a></li>").appendTo(rawTxList);
-	$("<li>InstantSend: <b>" + (useInstantSend ? "Yes" : "No") + "</b>, PrivateSend: <b>" + (usePrivateSend ? "Yes" : "No") + "</b>, Tx fee"+(usePrivateSend?" (for initial send to mix)":"")+": <b>" + showDashOrMDashNumber(txFee) + "</b> ($" + showNumber(txFee * usdRate, 4) + ")</li>").appendTo(rawTxList);
+        $("<li>Sending <b>" + showVpubOrMVpubNumber(amountToSend) + "</b> to <a href='https://www.vpubchain.net/abe/address/" + toAddress + "' target='_blank' rel='noopener noreferrer'><b>" + toAddress + "</b></a></li>").appendTo(rawTxList);
+	$("<li>InstantSend: <b>" + (useInstantSend ? "Yes" : "No") + "</b>, PrivateSend: <b>" + (usePrivateSend ? "Yes" : "No") + "</b>, Tx fee"+(usePrivateSend?" (for initial send to mix)":"")+": <b>" + showVpubOrMVpubNumber(txFee) + "</b> ($" + showNumber(txFee * usdRate, 4) + ")</li>").appendTo(rawTxList);
 	return rawTxList;
 }
 
@@ -1071,7 +1087,7 @@ function unlockKeystore() {
 		vpubKeystoreWallet.address =
 			window.getDecryptedAddress(CryptoJS.AES.decrypt(vpubKeystoreWallet.d, vpubKeystoreWallet.s)
 				.toString(CryptoJS.enc.Utf8));
-		if (!isValidDashAddress(vpubKeystoreWallet.address))
+		if (!isValidVpubAddress(vpubKeystoreWallet.address))
 			showFailure("Invalid Vpub address from decrypted keystore file, unable to continue: " + vpubKeystoreWallet.address);
 		else {
 			goToSendPanel("Successfully unlocked Keystore Wallet!");

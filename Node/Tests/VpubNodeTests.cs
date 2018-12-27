@@ -6,15 +6,15 @@ using NUnit.Framework;
 
 namespace MyVpubWallet.Node.Tests
 {
-	public class DashNodeTests
+	public class VpubNodeTests
 	{
 		[SetUp]
 		public void CreateNode()
 		{
-			node = StartedFromNCrunch ? (DashNode)new MockDashNode() : new TestnetDashNode();
+			node = StartedFromNCrunch ? (VpubNode)new MockVpubNode() : new TestnetVpubNode();
 		}
 
-		private DashNode node;
+		private VpubNode node;
 		public static bool StartedFromNCrunch => Environment.GetEnvironmentVariable("NCrunch") == "1";
 
 		[Test]
@@ -73,16 +73,16 @@ namespace MyVpubWallet.Node.Tests
 		}
 
 		[Test]
-		public void CorrectlyRoundDashNumber()
+		public void CorrectlyRoundVpubNumber()
 		{
 			Assert.That(
-				DashNode.GetCorrectDashNumberInDuffs(0.1m).ToString(CultureInfo.InvariantCulture),
+				VpubNode.GetCorrectVpubNumberInDuffs(0.1m).ToString(CultureInfo.InvariantCulture),
 				Is.EqualTo("0.1"));
 			Assert.That(
-				DashNode.GetCorrectDashNumberInDuffs(0.00016m).ToString(CultureInfo.InvariantCulture),
+				VpubNode.GetCorrectVpubNumberInDuffs(0.00016m).ToString(CultureInfo.InvariantCulture),
 				Is.EqualTo("0.00016"));
 			Assert.That(
-				DashNode.GetCorrectDashNumberInDuffs(0.00016000001m).ToString(CultureInfo.InvariantCulture),
+				VpubNode.GetCorrectVpubNumberInDuffs(0.00016000001m).ToString(CultureInfo.InvariantCulture),
 				Is.EqualTo("0.00016"));
 		}
 
@@ -168,11 +168,11 @@ namespace MyVpubWallet.Node.Tests
 				InputToAddressAmount, InputToAddress,
 				remainingAmount, InputRemainingAddress, false, true);
 			Assert.That(rawTxHashesAndRawTx.TxHashes, Has.Length.EqualTo(1));
-			if (node is MockDashNode)
+			if (node is MockVpubNode)
 				return;
 			//ncrunch: no coverage start
 			Console.WriteLine("Tx Input Hash: " + rawTxHashesAndRawTx.TxHashes[0]);
-			var txInput = (node as TestnetDashNode).DecodeRawTransaction(rawTxHashesAndRawTx.TxHashes[0]);
+			var txInput = (node as TestnetVpubNode).DecodeRawTransaction(rawTxHashesAndRawTx.TxHashes[0]);
 			Assert.That(txInput.Vin, Has.Count.EqualTo(1));
 			Assert.That(txInput.Vout[0].N, Is.EqualTo(0));
 			// Old tx used for input here also went to same donation address and has itself as chance
@@ -181,7 +181,7 @@ namespace MyVpubWallet.Node.Tests
 			Assert.That(txInput.Vout[1].Value, Is.EqualTo(0.00125025m));
 			Assert.That(txInput.Vout[1].ScriptPubKey.Addresses[0], Is.EqualTo(InputRemainingAddress));
 			Console.WriteLine("RawTx Hash: " + rawTxHashesAndRawTx.RawTx);
-			var tx = (node as TestnetDashNode).DecodeRawTransaction(rawTxHashesAndRawTx.RawTx);
+			var tx = (node as TestnetVpubNode).DecodeRawTransaction(rawTxHashesAndRawTx.RawTx);
 			Assert.That(tx.Vin, Has.Count.EqualTo(1));
 			Assert.That(tx.Vin[0].TxId, Is.EqualTo(txInput.TxId));
 			Assert.That(tx.Vout, Has.Count.EqualTo(2));
@@ -204,7 +204,7 @@ namespace MyVpubWallet.Node.Tests
 			GenerateRawTx();
 			// Signing for hardware wallets is done on the website, we can directly broadcast signed txs
 			var signedTx = node.SignRawTx(rawTx);
-			Console.WriteLine("Final tx: " + node.BroadcastSignedTxIntoDashNetwork(signedTx, false));
+			Console.WriteLine("Final tx: " + node.BroadcastSignedTxIntoVpubNetwork(signedTx, false));
 		}
 
 		[Test]
@@ -227,14 +227,14 @@ namespace MyVpubWallet.Node.Tests
 					new TxOutput("yhGZ9FCAEoYvjLiwWBqFsXAtNeezMHCz8j", inputAmount - (sendAmount + txFee))
 				});
 			var signedTx = node.SignRawTx(rawTx);
-			Console.WriteLine("Final tx: " + node.BroadcastSignedTxIntoDashNetwork(signedTx, true));
+			Console.WriteLine("Final tx: " + node.BroadcastSignedTxIntoVpubNetwork(signedTx, true));
 		}
 		
 		//ncrunch: no coverage start
 		[Test, Category("Slow")]
 		public void GenerateRealTransaction()
 		{
-			// Will only work in mainnet, sending 0.1mDASH to donation address
+			// Will only work in mainnet, sending 0.1mVPUB to donation address
 			//GenerateRawTx?utxos=|0||0|&amountToAddress=0.0001|XoASepVfo1cegWp52HS9gbcKuarLyqxsKT&remainingAmountToAddress=0.0009962600000000001|Xv1Tfr7aFwfSsaYkTMtVe3nBK6XsWgtiFy&instantSend=false&privateSend=false
 			var sendAmount = 0.0001m;
 			var txFee = node.CalculateTxFee(2, 2, false, false);

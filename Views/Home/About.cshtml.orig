@@ -24,7 +24,7 @@
 				</ul>
 			</div>
 			<div class="col col-sm-4 offset-sm-1">
-				<img src="https://www.vpub.org/assets/img/graphics/Dash_Logo_Vector_Digital_Cash.png" style="max-width:400px" alt="Vpub" />
+				<img src="https://www.vpub.org/assets/img/graphics/Vpub_Logo_Vector_Digital_Cash.png" style="max-width:400px" alt="Vpub" />
 			</div>
 		</section>
 		<br><br>
@@ -38,7 +38,7 @@
 					<li>  <a href="/AboutTrezorHardwareWallet">How to send via TREZOR hardware wallet</a>.  </li>
 					<li>  <a href="/AboutHardwareWallets">Get a hardware wallet</a>.  </li>
 					<li>  <a href="/AboutCreateNewWallet">How to create a new wallet via Keystore file</a>.  </li>
-					<li>  <a href="/AboutMyDashWallet">Why is MyVpubWallet so fast? How does it work?</a>  </li>
+					<li>  <a href="/AboutMyVpubWallet">Why is MyVpubWallet so fast? How does it work?</a>  </li>
 					<li>  <a href="/AboutTransactionFees">Why are VP transactions so cheap on MyVpubWallet?</a>  </li>
 					<li>  <a href="/AboutInstantSend">How to does VP InstantSend work on MyVpubWallet?</a>  </li>
 					<li>  <a href="/AboutPrivateSend">How to does VP PrivateSend work on MyVpubWallet?</a>  </li>
@@ -226,7 +226,7 @@
 					<li> <a href="/AboutPrivateSend">How does PrivateSend work?</a> </li>
 					<li> <a href="/AboutInstantSend">About Transaction Fees</a> </li>
 					<li> <a href="/AboutVideos">Great videos about Vpub and how blockchains work</a> </li>
-					<li> <a href="/AboutMyDashWallet">About MyVpubWallet</a> </li>
+					<li> <a href="/AboutMyVpubWallet">About MyVpubWallet</a> </li>
 					<li> <a href="https://youtu.be/phht73IvUDI?t=58">Prefer a video walkthrough? Here's one for MyEtherWallet, MyVpubWallet is similar</a> </li>
 >>>>>>> other
 				</ul>

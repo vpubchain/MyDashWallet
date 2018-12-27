@@ -7,7 +7,7 @@ namespace BitcoinLib.Services.Coins.Colx
 	/// <summary>
 	/// Mostly the same functionality as <see cref="BitcoinService"/>.
 	/// </summary>
-	public class ColxService : DashService, IColxService
+	public class ColxService : VpubService, IColxService
 	{
 		public ColxService(bool useTestnet = false) : base(useTestnet) { }
 

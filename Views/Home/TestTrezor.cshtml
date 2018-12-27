@@ -6,7 +6,8 @@
 
 <script>
 	function trezorGetAccount() {
-		TrezorConnect.setCurrency("Vpub");
+        TrezorConnect.setCurrency("Vpub");
+        //TrezorConnect.setCurrency("Dash");
 		TrezorConnect.getAccountInfo("m/44'/5'/0'", function (response) {
 			if (response.success) {
 				console.log('Account ID: ', response.id);

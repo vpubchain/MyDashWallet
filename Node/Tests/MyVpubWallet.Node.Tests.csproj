@@ -3,12 +3,12 @@
     <TargetFramework>netcoreapp2.0</TargetFramework>
     <IsPackable>false</IsPackable>
     <FileUpgradeFlags>40</FileUpgradeFlags>
-    <UpgradeBackupLocation>F:\90svn\Dev\SourceCode\vpub\MyDashWallet\Backup\Node\Tests\</UpgradeBackupLocation>
+    <UpgradeBackupLocation>F:\90svn\Dev\SourceCode\vpub\MyVpubWallet\Backup\Node\Tests\</UpgradeBackupLocation>
     <OldToolsVersion>2.0</OldToolsVersion>
   </PropertyGroup>
   <ItemGroup>
-    <None Remove="MyDashWallet.Node.Tests.v3.ncrunchproject" />
-    <None Remove="MyDashWallet.Services.Tests.v3.ncrunchproject" />
+    <None Remove="MyVpubWallet.Node.Tests.v3.ncrunchproject" />
+    <None Remove="MyVpubWallet.Services.Tests.v3.ncrunchproject" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="15.6.2" />
@@ -19,6 +19,6 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\BitcoinLib\BitcoinLib.csproj" />
-    <ProjectReference Include="..\MyDashWallet.Node.csproj" />
+    <ProjectReference Include="..\MyVpubWallet.Node.csproj" />
   </ItemGroup>
 </Project>

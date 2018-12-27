@@ -11,7 +11,7 @@ namespace SocialCryptoBots
 	/// <summary>
 	/// Tons of features for the Currency enum, converting from strings, checking for valid addresses,
 	/// converting milli values to full values and back, and outputting dollar or euro values.
-	/// All operations assume amounts and currencies in milli (mBTC, mDash)
+	/// All operations assume amounts and currencies in milli (mBTC, mVpub)
 	/// </summary>
 	public static class CurrencyExtensions
 	{
@@ -108,7 +108,7 @@ namespace SocialCryptoBots
 				return targetAddress.Length <= BitcoinExampleAddress.Length || targetAddress.StartsWith("bc");
 			case Currency.mVP:
 				//https://www.vpub.org/forum/threads/how-do-you-recieve-vpub-coins-from-a-cryptonote-vpubcoin-wallet-f21c4c6.8924/
-				return targetAddress.Length <= DashExampleAddress.Length &&
+				return targetAddress.Length <= VpubExampleAddress.Length &&
 					(targetAddress.ToLower().StartsWith("x") ||
 					allowTestnetAddresses && targetAddress.ToLower().StartsWith("y"));
 			case Currency.mLTC:
@@ -135,7 +135,7 @@ namespace SocialCryptoBots
 		/// </summary>
 		private const int MinimumAddressLength = 25;
 		private const string BitcoinExampleAddress = "36XUhbzeFpxykGYgsnz34GnN6A2NmbATcu";
-		private const string DashExampleAddress = "XdiLEUfA6gJzU7jxKvdH8jBava7Q2J1uCe";
+		private const string VpubExampleAddress = "XdiLEUfA6gJzU7jxKvdH8jBava7Q2J1uCe";
 		private const string LitecoinExampleAddress = "LWsXTuLMFx3y52BszUYktnuBo6ymdMNLz6";
 		private const string EtherExampleAddress = "0xE1BCdE463540b4D6355964fF44D4d3331EAE88aA";
 		private const string BccExampleAddress = "1135t6K5QDDsYyew6sfBsHAeToC2bMk3iL";
@@ -147,7 +147,7 @@ namespace SocialCryptoBots
 			case Currency.mBTC:
 				return BitcoinExampleAddress;
 			case Currency.mVP:
-				return DashExampleAddress;
+				return VpubExampleAddress;
 			case Currency.mLTC:
 				return LitecoinExampleAddress;
 			case Currency.mETH:
@@ -170,7 +170,7 @@ namespace SocialCryptoBots
 			=> currency == Currency.mBCH || currency == Currency.mBTC ? 10 : 3;
 
 		/// <summary>
-		/// 0.19mETH becomes 0.00019ETH, 20mDASH becomes 0.02DASH, etc.
+		/// 0.19mETH becomes 0.00019ETH, 20mVPUB becomes 0.02VPUB, etc.
 		/// </summary>
 		public static decimal ConvertFromMilliToFullCoinValue(decimal milliCoinAmount)
 			=> milliCoinAmount / 1000.0m;

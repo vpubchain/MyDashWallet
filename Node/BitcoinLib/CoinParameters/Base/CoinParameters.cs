@@ -259,16 +259,16 @@ namespace BitcoinLib.Services
 
                 #region Vpub
 
-                else if (coinService is DashService)
+                else if (coinService is VpubService)
                 {
                     if (!IgnoreConfigFiles)
                     {
 
-                        //DaemonUrl = ConfigurationManager.AppSettings.Get("Dash_DaemonUrl");
-                        //DaemonUrlTestnet = ConfigurationManager.AppSettings.Get("Dash_DaemonUrl_Testnet");
-                        //RpcUsername = ConfigurationManager.AppSettings.Get("Dash_RpcUsername");
-                        //RpcPassword = ConfigurationManager.AppSettings.Get("Dash_RpcPassword");
-                        //WalletPassword = ConfigurationManager.AppSettings.Get("Dash_WalletPassword");
+                        //DaemonUrl = ConfigurationManager.AppSettings.Get("Vpub_DaemonUrl");
+                        //DaemonUrlTestnet = ConfigurationManager.AppSettings.Get("Vpub_DaemonUrl_Testnet");
+                        //RpcUsername = ConfigurationManager.AppSettings.Get("Vpub_RpcUsername");
+                        //RpcPassword = ConfigurationManager.AppSettings.Get("Vpub_RpcPassword");
+                        //WalletPassword = ConfigurationManager.AppSettings.Get("Vpub_WalletPassword");
 
                         DaemonUrl = "http://192.168.5.161:9902";
                         DaemonUrlTestnet = "http://192.168.5.161:19902";

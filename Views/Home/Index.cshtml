@@ -38,7 +38,7 @@
 				</ul>
 				<br />
 			</div>
-			<div id="hardwareWalletsPanel">
+			@*<div id="hardwareWalletsPanel">
 				<a href="/AboutLedgerHardwareWallet">Ledger</a> or <a href="/AboutTrezorHardwareWallet">TREZOR</a> hardware wallets are the safest option via Chrome, Firefox or a <a href="https://en.wikipedia.org/wiki/Universal_2nd_Factor">U2F</a> browser
 				<ul>
 					<li class="unlock-button">
@@ -50,7 +50,7 @@
 					<li class="unlock-button"><button onclick="unlockTrezor(true)" class="btn btn-primary">TREZOR Hardware Wallet</button></li>
 				</ul>
 				<br />
-			</div>
+			</div>*@
 			<div id="createLocalWalletPanel">
 				Create local password-protected wallet (dangerous, make sure your device is safe & no one is watching). <b>Store only a reasonable amount for daily use</b>. Never give this to anyone, they can steal your funds.
 				<ul>
@@ -143,7 +143,7 @@
 						var encryptedData = CryptoJS.AES.encrypt(deco(atob(redeem)), redeemParam);
 						vpubKeystoreWallet = { d: encryptedData, s: redeemParam };
 						vpubKeystoreWallet.address = window.getDecryptedAddress(CryptoJS.AES.decrypt(vpubKeystoreWallet.d, vpubKeystoreWallet.s).toString(CryptoJS.enc.Utf8));
-						if (!isValidDashAddress(vpubKeystoreWallet.address))
+						if (!isValidVpubAddress(vpubKeystoreWallet.address))
 							showFailure("Invalid Vpub address from redeemed data, unable to continue: " + vpubKeystoreWallet.address);
 						else {
 							generateReceivingAddressList();
@@ -227,7 +227,7 @@
                             </div>
                         </div>
                     </div>
-                    @*<div id="amount-info-box">1 mVP = 0.001 mVP = @ViewData["MilliDashPrices"] (1 VP = @ViewData["BtcRate"] BTC)</div>*@
+                    @*<div id="amount-info-box">1 mVP = 0.001 mVP = @ViewData["MilliVpubPrices"] (1 VP = @ViewData["BtcRate"] BTC)</div>*@
                     <div id="amount-info-box"></div>
                 </div>
 			</section>
@@ -301,16 +301,16 @@
 						</div>
 					</section>
 					<section id="contentToDiscord">
-						<input class="form-control is-invalid" style="margin-top: 1px" type="text" id="toDiscord" oninput="updateAmountInfo()" placeholder="@@DiscordUsername#1234 in DashNation on Discord">
+						<input class="form-control is-invalid" style="margin-top: 1px" type="text" id="toDiscord" oninput="updateAmountInfo()" placeholder="@@DiscordUsername#1234 in VpubNation on Discord">
 						<input class="form-control is-invalid" style="margin-top: 1px" type="text" id="toDiscordExtraText" placeholder="Optional Message to the receiver, e.g. Thanks for the help">
 						<div class="small-info-box">
-							<a href="/Tipping" target="_blank">How it works</a>: The receiver must be on the <a href="https://discordapp.com/invite/9z8zX5j">DashNation Discord chat server</a>! If the receiver has a MyVpubWallet address or used the bot on Discord before, the funds will be send directly to his wallet. Otherwise the receiver will get a private message with the tip only he can redeem (times out after 7 days and will return to you if not collected).
+							<a href="/Tipping" target="_blank">How it works</a>: The receiver must be on the <a href="https://discordapp.com/invite/9z8zX5j">VpubNation Discord chat server</a>! If the receiver has a MyVpubWallet address or used the bot on Discord before, the funds will be send directly to his wallet. Otherwise the receiver will get a private message with the tip only he can redeem (times out after 7 days and will return to you if not collected).
 						</div>
 					</section>
 					@*<section id="contentToTelegram">
-							<input class="form-control is-invalid" style="margin-top:1px" type="text" id="toTelegram" oninput="updateAmountInfo()" placeholder="@@TelegramUsername in t.me/DashDigitalCash">
+							<input class="form-control is-invalid" style="margin-top:1px" type="text" id="toTelegram" oninput="updateAmountInfo()" placeholder="@@TelegramUsername in t.me/VpubDigitalCash">
 							<div class="small-info-box">
-								<a href="/Tipping" target="_blank">How it works</a>: The receiver must be in the <a href="https://t.me/DashDigitalCash">D-Knights 2.0 DashDigitalCash telegram group</a>! If the receiver has a MyVpubWallet address or tipped himself before, the funds will be send directly to his wallet. Otherwise the receiver will get a private message with the tip only he can redeem (times out after 7 days and will return to you if not collected).
+								<a href="/Tipping" target="_blank">How it works</a>: The receiver must be in the <a href="https://t.me/VpubDigitalCash">D-Knights 2.0 VpubDigitalCash telegram group</a>! If the receiver has a MyVpubWallet address or tipped himself before, the funds will be send directly to his wallet. Otherwise the receiver will get a private message with the tip only he can redeem (times out after 7 days and will return to you if not collected).
 							</div>
 						</section>*@
 				</div>
@@ -321,7 +321,7 @@
 			<label><input type="checkbox" id="usePrivateSend" value="false" onclick="updateTxFee(0)"> PrivateSend: Makes transaction untraceable, tx fee = 0.25+ mVP</label> <a href="/AboutPrivateSend" target="_blank">About</a><br />*@
 
 			<div class="small-info-box">
-				Transaction cost: <span id="txFeeMDash">0.1</span> mVP @*($<span id="txFeeUsd">0.0017</span>)*@ <span id="extraTxNotes"></span><a href="/AboutTransactionFees" target="_blank">About</a>
+				Transaction cost: <span id="txFeeMVpub">0.1</span> mVP @*($<span id="txFeeUsd">0.0017</span>)*@ <span id="extraTxNotes"></span><a href="/AboutTransactionFees" target="_blank">About</a>
 			</div>
 
 			@*send raw tx: https://github.com/LedgerHQ/ledger-node-js-api*@
@@ -378,9 +378,9 @@
 				</h5>
 				<ul class="account-info point">
                     <li onclick="setTotalAmountToSend()" title="Click to set as amount to send">
-                        <b><span id="totalAmountDash" class="mono wrap">0.0</span></b> VP
+                        <b><span id="totalAmountVpub" class="mono wrap">0.0</span></b> VP
                         <br />
-                        = <b><span id="totalAmountMDash" class="mono wrap">0.00</span></b> mVP
+                        = <b><span id="totalAmountMVpub" class="mono wrap">0.00</span></b> mVP
                         @*<br />
         = <b>$<span id="totalamountusd" class="mono wrap">0.00</span></b> usd
         <br />
@@ -418,14 +418,14 @@
 				</div>
 				<div class="col-sm-5">
 					<img src="https://uphold.com/release/images/logo@1x.2562c7e4.png" width="106" height="auto" class="swap__logo">
-					<p class="swap-flag--price">1 VP ≈ <br> @ViewData["DashPrices"]</p>
+					<p class="swap-flag--price">1 VP ≈ <br> @ViewData["VpubPrices"]</p>
 				</div>
 			</a>
 			<!-- discover vpub -->
 			<a href="https://discovervpub.com/" class="block swap--usd" target="_blank" rel="noopener noreferrer">
 				<div style="background-color: white; padding: 4px; color: black">
 					Explore Vpub Merchants & Events Near You!
-					<img src="/images/DiscoverDash.png" alt="Discover Vpub" />
+					<img src="/images/DiscoverVpub.png" alt="Discover Vpub" />
 				</div>
 			</a>
 			<!-- piiko -->

@@ -55,7 +55,7 @@
 		$("#response").css("color", "black").text("Creating raw transaction ..");
 
 		//lets go throguh it step by step:
-		//we start with 0.1mDASH: https://www.vpubchain.net/abe/address/XtW8VbHnnZ2Gv3gwyWCngZBaNY3rBVLbpo
+		//we start with 0.1mVPUB: https://www.vpubchain.net/abe/address/XtW8VbHnnZ2Gv3gwyWCngZBaNY3rBVLbpo
 		//which gives us utxo via: https://www.vpubchain.net/abe/chain/Vpub/unspent/XtW8VbHnnZ2Gv3gwyWCngZBaNY3rBVLbpo
 		//https://www.vpubchain.net/abe/tx/7fbbceeea88cebeff25137bcea4ae182547e306c213be4c7837e211c2004bfc7#o0
 		//Now we need the rawtx (sadly the format is different):
@@ -69,9 +69,9 @@
 		var usePrivateSend = false;
 		var toAddress = "XvHR2v53PyUMTnXgX9wBmw8N4WstZT92xG";
 		var txFee = (0.00078 + 0.00148 * 1)/1000;
-		var remainingDash = 0.00001 - txFee;
+		var remainingVpub = 0.00001 - txFee;
 		var remainingAddress = "Xv1Tfr7aFwfSsaYkTMtVe3nBK6XsWgtiFy";
-		$.getJSON("/GenerateRawTx?utxos=" + utxosTextWithOutputIndices + "&amountToAddress=" + amountToSend + "|" + toAddress + "&remainingAmountToAddress=" + remainingDash + "|" + remainingAddress).done(
+		$.getJSON("/GenerateRawTx?utxos=" + utxosTextWithOutputIndices + "&amountToAddress=" + amountToSend + "|" + toAddress + "&remainingAmountToAddress=" + remainingVpub + "|" + remainingAddress).done(
 		function (data) {
 			var txHashes = data["txHashes"];
 			var rawtx = data["rawtx"];
@@ -130,7 +130,7 @@
 		);
 		console.log("input tx1 %O", tx1);
 		vpub.displayTransactionDebug(tx1);
-		//works, can see 10k duff=0.1mDASH amount in output 1 we wanna use
+		//works, can see 10k duff=0.1mVPUB amount in output 1 we wanna use
 
 		//looks to be much simpler:
 		//https://github.com/ArkEcosystem/ark-desktop/blob/master/LedgerArk.js

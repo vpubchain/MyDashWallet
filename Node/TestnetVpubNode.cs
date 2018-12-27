@@ -9,17 +9,17 @@ namespace MyVpubWallet.Node
 	/// <summary>
 	/// Basic integration into RPC vpub testnet node without advanced features, easier for testing.
 	/// </summary>
-	public class TestnetDashNode : DashNode
+	public class TestnetVpubNode : VpubNode
 	{
         
 		/// <summary>
 		/// None of the default values are used in production, this is just for local testing
 		/// </summary>
-		public TestnetDashNode(string server = "http://192.168.5.168:9902", string user = "mn",
+		public TestnetVpubNode(string server = "http://192.168.5.168:9902", string user = "mn",
 			string password = "999000", short requestTimeoutInSeconds = 30)
-			=> service = new DashService(server, user, password, password, requestTimeoutInSeconds);
+			=> service = new VpubService(server, user, password, password, requestTimeoutInSeconds);
 
-		protected readonly DashService service;
+		protected readonly VpubService service;
 		public override decimal GetTotalBalance() => service.GetBalance("", -1, null);
 		public override decimal GetUserAddressBalance(string userAddress)
 		{
@@ -28,7 +28,7 @@ namespace MyVpubWallet.Node
 				var response =
 					service.GetAddressBalance(
 						new AddressBalanceRequest { Addresses = new List<string> { userAddress } });
-				return ConvertDuffsToDashAmount(response.Balance);
+				return ConvertDuffsToVpubAmount(response.Balance);
 			}
 			catch
 			{
@@ -43,7 +43,7 @@ namespace MyVpubWallet.Node
 				var response =
 					service.GetAddressBalance(
 						new AddressBalanceRequest { Addresses = new List<string> { userAddress } });
-				return ConvertDuffsToDashAmount(response.Received);
+				return ConvertDuffsToVpubAmount(response.Received);
 			}
 			catch
 			{
@@ -51,7 +51,7 @@ namespace MyVpubWallet.Node
 			}
 		}
 		
-		public override List<ListUnspentDashResponse> GetUnspentDashOutputs()
+		public override List<ListUnspentVpubResponse> GetUnspentVpubOutputs()
 			=> service.ListUnspentPrivateSend();
 
 		public override string GenerateNewAddress(string userLabel, bool forPrivateSendTx)
@@ -87,7 +87,7 @@ namespace MyVpubWallet.Node
 			throw new SigningRawTxFailed(result.Errors.Count > 0 ? result.Errors[0].Error : "");
 		}
 
-		public override string BroadcastSignedTxIntoDashNetwork(string signedTx, bool useInstantSend)
+		public override string BroadcastSignedTxIntoVpubNetwork(string signedTx, bool useInstantSend)
 			=> service.SendRawTransaction(signedTx, false, useInstantSend);
 
 		public DecodeRawTransactionResponse DecodeRawTransaction(string txHash)

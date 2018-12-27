@@ -11,14 +11,14 @@ namespace BitcoinLib.Services.Coins.Vpub
 	/// Mostly the same functionality as <see cref="BitcoinService"/>, just adds a bunch more features
 	/// for handling InstantSend and PrivateSend, plus better raw tx generation support.
 	/// </summary>
-	public class DashService : CoinService, IDashService
+	public class VpubService : CoinService, IVpubService
 	{
-		public DashService(bool useTestnet = false) : base(useTestnet) { }
+		public VpubService(bool useTestnet = false) : base(useTestnet) { }
 
-		public DashService(string daemonUrl, string rpcUsername, string rpcPassword,
+		public VpubService(string daemonUrl, string rpcUsername, string rpcPassword,
 			string walletPassword) : base(daemonUrl, rpcUsername, rpcPassword, walletPassword) { }
 
-		public DashService(string daemonUrl, string rpcUsername, string rpcPassword,
+		public VpubService(string daemonUrl, string rpcUsername, string rpcPassword,
 			string walletPassword, short rpcRequestTimeoutInSeconds) : base(daemonUrl, rpcUsername,
 			rpcPassword, walletPassword, rpcRequestTimeoutInSeconds) { }
 		
@@ -72,10 +72,10 @@ namespace BitcoinLib.Services.Coins.Vpub
 		/// <summary>
 		/// Extends unspend result to show ps_rounds to check for available mixed PrivateSend amount.
 		/// </summary>
-		public List<ListUnspentDashResponse> ListUnspentPrivateSend()
-			=> _rpcConnector.MakeRequest<List<ListUnspentDashResponse>>(RpcMethods.listunspent,
+		public List<ListUnspentVpubResponse> ListUnspentPrivateSend()
+			=> _rpcConnector.MakeRequest<List<ListUnspentVpubResponse>>(RpcMethods.listunspent,
 				1, 9999999, new List<string>());
 
-		public DashConstants.Constants Constants => DashConstants.Constants.Instance;
+		public VpubConstants.Constants Constants => VpubConstants.Constants.Instance;
 	}
 }

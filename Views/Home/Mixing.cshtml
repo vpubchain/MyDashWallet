@@ -25,18 +25,18 @@ PrivateSend tx fee: <b>0.25 mVP + 0.05 mVP</b> per mixed input (e.g. 15.2 mVP is
 		}
 	}
 	function updateGenerateAddressButton() {
-		if (isValidDashAddress($("#toAddress").val()))
+		if (isValidVpubAddress($("#toAddress").val()))
 			$("#generateAddressButton").css("backgroundColor", "#1c75bc").removeAttr("disabled");
 		else
 			$("#generateAddressButton").css("backgroundColor", "gray").attr("disabled", "disabled");
 	}
-	function isValidDashAddress(address) {
+	function isValidVpubAddress(address) {
 		return address && address.length >= 34 && (address[0] === 'X' || address[0] === 'x');
 	}
 	function generateAddress() {
 		$("#generateAddressButton").css("backgroundColor", "gray").attr("disabled", "disabled");
 		var toAddress = $("#toAddress").val();
-		if (isValidDashAddress($("#toAddress").val()))
+		if (isValidVpubAddress($("#toAddress").val()))
 			$.get("/GeneratePrivateSendAddress?toAddress=" + toAddress).done(
 				function(address) {
 					var qrCodeSrc = "//chart.googleapis.com/chart?cht=qr&chl=vpub:" + address + "&choe=UTF-8&chs=240x240&chld=L|0";

@@ -4,18 +4,18 @@ using BitcoinLib.Services.Coins.Vpub;
 
 namespace MyVpubWallet.Node
 {
-	public abstract class DashNode
+	public abstract class VpubNode
 	{
 		public abstract decimal GetTotalBalance();
 		public abstract decimal GetUserAddressBalance(string userAddress);
 		public abstract decimal GetUserAddressReceived(string userAddress);
-		public abstract List<ListUnspentDashResponse> GetUnspentDashOutputs();
+		public abstract List<ListUnspentVpubResponse> GetUnspentVpubOutputs();
 		public abstract string GenerateNewAddress(string userLabel, bool forPrivateSendTx);
 		public abstract string GetRawUtxo(string tx);
 		public abstract decimal GetTxOutputAmount(string tx, int outputIndex);
 		public abstract string GenerateRawTx(List<TxInput> inputs, List<TxOutput> outputs);
 		public abstract string SignRawTx(string rawTx);
-		public abstract string BroadcastSignedTxIntoDashNetwork(string signedTx, bool useInstantSend);
+		public abstract string BroadcastSignedTxIntoVpubNetwork(string signedTx, bool useInstantSend);
 		public string UserIp { get; set; }
 
 		public decimal CalculateTxFee(int numberOfInputs, int numberOfOutputs, bool useInstantSend,
@@ -30,17 +30,17 @@ namespace MyVpubWallet.Node
 			// 2 inputs, 2 outputs, No instantSend, No PrivateSend: 374duffs
 			// 8 inputs, 1 output, No instantSend, No PrivateSend: 1224duffs
 			// 8 inputs, 2 outputs, No instantSend, No PrivateSend: 1262dufs
-			// 1 input, 2 outputs, InstantSend: 0.1mDASH
-			// 2 input, 2 outputs, InstantSend: 0.2mDASH
-			// 8 inputs, 2 outputs, PrivateSend: 0.19262mDASH
-			var txFeeInMDash = BaseMilliFee + MilliFeePerInput * numberOfInputs +
+			// 1 input, 2 outputs, InstantSend: 0.1mVPUB
+			// 2 input, 2 outputs, InstantSend: 0.2mVPUB
+			// 8 inputs, 2 outputs, PrivateSend: 0.19262mVPUB
+			var txFeeInMVpub = BaseMilliFee + MilliFeePerInput * numberOfInputs +
 				MilliFeePerOutput * numberOfOutputs;
 			// The user also needs to pay for mixing and sending the initial tx
 			if (useInstantSend)
-				txFeeInMDash = 0.1m * numberOfInputs;
+				txFeeInMVpub = 0.1m * numberOfInputs;
 			if (usePrivateSend)
-				txFeeInMDash += 0.25m + 0.05m * numberOfInputs;
-			return txFeeInMDash / 1000m;
+				txFeeInMVpub += 0.25m + 0.05m * numberOfInputs;
+			return txFeeInMVpub / 1000m;
 		}
 
 		/// <summary>
@@ -87,7 +87,7 @@ namespace MyVpubWallet.Node
 					remainingAmount = ParseAmountAndAddress(remainingAmountToAddress).Amount;
 				*/
 				result.RedirectedPrivateSendAmount =
-					GetCorrectDashNumberInDuffs(totalInputAmount - (remainingAmount + result.UsedSendTxFee));
+					GetCorrectVpubNumberInDuffs(totalInputAmount - (remainingAmount + result.UsedSendTxFee));
 				//this is amount: var amountToSendAfterMixing = ParseAmountAndAddress(amountToAddress).Amount;
 				// Fallback needed when there are no inputs (e.g. Trezor)
 				if (totalInputAmount == 0m)
@@ -123,7 +123,7 @@ namespace MyVpubWallet.Node
 
 		/// <summary>
 		/// Same code as in index.js getPrivateSendNumberOfInputsBasedOnAmount
-		/// Amounts are: 10mDASH, 100mDASH, 1 VP, 10 VP
+		/// Amounts are: 10mVPUB, 100mVPUB, 1 VP, 10 VP
 		/// https://vpubpay.atlassian.net/wiki/spaces/DOC/pages/1146924/PrivateSend
 		/// </summary>
 		private static int GetPrivateSendNumberOfInputsBasedOnAmount(decimal amountToSend)
@@ -162,7 +162,7 @@ namespace MyVpubWallet.Node
 		protected static TxOutput ParseAmountAndAddress(string amountAndAddress)
 		{
 			string[] parts = amountAndAddress.Split('|');
-			return new TxOutput(parts[1], GetCorrectDashNumberInDuffs(decimal.Parse(parts[0])));
+			return new TxOutput(parts[1], GetCorrectVpubNumberInDuffs(decimal.Parse(parts[0])));
 		}
 		*/
 
@@ -184,10 +184,10 @@ namespace MyVpubWallet.Node
 				{
 					if (outputs.Count == 2)
 						outputs[1].Amount =
-							GetCorrectDashNumberInDuffs(totalInputAmount - (txFee + outputs[0].Amount));
+							GetCorrectVpubNumberInDuffs(totalInputAmount - (txFee + outputs[0].Amount));
 					else
 						// If we just have one output, spend it all
-						outputs[0].Amount = GetCorrectDashNumberInDuffs(totalInputAmount - txFee);
+						outputs[0].Amount = GetCorrectVpubNumberInDuffs(totalInputAmount - txFee);
 				}
 				else
 					// Otherwise the problem is big, abort and report error to user
@@ -203,26 +203,26 @@ namespace MyVpubWallet.Node
 		/// building the raw tx and signing it with hardware devices (might display higher values).
 		/// https://stackoverflow.com/questions/4525854/remove-trailing-zeros
 		/// </summary>
-		public static decimal GetCorrectDashNumberInDuffs(decimal amount)
+		public static decimal GetCorrectVpubNumberInDuffs(decimal amount)
 			=> decimal.Round(amount, 8, MidpointRounding.AwayFromZero) /
 				1.000000000000000000000000000000000m;
 
-		public static decimal ConvertDuffsToDashAmount(long duffs) => duffs / 100000000m;
+		public static decimal ConvertDuffsToVpubAmount(long duffs) => duffs / 100000000m;
 
 		private class InputAmountsDoNotMatchOutputAmountsWithTxFee : Exception
 		{
 			public InputAmountsDoNotMatchOutputAmountsWithTxFee(decimal totalInputAmount,
 				decimal totalOutputAmount, decimal txFee) : base("Input amounts: " + totalInputAmount +
-				" != Output amounts: " + GetCorrectDashNumberInDuffs(totalOutputAmount) + " + Tx fee: " +
-				GetCorrectDashNumberInDuffs(txFee) + " (input amounts should be " +
-				GetCorrectDashNumberInDuffs(totalOutputAmount + txFee) + ")") {}
+				" != Output amounts: " + GetCorrectVpubNumberInDuffs(totalOutputAmount) + " + Tx fee: " +
+				GetCorrectVpubNumberInDuffs(txFee) + " (input amounts should be " +
+				GetCorrectVpubNumberInDuffs(totalOutputAmount + txFee) + ")") {}
 		}
-		/*all only in TippingDashNode
+		/*all only in TippingVpubNode
 		public abstract string SendDirectlyFromUserAddressToUserAddress(string senderAddress,
 			string receiverAddress, decimal amount);
 
 		public string ToUserLabel(string channel, string userId) => channel + "|" + userId;
-		public abstract string GetSendToDashAddressFromTipAccount(string channel, string sendTo);
+		public abstract string GetSendToVpubAddressFromTipAccount(string channel, string sendTo);
 		public abstract void AddTip(string channel, string senderUserId, string receiverUserId,
 			string txId, decimal milliAmount, string extraText);
 		public abstract void UpdateTipTxId(string channel, string userId, string txId);

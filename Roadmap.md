@@ -18,7 +18,7 @@ Roadmap for MyVpubWallet
 **Completed: April 2018 Update:**
 - Direct tipping (from the website into an email, twitter, reddit, etc. user account)
 
-**Completed: May 2018 Update: Created MyDashWallet2 proposal, which was funded as well**
+**Completed: May 2018 Update: Created MyVpubWallet2 proposal, which was funded as well**
 - The Mixing site is used a lot and we have seen a ton of mixing requests in the past days, this will be a focus for MyVpubWallet#2, here we plan provide multiple nodes to increase mixing speed and to allow users to customize the number of mixing rounds (2-8, more will have higher fees) and also the ability for users to abort mixing in whatever round it currently is in and send out the pending Vpub to the target address as some mixing events have taken days because of the huge demand we have seen recently.
 - And of course ongoing work, integrating the new Vpub logos and identity plus support for any user issues (which runs quite smooth right now).
 
