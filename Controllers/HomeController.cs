@@ -214,8 +214,11 @@ namespace MyVpubWallet.Controllers
 		{
 			try
 			{
-				node.UserIp = HttpContext.Connection.RemoteIpAddress.ToString();
-				return Json(node.TryGenerateRawTx(utxos, amount, sendTo, remainingAmount, remainingAddress,
+				//node.UserIp = HttpContext.Connection.RemoteIpAddress.ToString();
+                node.UserIp = "127.0.0.1";
+                Console.WriteLine("node.UserIp:"+ node.UserIp);
+                Console.WriteLine("node:" + node.ToString());
+                return Json(node.TryGenerateRawTx(utxos, amount, sendTo, remainingAmount, remainingAddress,
 					instantSend, privateSend));
 			}
 			catch (Exception ex)

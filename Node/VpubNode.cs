@@ -112,7 +112,7 @@ namespace MyVpubWallet.Node
 				return result;
 			ConfirmTxInputsAndTxOutputValuesWithTxFeeMatch(inputs, outputs, result.UsedSendTxFee);
 			result.RawTx = GenerateRawTx(inputs, outputs);
-			return result;
+            return result;
 		}
 		
 		public object AdditionalErrorInformation { get; protected set; }

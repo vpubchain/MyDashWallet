@@ -15,7 +15,7 @@ namespace MyVpubWallet.Node
 		/// <summary>
 		/// None of the default values are used in production, this is just for local testing
 		/// </summary>
-		public TestnetVpubNode(string server = "http://192.168.5.168:9902", string user = "mn",
+		public TestnetVpubNode(string server = "http://127.0.0.1:9902", string user = "mn",
 			string password = "999000", short requestTimeoutInSeconds = 30)
 			=> service = new VpubService(server, user, password, password, requestTimeoutInSeconds);
 

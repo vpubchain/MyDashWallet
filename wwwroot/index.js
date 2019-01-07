@@ -4,10 +4,10 @@
 	$("#send-panel").show();
 	if (ledgerVpub || trezorVpub)
 		$("#hardware-wallets-panel").hide();
-	$("#title").text("Send Vpub");
+	$("#title").text("发送维公币");
 	$("#response").show().css("color", "black").html(successfullyConnectedMessage);
 	$("#resultPanel").text("");
-	$("#main-page-title").text("Close Wallet");
+	$("#main-page-title").text("退出钱包");
 }
 
 function showNumber(amount, decimals) {
@@ -1024,7 +1024,7 @@ function showFailure(errorMessage) {
 var vpubKeystoreWallet;
 function createKeystoreWallet() {
 	$("#createKeystoreButton").attr("disabled", "disabled");
-	$("#createKeystoreOutput").html("<b>Successfully generated keystore wallet</b>, please secure it with a password now! Write this down somewhere, if you lose this you CANNOT access your keystore file, nobody can help you if you don't have your password and file.");
+	$("#createKeystoreOutput").html("<b>本地钱包已生成</b>,请输入您的钱包密码! 请务必将您的密码保存起来，并且备份钱包文件，如果您丢失密码或者丢失钱包文件，没有人能够将您的钱包找回。");
 	$("#createLocalWalletPanel").hide();
 	$("#createKeystoreButton").hide();
 	$("#hardwareWalletsPanel").hide();
@@ -1036,17 +1036,17 @@ function passwordChanged() {
 	var password = $("#keystorePassword").val();
 	var passwordRepeated = $("#keystorePasswordRepeated").val();
 	if (password.length < 8)
-		$("#passwordResult").text("Password is too short. Please enter at least 8 characters.");
+		$("#passwordResult").text("请输入至少8位字符.");
 	else if (password.length > 512)
-		$("#passwordResult").text("Password is too long, use something more reasonable (max. 512 characters)");
+		$("#passwordResult").text("输入的密码超出长度限制");
 	else if (password.search(/\d/) === -1 && password.search(/[\!\@\#\$\%\^\&\*\(\)\_\+\.\,\;\:]/) === -1)
-		$("#passwordResult").text("Password should contain at least one number or symbol!");
+		$("#passwordResult").text("请至少输入一个数字或者特殊字符!");
 	else if (password.search(/[a-zA-Z]/) === -1)
-		$("#passwordResult").text("Password should contain at least one letter (a-z)!");
+		$("#passwordResult").text("请至少输入一个小写字母!");
 	else if (password !== passwordRepeated)
-		$("#passwordResult").text("Repeated password is not the same!");
+		$("#passwordResult").text("输入的密码不一致!");
 	else {
-		$("#passwordResult").html("<b>Successfully secured keystore wallet</b>, click 'Download Keystore file' and keep it at a secure place!");
+		$("#passwordResult").html("<b>钱包创建成果</b>,点击下载备份钱包文件，并将其保存在安全的位置!");
 		$("#keystorePassword").attr("disabled", "disabled");
 		$("#keystorePasswordRepeated").attr("disabled", "disabled");
 		$("#generateKeystoreButton").removeAttr("disabled");
@@ -1088,14 +1088,14 @@ function unlockKeystore() {
 			window.getDecryptedAddress(CryptoJS.AES.decrypt(vpubKeystoreWallet.d, vpubKeystoreWallet.s)
 				.toString(CryptoJS.enc.Utf8));
 		if (!isValidVpubAddress(vpubKeystoreWallet.address))
-			showFailure("Invalid Vpub address from decrypted keystore file, unable to continue: " + vpubKeystoreWallet.address);
+			showFailure("无效的维公链钱包文件: " + vpubKeystoreWallet.address);
 		else {
-			goToSendPanel("Successfully unlocked Keystore Wallet!");
+			goToSendPanel("解锁钱包成功!");
 			$("#paperWalletPanel").show();
 			generateReceivingAddressList();
             $.get("https://www.vpubchain.net/abe/chain/Vpub/q/addressbalance/" + vpubKeystoreWallet.address,
 				function (data, status) {
-					if (status === "success" && data !== "ERROR: address invalid") {
+					if (status === "success" && data !== "ERROR: 地址无效") {
 						//console.log("Updating balance of " + vpubKeystoreWallet.address + ": " + data);
 						addressBalances[vpubKeystoreWallet.address] = parseFloat(data);
 						updateLocalStorageBalancesAndRefreshTotalAmountAndReceivingAddresses();
@@ -1104,7 +1104,7 @@ function unlockKeystore() {
 				});
 		}
 	} catch (e) {
-		showFailure("Failed to decrypt keystore file: " + e);
+		showFailure("无法打开本地钱包: " + e);
 	}
 }
 
@@ -1122,7 +1122,7 @@ function deleteKeystore() {
 
 function createPaperWallet() {
 	if ($("#paperWalletPasswordUnlock").val() !== vpubKeystoreWallet.s) {
-		$("#paperWalletError").text("Invalid password, cannot unlock keystore wallet for PaperWallet!");
+		$("#paperWalletError").text("密码无效，无法解锁钱包!");
 		return;
 	}
 	if ($("#paperWalletDetails").is(":visible")) {

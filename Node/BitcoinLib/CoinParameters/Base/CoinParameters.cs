@@ -270,8 +270,8 @@ namespace BitcoinLib.Services
                         //RpcPassword = ConfigurationManager.AppSettings.Get("Vpub_RpcPassword");
                         //WalletPassword = ConfigurationManager.AppSettings.Get("Vpub_WalletPassword");
 
-                        DaemonUrl = "http://192.168.5.161:9902";
-                        DaemonUrlTestnet = "http://192.168.5.161:19902";
+                        DaemonUrl = "http://192.168.5.168:9902";
+                        DaemonUrlTestnet = "http://192.168.5.168:19902";
                         RpcUsername = "mn";
                         RpcPassword = "999000";
                         WalletPassword = "999000";

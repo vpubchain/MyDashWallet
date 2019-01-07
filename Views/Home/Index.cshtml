@@ -13,17 +13,17 @@
 <script src="//greasyfork.org/scripts/6696-cryptojs-lib-bytearray/code/CryptoJSlibByteArray.js"></script>
 <script src="~/instascan.min.js"></script>
 <script src="~/index.js"></script>
-<h1 id="title">Unlock Wallet</h1>
+<h1 id="title">解锁</h1>
 <div id="response" style="display: none"></div>
 <main id="main-panel" class="tab-pane block--container active" ng-if="globalService.currentTab==globalService.tabs.generateWallet.id" ng-controller="walletGenCtrl" role="main">
 	<article class="block__wrap gen__1" ng-show="!wallet &amp;&amp; !showGetAddress">
 		<section class="block__main">
 			<div id="unlockKeystorePanel" style="display: none">
-				<b style="margin-left:10px">Keystore Wallet</b> found in your browser. Please enter your password to unlock your wallet.<br />
+				<b style="margin-left:10px">本地钱包</b>是一种将数据存储在您的个人浏览器的钱包。 请输入您的密码解锁钱包。<br />
 				<ul>
 					<li class="unlock-button">
-						<input type="password" id="keystorePasswordUnlock" class="form-control" placeholder="Password" />
-						<button class="btn btn-primary" id="unlockKeystoreButton" onclick="unlockKeystore()">Unlock Keystore wallet</button>
+						<input type="password" id="keystorePasswordUnlock" class="form-control" placeholder="请输入解锁密码" />
+						<button class="btn btn-primary" id="unlockKeystoreButton" onclick="unlockKeystore()">打开钱包</button>
 						<script>
 							$("#keystorePasswordUnlock").keyup(function (event) {
 								if (event.keyCode === 13 && $("#unlockKeystorePanel").is(":visible"))
@@ -32,8 +32,8 @@
 						</script>
 					</li>
 					<li class="unlock-button">
-						If you have a local backup, you can delete the Keystore found in your browser to start over<br />
-						<button class="btn btn-primary" style="width:" id="deleteKeystoreButton" onclick="deleteKeystore()">Delete Keystore file</button>
+						如果您已经备份好钱包, 你可以将浏览器的钱包数据删除。<br />
+						<button class="btn btn-primary" style="width:" id="deleteKeystoreButton" onclick="deleteKeystore()">清除钱包数据</button>
 					</li>
 				</ul>
 				<br />
@@ -52,32 +52,32 @@
 				<br />
 			</div>*@
 			<div id="createLocalWalletPanel">
-				Create local password-protected wallet (dangerous, make sure your device is safe & no one is watching). <b>Store only a reasonable amount for daily use</b>. Never give this to anyone, they can steal your funds.
+				创建用密码管理的浏览器本地钱包（请确保您使用的浏览器是可信的）<b>该钱包只适合存储适量的维公币，建议不要存放大金额的维公币</b>。请不要将您的密码告诉任何人。
 				<ul>
-					<li class="unlock-button"><button onclick="createKeystoreWallet()" class="btn btn-primary" id="createKeystoreButton">Create Keystore Wallet</button><br /></li>
-					<a asp-area="" asp-controller="Home" asp-action="AboutCreateNewWallet">Guide on creating your first Keystore Wallet</a>
+					<li class="unlock-button"><button onclick="createKeystoreWallet()" class="btn btn-primary" id="createKeystoreButton">创建本地钱包</button><br /></li>
+					@*<a asp-area="" asp-controller="Home" asp-action="AboutCreateNewWallet">创建您的第一个钱包</a>*@
 				</ul>
 				<br />
 			</div>
 			<div id="createKeystorePasswordPanel" style="display:none">
 				<div id="createKeystoreOutput"></div>
 				<input type="password" id="keystorePassword" oninput="passwordChanged()" class="form-control" placeholder="Password" />
-				Please repeat the password.<br />
+				请确认您的密码。<br />
 				<input type="password" id="keystorePasswordRepeated" oninput="passwordChanged()" class="form-control" placeholder="Repeat Password" />
-				<span id="passwordResult">Please enter at least 8 characters, the password must contain different letters with numbers or symbols.</span>
+				<span id="passwordResult">请输入至少8位字符,并且需包含数字和大小写字母。</span>
 				<br />
-				<button disabled="disabled" class="btn btn-primary" id="generateKeystoreButton" onclick="generateKeystoreFile()">Download Keystore File</button>
+				<button disabled="disabled" class="btn btn-primary" id="generateKeystoreButton" onclick="generateKeystoreFile()">下载备份钱包文件</button>
 			</div>
 			<div id="importingPanel">
-				Importing from backups (to recover funds or when using a different device)
+				导入备份钱包文件
 				<ul>
-					<li class="unlock-button"><button onclick="importKeystoreWallet()" class="btn btn-primary" id="importKeystoreButton">Import Keystore File</button></li>
+					<li class="unlock-button"><button onclick="importKeystoreWallet()" class="btn btn-primary" id="importKeystoreButton">导入钱包</button></li>
 					<li class="unlock-button" id="importKeystorePanel" style="display: none">
-						Keystore file:
+						选择备份文件:
 						<input type='file' id="keystoreFile" accept=".KeyStore" />
-						<button class="btn btn-primary" id="loadKeystoreButton" onclick="loadKeystoreFile()" title="Loads the provided Keystore file into this browser instance to unlock and access it via your password">Load Keystore File</button>
+						<button class="btn btn-primary" id="loadKeystoreButton" onclick="loadKeystoreFile()" title="Loads the provided Keystore file into this browser instance to unlock and access it via your password">导入</button>
 					</li>
-					<li class="unlock-button"><button onclick="importPrivateKey()" class="btn btn-primary" id="importPrivateKeyButton">Import Private Key</button></li>
+					@*<li class="unlock-button"><button onclick="importPrivateKey()" class="btn btn-primary" id="importPrivateKeyButton">Import Private Key</button></li>*@
 					<li class="unlock-button" id="privateKeyInputPanel" style="display: none">
 						<button onclick="enableQrScanPrivateKey()" class="btn btn-primary">Enable QR Code Scanner</button>
 						<video id="preview" style="display: none"></video><br />
@@ -211,7 +211,7 @@
 			<!-- Amount to Send -->
 			<section class="row form-group">
 				<div class="col-sm-11">
-					<label>How much do you want to send?</label>
+					<label>请输入您想转出的维公币数量?</label>
 				</div>
                 <div class="col-sm-11" style="width: 95%">
                     <div class="input-group">
@@ -235,7 +235,7 @@
 			<div class="row form-group">
 				<div class="col-xs-11" style="width: 95%">
 					<input id="sendToAddress" type="radio" name="tabs" checked>
-					<label class="sendLabel" for="sendToAddress">To Address</label>
+					<label class="sendLabel" for="sendToAddress">转到地址</label>
 					@*<input id="sendToEmail" type="radio" name="tabs">
 					<label class="sendLabel" for="sendToEmail">Email</label>
 					<input id="sendToTwitter" type="radio" name="tabs">
@@ -321,20 +321,20 @@
 			<label><input type="checkbox" id="usePrivateSend" value="false" onclick="updateTxFee(0)"> PrivateSend: Makes transaction untraceable, tx fee = 0.25+ mVP</label> <a href="/AboutPrivateSend" target="_blank">About</a><br />*@
 
 			<div class="small-info-box">
-				Transaction cost: <span id="txFeeMVpub">0.1</span> mVP @*($<span id="txFeeUsd">0.0017</span>)*@ <span id="extraTxNotes"></span><a href="/AboutTransactionFees" target="_blank">About</a>
+				交易手续费: <span id="txFeeMVpub">0.1</span> mVP @*($<span id="txFeeUsd">0.0017</span>)*@ <span id="extraTxNotes"></span>
 			</div>
 
 			@*send raw tx: https://github.com/LedgerHQ/ledger-node-js-api*@
 			<div class="row form-group">
 				<div class="col-xs-12 clearfix">
-					<a class="btn btn-info btn-block" id="generateButton" onclick="generateTransaction()" style="background-color: gray">Generate Transaction</a>
+					<a class="btn btn-info btn-block" id="generateButton" onclick="generateTransaction()" style="background-color: gray">创建交易</a>
 				</div>
 			</div>
 			<div id="transactionPanel" style="display: none">
 				<ul id="rawTransactionData"></ul>
 			</div>
-			<div class="small-info-box" id="txDetailsPanel" style="word-wrap: break-word;display:none" onclick="showTxDetails()"><ul><li>Click to show raw transaction details for techies.</ul></div>
-			<a class="btn btn-info btn-block" id="signButton" onclick="signAndSendTransaction()" style="background-color: gray; display: none;">Send Signed Transaction</a>
+			<div class="small-info-box" id="txDetailsPanel" style="word-wrap: break-word;display:none" onclick="showTxDetails()"><ul><li>单击此处可显示原始交易详细信息。</ul></div>
+			<a class="btn btn-info btn-block" id="signButton" onclick="signAndSendTransaction()" style="background-color: gray; display: none;">发送签名交易</a>
 			<div style="padding-top: 10px; font-size: 15px;" id="resultPanel"></div>
 		</article>
 
@@ -373,8 +373,8 @@
 		<aside>
 			<div class="block" style="padding-left: 16px; padding-right:20px;">
 				<h5>
-					Your Account Balance
-					<div id="refreshing-amount-timeout" style="float: right; font-size: 11px;display:none">Refreshing in <span id="balance-check-time">5s</span><br /><img src="/images/ajax-loader.gif" style="float:right" alt="waiting" /></div>
+					账户余额
+					<div id="refreshing-amount-timeout" style="float: right; font-size: 11px;display:none"><span id="balance-check-time">5s</span>后刷新<br /><img src="/images/ajax-loader.gif" style="float:right" alt="waiting" /></div>
 				</h5>
 				<ul class="account-info point">
                     <li onclick="setTotalAmountToSend()" title="Click to set as amount to send">
@@ -388,7 +388,7 @@
                     </li>
 				</ul>
 				<br />
-				<h5 title="Shows your addresses, newest is the top one">Your receiving addresses</h5>
+				<h5 title="Shows your addresses, newest is the top one">您接收维公币的地址</h5>
 				<ul class="account-info" id="addressList">
 					<li>
 						<a href="https://www.vpubchain.net/abe/address/" target="_blank" rel="noopener noreferrer">

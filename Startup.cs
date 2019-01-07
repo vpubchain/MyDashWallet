@@ -22,13 +22,13 @@ namespace MyVpubWallet
 				app.UseDeveloperExceptionPage();
 			else
 				app.UseExceptionHandler("/Home/Error");
-			app.Use(async (context, next) =>
-			{
-				if (context.Request.IsHttps)
-					await next();
-				else
-					context.Response.Redirect("https://" + context.Request.Host + context.Request.Path);
-			});
+			//app.Use(async (context, next) =>
+			//{
+			//	if (context.Request.IsHttps)
+			//		await next();
+			//	else
+			//		context.Response.Redirect("http://" + context.Request.Host + context.Request.Path);
+			//});
 			app.UseStaticFiles();
 			app.UseMvc(routes =>
 			{

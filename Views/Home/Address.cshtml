@@ -1,8 +1,8 @@
 ﻿@{
-	ViewData["Title"] = "Check any Vpub address";
+	ViewData["Title"] = "检查任何维公币地址";
 }
 <h2>@ViewData["Title"]
-	<a id="bookmark-this" title="Bookmark This Vpub Address Page" style="float: right; margin-top: 14px;">Bookmark this Vpub Address for easy checking</a></h2>
+	<a id="bookmark-this" title="Bookmark This Vpub Address Page" style="float: right; margin-top: 14px;">收藏此网页以便将来随时查询地址信息</a></h2>
 <h3>@ViewData["Message"]</h3>
 
 <script>
@@ -61,17 +61,17 @@
 <article class="text-left ng-hide" ng-show="showGetAddress">
 	<div class="clearfix collapse-container">
 		<div ng-click="wd = !wd">
-			<p>Your Address can also be known as you <code>Account #</code> or your <code>Public Key</code>. It is what you share with people so they can send you VP. Since the VP blockchain is public and open, you can check any address (yours or any other) via the <code>Public Key</code>.</p>
+			<p>您的地址也可以是您的账号或者您的公钥信息。这些信息您可以与他人分享公开，以便他人通过您的地址向你发送维公币。由于维公链（VPUBCHAIN）是公开的，并且是开放的, 所以你可以在这里查看任何公开的地址信息。</p>
 		</div>
 
-		Unlike <a href="/">Unlock Wallet</a> you won't need to access your hardware wallet or stored private key here. As long as you know your (or any other) address, you can always check whats going on via <a href="//www.vpubchain.net/abe/chain/Vpub">www.vpubchain.net/abe/chain/Vpub</a>. If your unlocked your wallet before your last used wallet address is shown here automatically, but you can enter any other address just as well.<br />
+		在这里，您甚至都不用解锁钱包便可以查看任何你知道的地址信息。当然你也可以通过<a href="//www.vpubchain.net/abe/chain/Vpub">www.vpubchain.net/abe/chain/Vpub</a>或者<a href="//www.vpubchain.net/insight/">www.vpubchain.net/insight</a>来查看具体的交易情况。如果您解锁您的钱包，那么下面会默认显示你上一次交易的地址信息，当然您也可以删掉他们查询其他的地址信息。<br />
 		<br />
-		Enter Wallet Address to check; it looks like this: <span style="font-style: italic">XoASepVfo1cegWp52HS9gbcKuarLyqxsKT</span>
+		输入你需要检查的地址; 例如: <span style="font-style: italic">XoASepVfo1cegWp52HS9gbcKuarLyqxsKT</span>
 		<input id="address" name="address" class="form-control is-invalid" placeholder="VP Wallet address to check" aria-label="Enter a vpub address" oninput="updateAddressLinks()" onkeyup="checkAddressOnEnter(event)">
 		<ul class="account-info">
 			<li>
 				<a id="link1" class="btn btn-primary" href="https://www.vpubchain.net/abe/address/XoASepVfo1cegWp52HS9gbcKuarLyqxsKT" target="_blank" rel="noopener noreferrer">
-					Use VP Explorer
+					点击查询
 				</a>
 			</li>
 			@*<li>
