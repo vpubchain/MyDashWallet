@@ -139,7 +139,7 @@ function getFreshestAddress() {
 }
 
 function addAddressBalance(list, address, balance, freshestAddress) {
-	var qrImg = "//chart.googleapis.com/chart?cht=qr&chl=vpub:" + address + "&choe=UTF-8&chs=140x140&chld=L|0";
+    var qrImg = "//api.qrserver.com/v1/create-qr-code/?size=240x240&data=vpub:" + address;
     $("<li><a href='https://www.vpubchain.net/abe/address/" +
 		address +
 		"' target='_blank' rel='noopener noreferrer'>" +
@@ -392,7 +392,7 @@ function unlockTrezor(showResponse) {
 			var list = $("#addressList");
 			list.empty();
 			var address = response.freshAddress;
-			var qrImg = "//chart.googleapis.com/chart?cht=qr&chl=vpub:" + address + "&choe=UTF-8&chs=140x140&chld=L|0";
+            var qrImg = "//api.qrserver.com/v1/create-qr-code/?size=240x240&data=vpub:" + address;
             $("<li><a href='https://www.vpubchain.net/abe/address/" +
 				address + "' target='_blank' rel='noopener noreferrer'>" +
 				"<img width='140' height='140' src='" + qrImg +
@@ -668,15 +668,15 @@ function generateTrezorSignedTx() {
 					if (result.success) {
 						$("#transactionPanel").hide();
 						$("#txDetailsPanel").show();
-						$("#txDetailsPanel").html("Click to show signed transaction details for techies.");
+						$("#txDetailsPanel").html("点击查看详细交易信息.");
 						signedTx = result.serialized_tx;
 						//console.log("signed tx %O", signedTx);
 						$("#resultPanel").css("color", "black").text("Sending signed transaction to the Vpub network ..");
 						$.get("/SendSignedTx?signedTx=" + signedTx + "&instantSend=" + useInstantSend).done(
 							function (finalTx) {
 								$("#resultPanel").css("color", "orange").html(
-									"Successfully signed transaction and broadcasted it to the Vpub network. "+
-									"You can check the transaction status in a few minutes here: <a href='https://www.vpubchain.net/abe/tx/" + finalTx+"' target='_blank' rel='noopener noreferrer'>"+finalTx+"</a>"+(usePrivateSend?getPrivateSendFinalHelp() : ""));
+									"成功创建签名交易，并发送至维公链网络，"+
+									"交易需要花费数分钟时间，您随时点击以下链接查看交易是否被打包发布: <a href='https://www.vpubchain.net/abe/tx/" + finalTx+"' target='_blank' rel='noopener noreferrer'>"+finalTx+"</a>"+(usePrivateSend?getPrivateSendFinalHelp() : ""));
 							}).fail(function (jqxhr) {
 								$("#resultPanel").css("color", "red").text("Server Error: " + jqxhr.responseText);
 							});
@@ -699,16 +699,16 @@ function generateTrezorSignedTx() {
 		if (result.success) {
 			$("#transactionPanel").hide();
 			$("#txDetailsPanel").show();
-			$("#txDetailsPanel").html("Click to show signed transaction details for techies.");
+			$("#txDetailsPanel").html("点击查看交易详细信息。");
 			signedTx = result.serialized_tx;
 			//console.log("signed tx %O", signedTx);
-			$("#resultPanel").css("color", "black").text("Sending signed transaction to the Vpub network ..");
+			$("#resultPanel").css("color", "black").text("正在将交易签名发布..");
 			$.get("/SendSignedTx?signedTx=" + signedTx + "&instantSend=" + useInstantSend).done(
 				function (finalTx) {
 					$("#resultPanel").css("color", "orange").html(
-						"Successfully signed transaction and broadcasted it to the Vpub network. "+
+						"成功将交易信息打包发布至维公链网络。 "+
 						(useInstantSend ? "You used InstantSend, the Vpub will appear immediately at the target wallet. " : "")+
-						"You can check the transaction status in a few minutes here: <a href='https://www.vpubchain.net/abe/tx/" + finalTx+"' target='_blank' rel='noopener noreferrer'>"+finalTx+"</a>");
+						"交易需要花费数分钟，您可以点击以下链接随时查看交易是否完成: <a href='https://www.vpubchain.net/abe/tx/" + finalTx+"' target='_blank' rel='noopener noreferrer'>"+finalTx+"</a>");
 				}).fail(function (jqxhr) {
 					$("#resultPanel").css("color", "red").text("Server Error: " + jqxhr.responseText);
 				});
@@ -923,13 +923,13 @@ function signAndSendTransaction() {
 	$("#transactionPanel").hide();
 	var useInstantSend = $("#useInstantSend").is(':checked');
 	var usePrivateSend = $("#usePrivateSend").is(':checked');
-	$("#resultPanel").css("color", "black").text("Sending signed transaction to the Vpub network ..");
+	$("#resultPanel").css("color", "black").text("正在进行交易签名打包 ..");
 	$.get("/SendSignedTx?signedTx=" + signedTx + "&instantSend=" + useInstantSend).done(
 	function (finalTx) {
 		$("#resultPanel").css("color", "orange").html(
-			"Successfully signed transaction and broadcasted it to the Vpub network. "+
+			"成功完成交易打包并发布至维公链网络。 "+
 			(useInstantSend ? "You used InstantSend, the target wallet will immediately see incoming Vpub." : "")+
-			"You can check the transaction status in a few minutes here: <a href='https://www.vpubchain.net/abe/tx/" + finalTx+"' target='_blank' rel='noopener noreferrer'>"+finalTx+"</a>"+(usePrivateSend?getPrivateSendFinalHelp() : ""));
+			"交易需花费数分钟时间，您可以点击以下链接随时查看交易是否完成: <a href='https://www.vpubchain.net/abe/tx/" + finalTx+"' target='_blank' rel='noopener noreferrer'>"+finalTx+"</a>"+(usePrivateSend?getPrivateSendFinalHelp() : ""));
 	}).fail(function (jqxhr) {
 		$("#resultPanel").css("color", "red").text("Server Error: " + jqxhr.responseText);
 	});
@@ -1136,7 +1136,7 @@ function createPaperWallet() {
 	$("#privateKeyHexa").val(hexa);
 	var wif = window.toWifKey(hexa);
 	$("#privateKeyWif").val(wif);
-	$("#privateKeyQr").attr("src", "//chart.googleapis.com/chart?cht=qr&chl=" + wif + "&choe=UTF-8&chs=160x160&chld=L|0");
+    $("#privateKeyQr").attr("src", "//api.qrserver.com/v1/create-qr-code/?size=160x160&data=vpub:" + wif);
 	$("#paperWalletDetails").show();
 }
 

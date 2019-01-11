@@ -39,7 +39,7 @@ PrivateSend tx fee: <b>0.25 mVP + 0.05 mVP</b> per mixed input (e.g. 15.2 mVP is
 		if (isValidVpubAddress($("#toAddress").val()))
 			$.get("/GeneratePrivateSendAddress?toAddress=" + toAddress).done(
 				function(address) {
-					var qrCodeSrc = "//chart.googleapis.com/chart?cht=qr&chl=vpub:" + address + "&choe=UTF-8&chs=240x240&chld=L|0";
+                    var qrCodeSrc = "//api.qrserver.com/v1/create-qr-code/?size=240x240&data=vpub:" + address;
 					$("#generateAddressPanel").html(
 						"Send any amount of VP to the following address, it will be mixed and send to <b>" +
 						toAddress +
